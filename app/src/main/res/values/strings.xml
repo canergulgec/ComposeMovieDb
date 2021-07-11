@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ComposeMovieDb</string>
+    <string name="movie_nav_title">Movie</string>
+    <string name="search_nav_title">Search</string>
+</resources>
