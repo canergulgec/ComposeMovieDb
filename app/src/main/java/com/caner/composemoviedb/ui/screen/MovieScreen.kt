@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -15,10 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.caner.composemoviedb.R
 import com.caner.composemoviedb.ui.component.RatingBar
 import com.caner.composemoviedb.ui.theme.Typography
+import com.caner.composemoviedb.presentation.MovieViewModel
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.imageloading.ImageLoadState
 
@@ -33,8 +38,9 @@ fun MovieScreen(openMovieDetail: (String) -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
     ) {
+        val movieTabTitles = stringArrayResource(id = R.array.movie_tab_titles)
         MovieTabView(
-            textList = listOf("VİZYONDA", "YAKINDA")
+            textList = listOf(movieTabTitles[0], movieTabTitles[1])
         ) {
             selectedTabIndex = it
         }
@@ -84,13 +90,18 @@ fun MovieTabView(
 
 @ExperimentalFoundationApi
 @Composable
-fun MovieList(openMovieDetail: (String) -> Unit) {
+fun MovieList(
+    openMovieDetail: (String) -> Unit,
+    viewModel: MovieViewModel = hiltViewModel()
+) {
     val movieList = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    //val pagingList : LazyPagingItems<Movie> = viewModel.moviePagingFlow.collectAsLazyPagingItems()
+
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
         contentPadding = PaddingValues(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 56.dp)
     ) {
-        items(movieList.size) {
+        items(movieList) {
             MovieItem { movieId ->
                 openMovieDetail(movieId)
             }
@@ -98,7 +109,6 @@ fun MovieList(openMovieDetail: (String) -> Unit) {
     }
 }
 
-//******
 @Composable
 fun MovieItem(click: (String) -> Unit) {
     val painter =

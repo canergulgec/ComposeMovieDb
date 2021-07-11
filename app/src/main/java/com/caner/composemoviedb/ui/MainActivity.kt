@@ -11,7 +11,6 @@ import com.caner.composemoviedb.MovieApp
 import com.caner.composemoviedb.ui.screen.BottomNavigationBar
 import com.caner.composemoviedb.ui.screen.FloatingButton
 import com.caner.composemoviedb.ui.screen.Navigation
-import com.caner.composemoviedb.ui.screen.*
 import com.caner.composemoviedb.ui.theme.MovieItemComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

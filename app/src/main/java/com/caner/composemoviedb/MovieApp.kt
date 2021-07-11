@@ -2,6 +2,7 @@ package com.caner.composemoviedb
 
 import android.app.Application
 import androidx.compose.runtime.mutableStateOf
+import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.utils.SharedPrefUtils
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject

@@ -2,8 +2,8 @@ package com.caner.composemoviedb.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.caner.composemoviedb.Constants
 import com.caner.composemoviedb.MovieApp
+import com.caner.composemoviedb.common.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
