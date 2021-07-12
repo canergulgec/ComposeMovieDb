@@ -42,49 +42,14 @@ fun DetailScreen(
     LaunchedEffect(true) {
         viewModel.getMovieDetail(497698)
     }
+
     when (val movieState = viewModel.movieDetailState.collectAsState().value) {
         is Resource.Success -> {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieBackdrop(
-                    navController,
-                    movieState.data.backdrop?.original
-                )
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    val painter =
-                        rememberCoilPainter(
-                            request = movieState.data.poster?.original,
-                            fadeIn = true
-                        )
-
-                    Image(
-                        painter = painter,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .offset(y = (-90).dp)
-                            .padding(start = 16.dp)
-                            .width(120.dp)
-                            .height(180.dp)
-                    )
-
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = movieState.data.title ?: "",
-                            style = Typography.subtitle1
-                        )
-
-                        RatingBar(
-                            range = 0..5,
-                            isLargeRating = false,
-                            isSelectable = false,
-                            currentRating = 2
-                        ) {
-
-                        }
-                    }
-                }
-
+                MovieBackdropSection(navController, movieState.data.backdrop?.original)
+                MovieTopSection(movieState.data.poster?.original, movieState.data.title ?: "")
                 ChipSection(movieState.data.genres)
                 Text(
                     modifier = Modifier
@@ -115,7 +80,7 @@ fun DetailScreen(
 }
 
 @Composable
-fun MovieBackdrop(navController: NavController, backdrop: String?) {
+fun MovieBackdropSection(navController: NavController, backdrop: String?) {
     val backdropPoster =
         rememberCoilPainter(
             request = backdrop,
@@ -126,7 +91,7 @@ fun MovieBackdrop(navController: NavController, backdrop: String?) {
         Image(
             painter = backdropPoster,
             contentScale = ContentScale.Crop,
-            contentDescription = "MovieName",
+            contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f)
@@ -143,6 +108,43 @@ fun MovieBackdrop(navController: NavController, backdrop: String?) {
                     navController.popBackStack()
                 }
         )
+    }
+}
+
+@Composable
+fun MovieTopSection(poster: String?, title: String) {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        val painter =
+            rememberCoilPainter(
+                request = poster,
+                fadeIn = true
+            )
+
+        Image(
+            painter = painter,
+            contentDescription = null,
+            modifier = Modifier
+                .offset(y = (-90).dp)
+                .padding(start = 16.dp)
+                .width(120.dp)
+                .height(180.dp)
+        )
+
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = title,
+                style = Typography.subtitle1
+            )
+
+            RatingBar(
+                range = 0..5,
+                isLargeRating = false,
+                isSelectable = false,
+                currentRating = 2
+            ) {
+
+            }
+        }
     }
 }
 

@@ -140,7 +140,6 @@ fun MovieItem(click: (String) -> Unit) {
             is ImageLoadState.Loading -> {
                 // Display a circular progress indicator whilst loading
                 CircularProgressIndicator(
-                    color = MaterialTheme.colors.primary,
                     modifier = Modifier.scale(0.5f)
                 )
             }
