@@ -6,11 +6,14 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -19,74 +22,109 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.caner.composemoviedb.common.Resource
+import com.caner.composemoviedb.data.remote.MovieGenre
+import com.caner.composemoviedb.presentation.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.RatingBar
 import com.caner.composemoviedb.ui.theme.Typography
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun DetailScreen(navController: NavController) {
-    Column {
-        MovieBackdrop(navController)
-        Row {
-            val painter =
-                rememberCoilPainter(
-                    request = "https://image.tmdb.org/t/p/w500/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
-                    fadeIn = true
+fun DetailScreen(
+    navController: NavController,
+    viewModel: MovieDetailViewModel = hiltViewModel()
+) {
+    // We only want the event stream to be attached once
+    // even if there are multiple re-compositions
+    LaunchedEffect(true) {
+        viewModel.getMovieDetail(497698)
+    }
+    when (val movieState = viewModel.movieDetailState.collectAsState().value) {
+        is Resource.Success -> {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                MovieBackdrop(
+                    navController,
+                    movieState.data.backdrop?.original
                 )
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    val painter =
+                        rememberCoilPainter(
+                            request = movieState.data.poster?.original,
+                            fadeIn = true
+                        )
 
-            Image(
-                painter = painter,
-                contentDescription = "MovieName",
-                modifier = Modifier
-                    .offset(y = (-90).dp)
-                    .padding(start = 16.dp)
-                    .width(120.dp)
-                    .height(180.dp)
+                    Image(
+                        painter = painter,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .offset(y = (-90).dp)
+                            .padding(start = 16.dp)
+                            .width(120.dp)
+                            .height(180.dp)
+                    )
 
-            )
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = movieState.data.title ?: "",
+                            style = Typography.subtitle1
+                        )
 
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = "Movie Name",
-                    style = Typography.subtitle1
-                )
+                        RatingBar(
+                            range = 0..5,
+                            isLargeRating = false,
+                            isSelectable = false,
+                            currentRating = 2
+                        ) {
 
-                RatingBar(
-                    range = 0..5,
-                    isLargeRating = false,
-                    isSelectable = false,
-                    currentRating = 2
-                ) {
-
+                        }
+                    }
                 }
+
+                ChipSection(movieState.data.genres)
+                Text(
+                    modifier = Modifier
+                        .offset(y = (-58).dp)
+                        .padding(horizontal = 16.dp),
+                    lineHeight = 20.sp,
+                    text = movieState.data.overview ?: "",
+                    fontSize = 14.sp
+                )
             }
         }
 
-        ChipSection()
-        Text(
-            modifier = Modifier
-                .offset(y = (-58).dp)
-                .padding(horizontal = 16.dp),
-            lineHeight = 20.sp,
-            text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing",
-            fontSize = 14.sp
-        )
+        is Resource.Loading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
+        }
+
+        is Resource.Error -> {
+        }
+
+        is Resource.Empty -> {
+        }
     }
 }
 
 @Composable
-fun MovieBackdrop(navController: NavController) {
-    val backdrop =
+fun MovieBackdrop(navController: NavController, backdrop: String?) {
+    val backdropPoster =
         rememberCoilPainter(
-            request = "https://image.tmdb.org/t/p/original//9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+            request = backdrop,
             fadeIn = true
         )
 
     Box {
         Image(
-            painter = backdrop,
+            painter = backdropPoster,
             contentScale = ContentScale.Crop,
             contentDescription = "MovieName",
             modifier = Modifier
@@ -109,13 +147,13 @@ fun MovieBackdrop(navController: NavController) {
 }
 
 @Composable
-fun ChipSection() {
+fun ChipSection(genres: List<MovieGenre>?) {
     FlowRow(
         modifier = Modifier
             .offset(y = (-74).dp)
             .padding(horizontal = 16.dp)
     ) {
-        repeat(6) {
+        repeat(genres?.size ?: 0) {
             Box(
                 modifier = Modifier
                     .padding(4.dp)
@@ -127,7 +165,7 @@ fun ChipSection() {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Horror",
+                    text = genres?.get(it)?.name ?: "",
                     color = Color.White,
                     style = Typography.caption
                 )

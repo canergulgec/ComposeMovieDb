@@ -1,7 +1,6 @@
 package com.caner.composemoviedb.di
 
-import com.caner.composemoviedb.domain.repository.MovieRepository
-import com.caner.composemoviedb.domain.repository.MovieRepositoryImp
+import com.caner.composemoviedb.domain.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,4 +12,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideMoviesRepositoryImp(repositoryImp: MovieRepositoryImp): MovieRepository
+
+    @Binds
+    abstract fun provideMovieDetailRepositoryImp(repositoryImp: MovieDetailRepositoryImp): MovieDetailRepository
 }
