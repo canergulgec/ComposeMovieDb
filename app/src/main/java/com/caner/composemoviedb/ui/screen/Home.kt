@@ -123,7 +123,11 @@ fun Navigation(navController: NavHostController) {
             })
         ) {
             val movieId = it.arguments?.getString("movieId")
-            DetailScreen(navController = navController, movieId)
+            DetailScreen(movieId,
+                navigateUp = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

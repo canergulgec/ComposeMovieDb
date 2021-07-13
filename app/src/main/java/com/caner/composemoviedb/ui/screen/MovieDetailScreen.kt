@@ -23,7 +23,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.remote.MovieGenre
 import com.caner.composemoviedb.presentation.MovieDetailViewModel
@@ -34,9 +33,9 @@ import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun DetailScreen(
-    navController: NavController,
     movieId: String?,
-    viewModel: MovieDetailViewModel = hiltViewModel()
+    viewModel: MovieDetailViewModel = hiltViewModel(),
+    navigateUp: () -> Unit
 ) {
     // We only want the event stream to be attached once
     // even if there are multiple re-compositions
@@ -49,7 +48,9 @@ fun DetailScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieBackdropSection(navController, movieState.data.backdrop?.original)
+                MovieBackdropSection(movieState.data.backdrop?.original){
+                    navigateUp()
+                }
                 MovieTopSection(movieState.data.poster?.original, movieState.data.title ?: "")
                 ChipSection(movieState.data.genres)
                 Text(
@@ -81,7 +82,7 @@ fun DetailScreen(
 }
 
 @Composable
-fun MovieBackdropSection(navController: NavController, backdrop: String?) {
+fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
     val backdropPoster =
         rememberCoilPainter(
             request = backdrop,
@@ -106,7 +107,7 @@ fun MovieBackdropSection(navController: NavController, backdrop: String?) {
             modifier = Modifier
                 .padding(16.dp)
                 .clickable {
-                    navController.popBackStack()
+                    navigateUp()
                 }
         )
     }
