@@ -3,9 +3,6 @@ package com.caner.composemoviedb.ui.screen
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,20 +25,16 @@ import kotlinx.coroutines.FlowPreview
 
 @Composable
 fun FloatingButton(rippleExplode: MutableState<Boolean>, app: MovieApp) {
-    var clickCount by remember {
-        mutableStateOf(true)
-    }
     FloatingActionButton(
         onClick = {
             app.changeTheme()
             rippleExplode.value = !rippleExplode.value
-            clickCount = !clickCount
 
         },
         backgroundColor = colorResource(id = R.color.purple_200)
     ) {
         Icon(
-            painter = if (clickCount) {
+            painter = if (app.isDark.value) {
                 painterResource(id = R.drawable.ic_day)
             } else {
                 painterResource(id = R.drawable.ic_night)
