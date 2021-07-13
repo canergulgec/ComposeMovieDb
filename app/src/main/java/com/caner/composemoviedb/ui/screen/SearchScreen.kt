@@ -1,6 +1,5 @@
 package com.caner.composemoviedb.ui.screen
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,14 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.SearchViewModel
@@ -38,8 +35,8 @@ import kotlinx.coroutines.launch
 @FlowPreview
 @Composable
 fun SearchScreen(
-    navController: NavController,
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchViewModel = hiltViewModel(),
+    openMovieDetail: (String) -> Unit
 ) {
     // Creates a CoroutineScope bound to the MoviesScreen's lifecycle
     val scope = rememberCoroutineScope()
@@ -62,23 +59,29 @@ fun SearchScreen(
                 }
             }
         }
-        SearchList()
+        SearchList{
+            openMovieDetail(it.toString())
+        }
     }
 }
 
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun SearchList(viewModel: SearchViewModel = hiltViewModel()) {
-    val a = viewModel.searchFlow.collectAsState(initial = Resource.Empty).value
-    when (a) {
+fun SearchList(
+    viewModel: SearchViewModel = hiltViewModel(),
+    openMovieDetail: (Int) -> Unit,
+) {
+    when (val searchState = viewModel.searchFlow.collectAsState(initial = Resource.Empty).value) {
         is Resource.Success -> {
             LazyColumn(
                 contentPadding = PaddingValues(8.dp)
             ) {
-                items(a.data.movies) { item ->
+                items(searchState.data.movies) { item ->
                     // Set Search Item
-                    SearchItem(item)
+                    SearchItem(item){
+                        openMovieDetail(it)
+                    }
                     Divider(
                         color = Color.LightGray,
                         thickness = 0.5.dp,
@@ -98,8 +101,10 @@ fun SearchList(viewModel: SearchViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun SearchItem(item: Movie) {
-    val context = LocalContext.current
+fun SearchItem(
+    item: Movie,
+    itemClicked: (Int) -> Unit
+) {
     val painter =
         rememberCoilPainter(
             request = item.poster?.original,
@@ -111,9 +116,7 @@ fun SearchItem(item: Movie) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clickable {
-                Toast
-                    .makeText(context, "caner", Toast.LENGTH_SHORT)
-                    .show()
+                itemClicked(item.movieId)
             }
     ) {
         Image(

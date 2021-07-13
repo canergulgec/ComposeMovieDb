@@ -105,7 +105,9 @@ fun Navigation(navController: NavHostController) {
             }
         }
         composable(Screen.Search.route) {
-            SearchScreen(navController = navController)
+            SearchScreen { movieId ->
+                navController.navigate(Screen.Detail.createRoute(movieId))
+            }
         }
 
         composable(Screen.Detail.route) {
