@@ -121,7 +121,7 @@ fun MovieItem(click: (String) -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
             .clickable {
-                click("movieDetail")
+                click("497698")
             }
     ) {
 

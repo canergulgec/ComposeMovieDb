@@ -14,9 +14,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.navArgument
 import com.caner.composemoviedb.MovieApp
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.utils.Screen
@@ -100,18 +102,28 @@ fun BottomNavigationBar(navController: NavController) {
 fun Navigation(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.Movie.route) {
         composable(Screen.Movie.route) {
-            MovieScreen { movieId ->
-                navController.navigate(Screen.Detail.createRoute(movieId))
-            }
+            MovieScreen(
+                openMovieDetail = { movieId ->
+                    navController.navigate(Screen.Detail.createRoute(movieId))
+                }
+            )
         }
         composable(Screen.Search.route) {
-            SearchScreen { movieId ->
-                navController.navigate(Screen.Detail.createRoute(movieId))
-            }
+            SearchScreen(
+                openMovieDetail = { movieId ->
+                    navController.navigate(Screen.Detail.createRoute(movieId))
+                }
+            )
         }
 
-        composable(Screen.Detail.route) {
-            DetailScreen(navController = navController)
+        composable(
+            route = Screen.Detail.route,
+            arguments = listOf(navArgument("movieId") {
+                type = NavType.StringType
+            })
+        ) {
+            val movieId = it.arguments?.getString("movieId")
+            DetailScreen(navController = navController, movieId)
         }
     }
 }

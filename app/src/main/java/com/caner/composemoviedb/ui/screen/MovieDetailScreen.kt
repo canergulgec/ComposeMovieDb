@@ -35,12 +35,13 @@ import com.google.accompanist.flowlayout.FlowRow
 @Composable
 fun DetailScreen(
     navController: NavController,
+    movieId: String?,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
     // We only want the event stream to be attached once
     // even if there are multiple re-compositions
     LaunchedEffect(true) {
-        viewModel.getMovieDetail(497698)
+        viewModel.getMovieDetail(movieId?.toInt())
     }
 
     when (val movieState = viewModel.movieDetailState.collectAsState().value) {
