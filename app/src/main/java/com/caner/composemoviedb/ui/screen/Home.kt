@@ -41,10 +41,10 @@ fun FloatingButton(rippleExplode: MutableState<Boolean>, app: MovieApp) {
         backgroundColor = colorResource(id = R.color.purple_200)
     ) {
         Icon(
-            imageVector = if (clickCount) {
-                Icons.Outlined.Favorite
+            painter = if (clickCount) {
+                painterResource(id = R.drawable.ic_day)
             } else {
-                Icons.Outlined.FavoriteBorder
+                painterResource(id = R.drawable.ic_night)
             },
             contentDescription = null,
             tint = Color.White,
