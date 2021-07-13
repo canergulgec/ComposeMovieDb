@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navArgument
 import com.caner.composemoviedb.MovieApp
 import com.caner.composemoviedb.R
+import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.utils.Screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -118,11 +119,11 @@ fun Navigation(navController: NavHostController) {
 
         composable(
             route = Screen.Detail.route,
-            arguments = listOf(navArgument("movieId") {
+            arguments = listOf(navArgument(Constants.MOVIE_ID) {
                 type = NavType.StringType
             })
         ) {
-            val movieId = it.arguments?.getString("movieId")
+            val movieId = it.arguments?.getString(Constants.MOVIE_ID)
             DetailScreen(movieId,
                 navigateUp = {
                     navController.popBackStack()
