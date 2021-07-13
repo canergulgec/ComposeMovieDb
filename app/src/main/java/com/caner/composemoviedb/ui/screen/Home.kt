@@ -20,6 +20,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.caner.composemoviedb.MovieApp
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.utils.Screen
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
 @Composable
 fun FloatingButton(rippleExplode: MutableState<Boolean>, app: MovieApp) {
@@ -92,6 +94,8 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 @ExperimentalFoundationApi
+@ExperimentalCoroutinesApi
+@FlowPreview
 @Composable
 fun Navigation(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.Movie.route) {

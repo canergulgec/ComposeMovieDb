@@ -49,6 +49,7 @@ fun SearchBar(
         )
 
         if (isHintDisplayed) {
+            text = ""
             Text(
                 text = hint,
                 color = Color.LightGray,
