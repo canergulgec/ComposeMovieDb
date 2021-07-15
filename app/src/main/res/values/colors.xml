@@ -10,4 +10,5 @@
     <color name="dirty_white">#f9f9f9</color>
     <color name="orange">#FFA500</color>
     <color name="gold">#FFD700</color>
+    <color name="gray">#a6a6a6</color>
 </resources>
