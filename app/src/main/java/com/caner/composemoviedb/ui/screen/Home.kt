@@ -20,8 +20,24 @@ import com.caner.composemoviedb.MovieApp
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.utils.Screen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+
+@Composable
+fun StatusBarColor(isDarkTheme: Boolean) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = if (isDarkTheme) {
+                Color.DarkGray
+            } else {
+                Color.LightGray
+            },
+            darkIcons = true
+        )
+    }
+}
 
 @Composable
 fun FloatingButton(rippleExplode: MutableState<Boolean>, app: MovieApp) {
