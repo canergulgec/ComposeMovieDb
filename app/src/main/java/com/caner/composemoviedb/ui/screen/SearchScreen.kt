@@ -1,10 +1,13 @@
 package com.caner.composemoviedb.ui.screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -26,11 +29,13 @@ import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.SearchBar
+import com.caner.composemoviedb.ui.theme.Typography
 import com.google.accompanist.coil.rememberCoilPainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 
+@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -62,6 +67,7 @@ fun SearchScreen(
         SearchList{
             openMovieDetail(it.toString())
         }
+        MovieTypes()
     }
 }
 
@@ -145,6 +151,37 @@ fun SearchItem(
             )
             Spacer(modifier = Modifier.height(12.dp))
             CircularProgress(percentage = 0.7f, number = 100)
+        }
+    }
+}
+
+@ExperimentalFoundationApi
+@Composable
+fun MovieTypes() {
+    Text(
+        modifier = Modifier.padding(top = 16.dp, start = 16.dp),
+        text = "Genres",
+        style = Typography.h6
+    )
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(2),
+        contentPadding = PaddingValues(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 60.dp)
+    ) {
+
+        items(listOf(Color.LightGray, 2, 3, 4, 5, 6, 7, 8)) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .height(60.dp)
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.LightGray)
+            ) {
+                Text(
+                    text = "Horror", color = Color.White,
+                    style = Typography.subtitle1
+                )
+            }
         }
     }
 }

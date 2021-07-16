@@ -5,5 +5,5 @@ import com.caner.composemoviedb.data.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    fun getMovies(): Flow<PagingData<Movie>>
+    fun getMovies(type: Int): Flow<PagingData<Movie>>
 }

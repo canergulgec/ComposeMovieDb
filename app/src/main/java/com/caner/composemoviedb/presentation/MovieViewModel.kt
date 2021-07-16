@@ -16,11 +16,6 @@ class MovieViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    init {
-        val movieType = savedStateHandle.get<Int>(Constants.MOVIE_TYPE) ?: 1
-        MoviesPagingSource.movieType = movieType
-    }
-
-    val moviePagingFlow = movieRepository.getMovies()
-        .cachedIn(viewModelScope)
+    val moviePagingFlow =
+        movieRepository.getMovies(Constants.NOW_PLAYING_MOVIES).cachedIn(viewModelScope)
 }
