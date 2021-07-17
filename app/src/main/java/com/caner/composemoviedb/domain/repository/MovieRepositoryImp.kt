@@ -2,9 +2,14 @@ package com.caner.composemoviedb.domain.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.caner.composemoviedb.common.Resource
+import com.caner.composemoviedb.common.ext.filterMapperResponse
+import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.data.mapper.MovieMapper
 import com.caner.composemoviedb.domain.paging.MoviesPagingSource
 import com.caner.composemoviedb.domain.api.MovieApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
@@ -16,4 +21,9 @@ class MovieRepositoryImp @Inject constructor(
         Pager(config = PagingConfig(pageSize = 20),
             pagingSourceFactory = { MoviesPagingSource(movieApi, movieMapper, type) }
         ).flow
+
+    override fun getPopularMovies() = flow {
+        val data = movieApi.getPopularMovies()
+        emit(data.filterMapperResponse(movieMapper))
+    }
 }

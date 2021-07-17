@@ -95,6 +95,10 @@ dependencies {
     implementation "com.google.accompanist:accompanist-flowlayout:0.13.0"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.13.0"
 
+    // Flipper
+    debugImplementation 'com.facebook.flipper:flipper:0.80.0'
+    debugImplementation 'com.facebook.soloader:soloader:0.10.1'
+    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.80.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
