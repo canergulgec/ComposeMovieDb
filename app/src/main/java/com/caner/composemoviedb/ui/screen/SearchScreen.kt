@@ -45,7 +45,6 @@ fun SearchScreen(
 ) {
     // Creates a CoroutineScope bound to the MoviesScreen's lifecycle
     val scope = rememberCoroutineScope()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,13 +57,12 @@ fun SearchScreen(
                 .padding(16.dp),
             hint = "Search.."
         ) {
-            if (it.length > 2) {
-                scope.launch {
-                    viewModel.searchQuery.emit(it)
-                }
+            scope.launch {
+                viewModel.searchQuery.value = it
             }
         }
-        SearchList{
+
+        SearchList {
             openMovieDetail(it.toString())
         }
         MovieTypes()
@@ -85,7 +83,7 @@ fun SearchList(
             ) {
                 items(searchState.data.movies) { item ->
                     // Set Search Item
-                    SearchItem(item){
+                    SearchItem(item) {
                         openMovieDetail(it)
                     }
                     Divider(

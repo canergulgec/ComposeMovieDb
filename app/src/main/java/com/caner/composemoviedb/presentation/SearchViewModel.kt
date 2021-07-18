@@ -5,10 +5,7 @@ import com.caner.composemoviedb.domain.usecase.SearchMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @FlowPreview
@@ -17,7 +14,7 @@ class SearchViewModel @Inject constructor(
     private val searchUseCase: SearchMovieUseCase
 ) : ViewModel() {
 
-    val searchQuery = MutableSharedFlow<String>(replay = 0)
+    val searchQuery = MutableStateFlow("")
 
     @ExperimentalCoroutinesApi
     val searchFlow = searchQuery

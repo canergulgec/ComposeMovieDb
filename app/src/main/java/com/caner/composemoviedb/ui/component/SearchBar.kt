@@ -40,7 +40,7 @@ fun SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .shadow(5.dp, RoundedCornerShape(8.dp))
-                .border(0.5.dp,Color.Black, RoundedCornerShape(8.dp))
+                .border(0.5.dp, Color.Black, RoundedCornerShape(8.dp))
                 .background(color = Color.White, RoundedCornerShape(8.dp))
                 .padding(horizontal = 20.dp, vertical = 12.dp)
                 .onFocusChanged { state ->
