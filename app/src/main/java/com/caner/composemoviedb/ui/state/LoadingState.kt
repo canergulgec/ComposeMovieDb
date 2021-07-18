@@ -1,6 +1,8 @@
 package com.caner.composemoviedb.ui.state
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,14 +44,11 @@ fun LoadingView(
     }
 }
 
-/*
+
 @Composable
 fun LoadingItem() {
     CircularProgressIndicator(
         modifier = Modifier
-            .width(50.dp)
-            .height(50.dp)
-            .padding(16.dp)
-           // .wrapContentWidth(Alignment.CenterHorizontally)
+            .padding(horizontal = 16.dp)
     )
-}*/
+}

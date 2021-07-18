@@ -2,12 +2,18 @@ package com.caner.composemoviedb.ui.screen
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -27,11 +33,11 @@ import androidx.paging.compose.items
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
-import com.caner.composemoviedb.ui.component.RatingBar
-import com.caner.composemoviedb.ui.theme.Typography
 import com.caner.composemoviedb.presentation.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
+import com.caner.composemoviedb.ui.state.LoadingItem
 import com.caner.composemoviedb.ui.state.LoadingView
+import com.caner.composemoviedb.ui.theme.Typography
 
 @Composable
 fun MovieScreen(
@@ -72,7 +78,14 @@ fun NowPlayingMovies(
         )
     }
 
-    LazyRow(contentPadding = PaddingValues(horizontal = 8.dp)) {
+    LazyRow(contentPadding = PaddingValues(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+
+        items(lazyMovieItems) {
+            MovieItem(it) { movieId ->
+                openMovieDetail(movieId)
+            }
+        }
+
         lazyMovieItems.apply {
             when {
                 loadState.refresh is LoadState.Loading -> {
@@ -86,14 +99,8 @@ fun NowPlayingMovies(
                 }
 
                 loadState.append is LoadState.Loading -> {
-                    //item { LoadingItem() }
+                    item { LoadingItem() }
                 }
-            }
-        }
-
-        items(lazyMovieItems) {
-            MovieItem(it) { movieId ->
-                openMovieDetail(movieId)
             }
         }
     }
