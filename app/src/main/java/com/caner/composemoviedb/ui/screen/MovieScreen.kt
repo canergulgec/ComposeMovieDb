@@ -112,7 +112,7 @@ fun NowPlayingMovies(
 fun MovieItem(item: Movie?, click: (String) -> Unit) {
     Card(
         elevation = 8.dp,
-        shape = MaterialTheme.shapes.medium,
+        shape = MaterialTheme.shapes.small,
         contentColor = Color.LightGray,
         modifier = Modifier
             .padding(horizontal = 8.dp)
@@ -128,7 +128,7 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
             MoviePoster(
                 item?.poster?.original, modifier = Modifier
                     .fillMaxWidth()
-                    .clip(MaterialTheme.shapes.medium)
+                    .clip(MaterialTheme.shapes.small)
                     .height(200.dp)
             )
 
@@ -187,8 +187,8 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
                             .padding(end = 16.dp)
                             .height(180.dp)
                             .aspectRatio(1.6f)
-                            .clip(MaterialTheme.shapes.medium)
-                            .border(0.5.dp, Color.LightGray, MaterialTheme.shapes.medium)
+                            .clip(MaterialTheme.shapes.small)
+                            .border(0.5.dp, Color.LightGray, MaterialTheme.shapes.small)
                     ) {
                         MoviePoster(poster = it.backdrop?.original, modifier = Modifier.alpha(0.9f))
                         Text(

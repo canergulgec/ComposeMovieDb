@@ -1,7 +1,6 @@
 package com.caner.composemoviedb.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -29,9 +28,9 @@ import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
+import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.SearchBar
 import com.caner.composemoviedb.ui.theme.Typography
-import com.google.accompanist.coil.rememberCoilPainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
@@ -105,11 +104,6 @@ fun SearchItem(
     item: Movie,
     itemClicked: (Int) -> Unit
 ) {
-    val painter =
-        rememberCoilPainter(
-            request = item.poster?.original,
-            fadeIn = true
-        )
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -119,12 +113,12 @@ fun SearchItem(
                 itemClicked(item.movieId)
             }
     ) {
-        Image(
-            painter = painter,
-            contentDescription = null,
+        MoviePoster(
+            poster = item.poster?.original,
             modifier = Modifier
                 .width(100.dp)
-                .clip(RoundedCornerShape(8.dp))
+                .height(150.dp)
+                .clip(MaterialTheme.shapes.medium)
         )
 
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -144,7 +138,7 @@ fun SearchItem(
                 modifier = Modifier.wrapContentSize()
             )
             Spacer(modifier = Modifier.height(12.dp))
-            CircularProgress(percentage = 0.7f, number = 100)
+            CircularProgress(percentage = ((item.voteAverage) / 10).toFloat(), number = 100)
         }
     }
 }
