@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.dp
 fun SearchBar(
     modifier: Modifier,
     hint: String = "",
+    query: String = "",
     onSearch: (String) -> Unit = {}
 ) {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(query) }
     var isHintDisplayed by remember {
         mutableStateOf(hint != "")
     }
@@ -40,16 +41,15 @@ fun SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .shadow(5.dp, RoundedCornerShape(8.dp))
-                .border(0.5.dp,Color.Black, RoundedCornerShape(8.dp))
+                .border(0.5.dp, Color.Black, RoundedCornerShape(8.dp))
                 .background(color = Color.White, RoundedCornerShape(8.dp))
                 .padding(horizontal = 20.dp, vertical = 12.dp)
                 .onFocusChanged { state ->
-                    isHintDisplayed = state.isFocused == false
+                    isHintDisplayed = (!state.isFocused) && text.isEmpty()
                 }
         )
 
         if (isHintDisplayed) {
-            text = ""
             Text(
                 text = hint,
                 color = Color.LightGray,

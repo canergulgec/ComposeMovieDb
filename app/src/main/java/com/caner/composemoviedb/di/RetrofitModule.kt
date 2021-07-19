@@ -1,11 +1,16 @@
 package com.caner.composemoviedb.di
 
 
+import android.content.Context
 import com.caner.composemoviedb.BuildConfig
+import com.facebook.flipper.android.AndroidFlipperClient
+import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
+import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -71,7 +76,8 @@ class RetrofitModule {
     @Provides
     fun provideOkHttpAuth(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        @Named("AuthInterceptor") authInterceptor: Interceptor
+        @Named("AuthInterceptor") authInterceptor: Interceptor,
+        @ApplicationContext appContext: Context
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(BuildConfig.TIMEOUT.toLong(), TimeUnit.SECONDS)
@@ -79,6 +85,11 @@ class RetrofitModule {
             .readTimeout(BuildConfig.TIMEOUT.toLong(), TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(authInterceptor)
+            .addNetworkInterceptor(
+                FlipperOkhttpInterceptor(
+                    AndroidFlipperClient.getInstance(appContext).getPlugin(NetworkFlipperPlugin.ID)
+                )
+            )
             .retryOnConnectionFailure(true)
             .build()
     }

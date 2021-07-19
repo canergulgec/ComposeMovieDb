@@ -1,173 +1,211 @@
 package com.caner.composemoviedb.ui.screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.ui.component.RatingBar
-import com.caner.composemoviedb.ui.theme.Typography
+import com.caner.composemoviedb.common.Resource
+import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.MovieViewModel
-import com.google.accompanist.coil.rememberCoilPainter
-import com.google.accompanist.imageloading.ImageLoadState
+import com.caner.composemoviedb.ui.component.MoviePoster
+import com.caner.composemoviedb.ui.state.LoadingItem
+import com.caner.composemoviedb.ui.state.LoadingView
+import com.caner.composemoviedb.ui.theme.Typography
 
-@ExperimentalFoundationApi
 @Composable
-fun MovieScreen(openMovieDetail: (String) -> Unit) {
-    var selectedTabIndex by remember {
-        mutableStateOf(0)
+fun MovieScreen(
+    viewModel: MovieViewModel = hiltViewModel(),
+    openMovieDetail: (String) -> Unit
+) {
+    // We only want the event stream to be attached once
+    // even if there are multiple re-compositions
+    LaunchedEffect(true) {
+        viewModel.getPopularMovies()
     }
+
+    val scrollState = rememberScrollState(0)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
+            .verticalScroll(state = scrollState)
     ) {
-        val movieTabTitles = stringArrayResource(id = R.array.movie_tab_titles)
-        MovieTabView(
-            textList = listOf(movieTabTitles[0], movieTabTitles[1])
-        ) {
-            selectedTabIndex = it
-        }
-
-        when (selectedTabIndex) {
-            0 -> MovieList(openMovieDetail)
-        }
+        NowPlayingMovies(openMovieDetail)
+        Spacer(modifier = Modifier.height(16.dp))
+        PopularMovies()
     }
 }
 
 @Composable
-fun MovieTabView(
-    modifier: Modifier = Modifier,
-    textList: List<String>,
-    onTabSelected: (selectedIndex: Int) -> Unit
-) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
-
-    val inactiveColor = Color(0xFF777777)
-    TabRow(
-        selectedTabIndex = selectedTabIndex,
-        backgroundColor = Color.Transparent,
-        contentColor = MaterialTheme.colors.primary,
-        modifier = modifier
-    ) {
-        textList.forEachIndexed { index, item ->
-            Tab(
-                selected = selectedTabIndex == index,
-                selectedContentColor = MaterialTheme.colors.primary,
-                unselectedContentColor = inactiveColor,
-                onClick = {
-                    selectedTabIndex = index
-                    onTabSelected(index)
-                }
-            ) {
-                Text(
-                    text = textList[index],
-                    // color = if (selectedTabIndex == index) MaterialTheme.colors.primary else inactiveColor,
-                    modifier = Modifier.padding(16.dp),
-                    fontWeight = FontWeight.Bold,
-                    style = Typography.body2
-                )
-            }
-        }
-    }
-}
-
-@ExperimentalFoundationApi
-@Composable
-fun MovieList(
+fun NowPlayingMovies(
     openMovieDetail: (String) -> Unit,
+    title: String = stringResource(id = R.string.now_playing),
     viewModel: MovieViewModel = hiltViewModel()
 ) {
-    val movieList = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-    //val pagingList : LazyPagingItems<Movie> = viewModel.moviePagingFlow.collectAsLazyPagingItems()
+    val lazyMovieItems = viewModel.moviePagingFlow.collectAsLazyPagingItems()
+    if (lazyMovieItems.itemCount > 0) {
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = title,
+            style = Typography.h6
+        )
+    }
 
-    LazyVerticalGrid(
-        cells = GridCells.Fixed(2),
-        contentPadding = PaddingValues(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 56.dp)
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        items(movieList) {
-            MovieItem { movieId ->
+        items(lazyMovieItems) {
+            MovieItem(it) { movieId ->
                 openMovieDetail(movieId)
             }
         }
+
+        lazyMovieItems.apply {
+            when {
+                loadState.refresh is LoadState.Loading -> {
+                    item {
+                        LoadingView(
+                            modifier = Modifier
+                                .fillParentMaxSize()
+                                .padding(top = 16.dp)
+                        )
+                    }
+                }
+
+                loadState.append is LoadState.Loading -> {
+                    item { LoadingItem() }
+                }
+            }
+        }
     }
 }
 
 @Composable
-fun MovieItem(click: (String) -> Unit) {
-    val painter =
-        rememberCoilPainter(
-            request = "https://image.tmdb.org/t/p/w500/bOFaAXmWWXC3Rbv4u4uM9ZSzRXP.jpg",
-            fadeIn = true
-        )
-    Column(horizontalAlignment = CenterHorizontally,
+fun MovieItem(item: Movie?, click: (String) -> Unit) {
+    Card(
+        elevation = 8.dp,
+        shape = MaterialTheme.shapes.medium,
+        contentColor = Color.LightGray,
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .clickable {
-                click("497698")
-            }
+            .padding(horizontal = 8.dp)
+            .width(150.dp)
+
     ) {
-
-        Image(
-            painter = painter,
-            contentDescription = "MovieName",
+        Column(horizontalAlignment = CenterHorizontally,
             modifier = Modifier
-                .fillMaxWidth(0.8f)
-                //.width(150.dp)
-                // .align(CenterHorizontally)
-                .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    click(item?.movieId.toString())
+                }
+        ) {
+            MoviePoster(
+                item?.poster?.original, modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.shapes.medium)
+                    .height(200.dp)
+            )
 
-        )
+            Text(
+                text = item?.title ?: "",
+                modifier = Modifier
+                    .align(CenterHorizontally)
+                    .padding(top = 8.dp, start = 8.dp, end = 8.dp),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colors.onSecondary,
+                style = Typography.subtitle2
+            )
 
-        when (painter.loadState) {
-            is ImageLoadState.Loading -> {
-                // Display a circular progress indicator whilst loading
-                CircularProgressIndicator(
-                    modifier = Modifier.scale(0.5f)
+            Row(
+                modifier = Modifier.padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Star,
+                    tint = colorResource(id = R.color.gold),
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+                Text(
+                    text = item?.voteAverage.toString(),
+                    fontSize = 15.sp,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(start = 4.dp)
                 )
             }
-            is ImageLoadState.Error -> {
-                // If you wish to display some content if the request fails
-            }
-            else -> {
+        }
+    }
+}
+
+@Composable
+fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
+    when (val movieState = viewModel.popularMovieState.collectAsState().value) {
+        is Resource.Success -> {
+            Text(
+                modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
+                text = stringResource(id = R.string.popular),
+                style = Typography.h6
+            )
+
+            LazyRow(
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = 70.dp
+                )
+            ) {
+                items(movieState.data.movies) {
+                    Box(
+                        modifier = Modifier
+                            .padding(end = 16.dp)
+                            .height(180.dp)
+                            .aspectRatio(1.6f)
+                            .clip(MaterialTheme.shapes.medium)
+                            .border(0.5.dp, Color.LightGray, MaterialTheme.shapes.medium)
+                    ) {
+                        MoviePoster(poster = it.backdrop?.original, modifier = Modifier.alpha(0.9f))
+                        Text(
+                            text = it.title, color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp,
+                            modifier = Modifier
+                                .align(BottomStart)
+                                .padding(16.dp)
+                                .background(Color.DarkGray)
+                                .padding(8.dp)
+                        )
+                    }
+                }
             }
         }
-
-        Text(
-            text = "Mortal Kombat",
-            modifier = Modifier
-                .align(CenterHorizontally)
-                .padding(top = 8.dp),
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onSecondary,
-            style = Typography.subtitle2
-        )
-
-        RatingBar(
-            modifier = Modifier.fillMaxWidth(),
-            range = 0..5,
-            isLargeRating = false,
-            isSelectable = false,
-            currentRating = 2
-        ) {
-
+        else -> {
         }
     }
 }
