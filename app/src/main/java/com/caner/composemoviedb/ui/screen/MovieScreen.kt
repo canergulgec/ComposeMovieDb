@@ -202,7 +202,6 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
                                 .padding(8.dp)
                         )
                     }
-
                 }
             }
         }

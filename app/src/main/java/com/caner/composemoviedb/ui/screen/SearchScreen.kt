@@ -51,7 +51,8 @@ fun SearchScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            hint = "Search.."
+            hint = "Search..",
+            viewModel.searchQuery.value
         ) {
             viewModel.searchQuery.value = it
         }
@@ -73,10 +74,9 @@ fun SearchList(
     when (val searchState = viewModel.searchFlow.collectAsState(initial = Resource.Empty).value) {
         is Resource.Success -> {
             LazyColumn(
-                contentPadding = PaddingValues(8.dp)
+                contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp)
             ) {
                 items(searchState.data.movies) { item ->
-                    // Set Search Item
                     SearchItem(item) {
                         openMovieDetail(it)
                     }

@@ -1,6 +1,5 @@
 package com.caner.composemoviedb.ui.component
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -21,9 +20,10 @@ import androidx.compose.ui.unit.dp
 fun SearchBar(
     modifier: Modifier,
     hint: String = "",
+    query: String = "",
     onSearch: (String) -> Unit = {}
 ) {
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(query) }
     var isHintDisplayed by remember {
         mutableStateOf(hint != "")
     }
@@ -50,8 +50,6 @@ fun SearchBar(
         )
 
         if (isHintDisplayed) {
-            Log.v("xxx", "isHintDisplayed")
-            //   text = ""
             Text(
                 text = hint,
                 color = Color.LightGray,
