@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +32,6 @@ import com.caner.composemoviedb.ui.theme.Typography
 import com.google.accompanist.coil.rememberCoilPainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.launch
 
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
@@ -43,8 +41,6 @@ fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
     openMovieDetail: (String) -> Unit
 ) {
-    // Creates a CoroutineScope bound to the MoviesScreen's lifecycle
-    val scope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,9 +53,7 @@ fun SearchScreen(
                 .padding(16.dp),
             hint = "Search.."
         ) {
-            scope.launch {
-                viewModel.searchQuery.value = it
-            }
+            viewModel.searchQuery.value = it
         }
 
         SearchList {

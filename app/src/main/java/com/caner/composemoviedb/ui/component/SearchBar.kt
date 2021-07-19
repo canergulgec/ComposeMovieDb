@@ -1,5 +1,6 @@
 package com.caner.composemoviedb.ui.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -44,12 +45,13 @@ fun SearchBar(
                 .background(color = Color.White, RoundedCornerShape(8.dp))
                 .padding(horizontal = 20.dp, vertical = 12.dp)
                 .onFocusChanged { state ->
-                    isHintDisplayed = state.isFocused == false
+                    isHintDisplayed = (!state.isFocused) && text.isEmpty()
                 }
         )
 
         if (isHintDisplayed) {
-            text = ""
+            Log.v("xxx", "isHintDisplayed")
+            //   text = ""
             Text(
                 text = hint,
                 color = Color.LightGray,

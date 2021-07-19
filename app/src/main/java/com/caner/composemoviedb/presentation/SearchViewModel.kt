@@ -1,6 +1,7 @@
 package com.caner.composemoviedb.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.caner.composemoviedb.domain.usecase.SearchMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,5 +25,6 @@ class SearchViewModel @Inject constructor(
         }
         .flatMapLatest {
             searchUseCase.execute(it)
-        }
+        }.shareIn(viewModelScope, SharingStarted.Lazily, replay = 1)
+
 }
