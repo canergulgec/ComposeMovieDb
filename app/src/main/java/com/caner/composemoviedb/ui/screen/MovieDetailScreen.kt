@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -48,7 +49,7 @@ fun DetailScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieBackdropSection(movieState.data.backdrop?.original){
+                MovieBackdropSection(movieState.data.backdrop?.original) {
                     navigateUp()
                 }
                 MovieTopSection(movieState.data.poster?.original, movieState.data.title ?: "")
@@ -57,6 +58,7 @@ fun DetailScreen(
                     modifier = Modifier
                         .offset(y = (-58).dp)
                         .padding(horizontal = 16.dp),
+                    color = Color.Gray,
                     lineHeight = 20.sp,
                     text = movieState.data.overview ?: "",
                     fontSize = 14.sp
@@ -97,7 +99,7 @@ fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f)
-                .alpha(0.9f)
+                .alpha(0.85f)
         )
 
         Icon(
@@ -161,16 +163,15 @@ fun ChipSection(genres: List<MovieGenre>?) {
             Box(
                 modifier = Modifier
                     .padding(4.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-                    .background(Color.LightGray)
-                    .padding(4.dp),
-                //   .padding(horizontal = 4.dp, vertical = 2.dp),
+                    .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp))
+                    .clip(MaterialTheme.shapes.small)
+                    .background(Color.Transparent)
+                    .padding(vertical = 4.dp, horizontal = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = genres?.get(it)?.name ?: "",
-                    color = Color.White,
+                    color = MaterialTheme.colors.onPrimary,
                     style = Typography.caption
                 )
             }
