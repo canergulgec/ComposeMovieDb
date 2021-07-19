@@ -17,12 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.SearchViewModel
@@ -51,7 +53,7 @@ fun SearchScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            hint = "Search..",
+            hint = stringResource(id = R.string.search_hint),
             viewModel.searchQuery.value
         ) {
             viewModel.searchQuery.value = it
@@ -60,10 +62,10 @@ fun SearchScreen(
         SearchList {
             openMovieDetail(it.toString())
         }
-        MovieTypes()
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -92,8 +94,8 @@ fun SearchList(
         is Resource.Loading -> {
             CircularProgressIndicator()
         }
-        else -> {
-
+        is Resource.Empty -> {
+            MovieTypes()
         }
     }
 }
@@ -152,7 +154,7 @@ fun SearchItem(
 fun MovieTypes() {
     Text(
         modifier = Modifier.padding(top = 16.dp, start = 16.dp),
-        text = "Genres",
+        text = stringResource(id = R.string.movie_types),
         style = Typography.h6
     )
     LazyVerticalGrid(
