@@ -174,7 +174,6 @@ fun ChipSection(genres: List<MovieGenre>?) {
                     style = Typography.caption
                 )
             }
-            Spacer(modifier = Modifier.width(4.dp))
         }
     }
 }
