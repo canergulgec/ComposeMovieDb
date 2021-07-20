@@ -10,4 +10,6 @@ val Black1 = Color(0xFF191919)
 val Black2 = Color(0xFF3b3b3b)
 val DIRTY_WHITE = Color(0xFFf9f9f9)
 val DARK_WHITE = Color(0xFFf2f2f2)
-val GRAY500 = Color(0xFFa6a6a6)
+
+val BLACK_TRANSPARENT = Color(0x00000000)
+val BLACK_TRANSPARENT_60 = Color(0x99000000)

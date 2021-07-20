@@ -1,6 +1,5 @@
 package com.caner.composemoviedb.ui.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,17 +18,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.remote.MovieGenre
 import com.caner.composemoviedb.presentation.MovieDetailViewModel
+import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.RatingBar
-import com.caner.composemoviedb.ui.theme.Typography
-import com.google.accompanist.coil.rememberCoilPainter
+import com.caner.composemoviedb.ui.theme.*
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
@@ -85,21 +84,28 @@ fun DetailScreen(
 
 @Composable
 fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
-    val backdropPoster =
-        rememberCoilPainter(
-            request = backdrop,
-            fadeIn = true
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.4f)
+    ) {
+        MoviePoster(
+            poster = backdrop, modifier = Modifier
+                .fillMaxSize()
+                .alpha(0.85f)
         )
 
-    Box {
-        Image(
-            painter = backdropPoster,
-            contentScale = ContentScale.Crop,
-            contentDescription = null,
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.4f)
-                .alpha(0.85f)
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            BLACK_TRANSPARENT,
+                            BLACK_TRANSPARENT_60
+                        )
+                    )
+                )
         )
 
         Icon(
@@ -108,6 +114,7 @@ fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .padding(16.dp)
+                .align(Alignment.TopStart)
                 .clickable {
                     navigateUp()
                 }
@@ -118,16 +125,8 @@ fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
 @Composable
 fun MovieTopSection(poster: String?, title: String) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        val painter =
-            rememberCoilPainter(
-                request = poster,
-                fadeIn = true
-            )
-
-        Image(
-            painter = painter,
-            contentDescription = null,
-            modifier = Modifier
+        MoviePoster(
+            poster = poster, modifier = Modifier
                 .offset(y = (-90).dp)
                 .padding(start = 16.dp)
                 .width(120.dp)

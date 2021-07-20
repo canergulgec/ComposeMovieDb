@@ -1,6 +1,5 @@
 package com.caner.composemoviedb.ui.component
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -44,7 +43,7 @@ fun RatingBar(
                     item,
                     isLargeRating
                 ) { newRating ->
-                    Log.v("", "rating is $newRating")
+                    onRatingChanged(newRating)
                 }
             }
         }
@@ -75,11 +74,10 @@ fun RatingItem(
         } else {
             painterResource(id = R.drawable.ic_baseline_star_outline_24)
         },
-        tint = colorResource(id = R.color.orange),
+        tint = colorResource(id = R.color.gold),
         contentDescription = null,
         modifier = baseModifier
             .padding(padding)
             .size(size)
     )
-
 }
