@@ -79,7 +79,8 @@ fun NowPlayingMovies(
     }
 
     LazyRow(
-        contentPadding = PaddingValues(horizontal = 8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         items(lazyMovieItems) {
@@ -114,10 +115,7 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
         contentColor = Color.LightGray,
-        modifier = Modifier
-            .padding(horizontal = 8.dp)
-            .width(150.dp)
-
+        modifier = Modifier.width(150.dp)
     ) {
         Column(horizontalAlignment = CenterHorizontally,
             modifier = Modifier
@@ -179,12 +177,13 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
                     start = 16.dp,
                     end = 16.dp,
                     bottom = 70.dp
-                )
+                ),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 items(movieState.data.movies) {
                     Box(
                         modifier = Modifier
-                            .padding(end = 16.dp)
                             .height(180.dp)
                             .aspectRatio(1.6f)
                             .clip(MaterialTheme.shapes.small)

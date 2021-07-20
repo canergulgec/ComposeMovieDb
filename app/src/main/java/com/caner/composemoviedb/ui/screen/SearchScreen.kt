@@ -75,7 +75,8 @@ fun SearchList(
     when (val searchState = viewModel.searchFlow.collectAsState(initial = Resource.Empty).value) {
         is Resource.Success -> {
             LazyColumn(
-                contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp)
+                contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(searchState.data.movies) { item ->
                     SearchItem(item) {
@@ -85,7 +86,7 @@ fun SearchList(
                         color = Color.LightGray,
                         thickness = 0.5.dp,
                         modifier = Modifier
-                            .padding(16.dp)
+                            .padding(top = 16.dp)
                     )
                 }
             }
