@@ -25,7 +25,7 @@ fun CircularProgress(
     percentage: Float,
     number: Int,
     fontSize: TextUnit = 12.sp,
-    radius: Dp = 18.dp,
+    radius: Dp = 20.dp,
     color: Color = colorResource(id = R.color.gold),
     strokeWidth: Dp = 2.dp,
     animDuration: Int = 1000,
@@ -51,7 +51,6 @@ fun CircularProgress(
         contentAlignment = Alignment.Center,
         modifier = Modifier.size(radius * 2)
     ) {
-
         Canvas(modifier = Modifier.size(radius * 2)) {
             drawArc(
                 color = color,
@@ -63,7 +62,7 @@ fun CircularProgress(
         }
 
         Text(
-            text ="% ${(curPercentage.value * number).toInt()}",
+            text = "% ${(curPercentage.value * number).toInt()}",
             fontSize = fontSize,
             fontWeight = FontWeight.Bold
         )

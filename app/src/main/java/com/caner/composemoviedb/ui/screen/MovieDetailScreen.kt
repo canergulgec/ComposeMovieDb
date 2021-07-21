@@ -57,10 +57,10 @@ fun DetailScreen(
                     modifier = Modifier
                         .offset(y = (-58).dp)
                         .padding(horizontal = 16.dp),
-                    color = Color.Gray,
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.secondary,
                     lineHeight = 20.sp,
                     text = movieState.data.overview ?: "",
-                    fontSize = 14.sp
                 )
             }
         }
@@ -136,7 +136,8 @@ fun MovieTopSection(poster: String?, title: String) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = title,
-                style = Typography.subtitle1
+                style = MaterialTheme.typography.subtitle1,
+                color = MaterialTheme.colors.onPrimary
             )
 
             RatingBar(
@@ -171,7 +172,7 @@ fun ChipSection(genres: List<MovieGenre>?) {
                 Text(
                     text = genres?.get(it)?.name ?: "",
                     color = MaterialTheme.colors.onPrimary,
-                    style = Typography.caption
+                    style = MaterialTheme.typography.caption
                 )
             }
         }

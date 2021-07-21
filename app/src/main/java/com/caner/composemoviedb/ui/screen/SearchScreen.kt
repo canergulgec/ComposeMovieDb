@@ -21,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Resource
@@ -30,7 +29,6 @@ import com.caner.composemoviedb.presentation.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.SearchBar
-import com.caner.composemoviedb.ui.theme.Typography
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
@@ -125,16 +123,16 @@ fun SearchItem(
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
             Text(
                 text = item.title,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body2,
+                fontWeight = FontWeight.Medium,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = item.releaseDate ?: "",
-                color = Color.Gray,
-                fontSize = 12.sp,
+                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colors.secondary,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.wrapContentSize()
             )
@@ -150,7 +148,7 @@ fun MovieTypes() {
     Text(
         modifier = Modifier.padding(top = 16.dp, start = 16.dp),
         text = stringResource(id = R.string.movie_types),
-        style = Typography.h6
+        style = MaterialTheme.typography.h6
     )
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
@@ -168,7 +166,7 @@ fun MovieTypes() {
             ) {
                 Text(
                     text = "Horror", color = Color.White,
-                    style = Typography.subtitle1
+                    style = MaterialTheme.typography.subtitle1
                 )
             }
         }

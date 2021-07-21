@@ -37,7 +37,6 @@ import com.caner.composemoviedb.presentation.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.state.LoadingItem
 import com.caner.composemoviedb.ui.state.LoadingView
-import com.caner.composemoviedb.ui.theme.Typography
 
 @Composable
 fun MovieScreen(
@@ -74,7 +73,7 @@ fun NowPlayingMovies(
         Text(
             modifier = Modifier.padding(16.dp),
             text = title,
-            style = Typography.h6
+            style = MaterialTheme.typography.h6
         )
     }
 
@@ -138,12 +137,13 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colors.onSecondary,
-                style = Typography.subtitle2
+                style = MaterialTheme.typography.caption,
             )
 
             Row(
                 modifier = Modifier.padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     imageVector = Icons.Default.Star,
@@ -153,8 +153,8 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
                 )
                 Text(
                     text = item?.voteAverage.toString(),
-                    fontSize = 15.sp,
-                    color = Color.Gray,
+                    style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colors.secondary,
                     modifier = Modifier.padding(start = 4.dp)
                 )
             }
@@ -169,7 +169,7 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
             Text(
                 modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
                 text = stringResource(id = R.string.popular),
-                style = Typography.h6
+                style = MaterialTheme.typography.h6
             )
 
             LazyRow(
