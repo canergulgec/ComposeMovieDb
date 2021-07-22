@@ -35,6 +35,8 @@ import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
+import com.caner.composemoviedb.ui.state.ErrorItem
+import com.caner.composemoviedb.ui.state.ErrorView
 import com.caner.composemoviedb.ui.state.LoadingItem
 import com.caner.composemoviedb.ui.state.LoadingView
 
@@ -100,8 +102,27 @@ fun NowPlayingMovies(
                     }
                 }
 
+                loadState.refresh is LoadState.Error -> {
+                    val e = lazyMovieItems.loadState.refresh as LoadState.Error
+                    item {
+                        ErrorView(
+                            message = e.error.localizedMessage!!,
+                            modifier = Modifier.fillParentMaxSize(),
+                            onClickRetry = { retry() }
+                        )
+                    }
+                }
+
                 loadState.append is LoadState.Loading -> {
                     item { LoadingItem() }
+                }
+
+                loadState.append is LoadState.Error -> {
+                    item {
+                        ErrorItem(
+                            onClickRetry = { retry() }
+                        )
+                    }
                 }
             }
         }
