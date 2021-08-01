@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
@@ -20,19 +21,18 @@ import androidx.compose.ui.unit.dp
 fun SearchBar(
     modifier: Modifier,
     hint: String = "",
-    query: String = "",
     onSearch: (String) -> Unit = {}
 ) {
-    var text by remember { mutableStateOf(query) }
+    var query by rememberSaveable { mutableStateOf("") }
     var isHintDisplayed by remember {
-        mutableStateOf(hint != "")
+        mutableStateOf(hint.isNotEmpty())
     }
 
     Box(modifier = modifier) {
         BasicTextField(
-            value = text,
+            value = query,
             onValueChange = {
-                text = it
+                query = it
                 onSearch(it)
             },
             maxLines = 1,
@@ -45,7 +45,7 @@ fun SearchBar(
                 .background(color = Color.White, RoundedCornerShape(8.dp))
                 .padding(horizontal = 20.dp, vertical = 12.dp)
                 .onFocusChanged { state ->
-                    isHintDisplayed = (!state.isFocused) && text.isEmpty()
+                    isHintDisplayed = (!state.isFocused) && query.isEmpty()
                 }
         )
 
