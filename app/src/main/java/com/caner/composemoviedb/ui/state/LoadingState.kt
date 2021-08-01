@@ -14,23 +14,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
 import com.caner.composemoviedb.R
-import com.google.accompanist.imageloading.ImageLoadState
-import com.google.accompanist.imageloading.LoadPainter
 
+@ExperimentalCoilApi
 @Composable
 fun LoadingImageState(
-    painter: LoadPainter<Any>,
+    painter: ImagePainter,
     modifier: Modifier = Modifier
 ) {
-    when (painter.loadState) {
-        is ImageLoadState.Loading -> {
+    when (painter.state) {
+        is ImagePainter.State.Loading -> {
             // Display a circular progress indicator whilst loading
             CircularProgressIndicator(
                 modifier = modifier
             )
         }
-        is ImageLoadState.Error -> {
+        is ImagePainter.State.Error -> {
             // If you wish to display some content if the request fails
         }
         else -> {

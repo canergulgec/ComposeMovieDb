@@ -4,14 +4,18 @@ import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.compose.rememberImagePainter
 
 @Composable
 fun MoviePoster(poster: String?, modifier: Modifier) {
     val painter =
-        rememberCoilPainter(
-            request = poster,
-            fadeIn = true
+        rememberImagePainter(
+            data = poster,
+            builder  = {
+                crossfade(true)
+               //  placeholder(R.drawable.placeholder)
+               //  transformations(CircleCropTransformation())
+            }
         )
 
     Image(

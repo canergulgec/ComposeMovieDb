@@ -60,48 +60,46 @@ kapt {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation "androidx.core:core-ktx:$core_ktx"
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "com.google.android.material:material:$materialDesign"
+
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel"
+
+    // Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+
+    // Compose
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation 'androidx.activity:activity-compose:1.3.0-rc02'
-
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-
-    // Coil
-    implementation "com.google.accompanist:accompanist-coil:0.13.0"
-
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha04"
-    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08"
-
-    //Dagger - Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
-
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-    implementation "com.squareup.okhttp3:okhttp:4.9.1"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
-
-    // Paging Compose
-    implementation "androidx.paging:paging-compose:1.0.0-alpha11"
+    implementation "androidx.activity:activity-compose:$activity_compose"
+    implementation "androidx.paging:paging-compose:$paging"
+    implementation "androidx.navigation:navigation-compose:$navigation"
+    implementation "androidx.constraintlayout:constraintlayout-compose:$constraintlayout"
 
     // Accompanist
-    implementation "com.google.accompanist:accompanist-insets:0.13.0"
-    implementation "com.google.accompanist:accompanist-flowlayout:0.13.0"
-    implementation "com.google.accompanist:accompanist-systemuicontroller:0.13.0"
+    implementation "com.google.accompanist:accompanist-flowlayout:$flowlayout"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$ui_controller"
+
+    // Coil
+    implementation "io.coil-kt:coil-compose:$coil"
 
     // Flipper
-    debugImplementation 'com.facebook.flipper:flipper:0.80.0'
-    debugImplementation 'com.facebook.soloader:soloader:0.10.1'
-    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.80.0'
+    debugImplementation "com.facebook.flipper:flipper:$flipper"
+    debugImplementation "com.facebook.soloader:soloader:$soloader"
+    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper"
 
-    testImplementation 'junit:junit:4.+'
+    testImplementation "junit:junit:$junit"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 }
