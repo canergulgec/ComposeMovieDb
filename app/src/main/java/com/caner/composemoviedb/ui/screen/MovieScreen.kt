@@ -10,9 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -70,8 +68,8 @@ fun NowPlayingMovies(
     title: String = stringResource(id = R.string.now_playing),
     viewModel: MovieViewModel = hiltViewModel()
 ) {
-    val lazyMovieItems = viewModel.moviePagingFlow.collectAsLazyPagingItems()
-    if (lazyMovieItems.itemCount > 0) {
+    var showTitle by remember { mutableStateOf(false) }
+    if (showTitle) {
         Text(
             modifier = Modifier.padding(16.dp),
             text = title,
@@ -79,12 +77,14 @@ fun NowPlayingMovies(
         )
     }
 
+    val lazyMovieItems = viewModel.moviePagingFlow.collectAsLazyPagingItems()
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         items(lazyMovieItems) {
+            showTitle = true
             MovieItem(it) { movieId ->
                 openMovieDetail(movieId)
             }
