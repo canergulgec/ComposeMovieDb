@@ -33,11 +33,17 @@ fun SearchBar(
             value = query,
             onValueChange = {
                 query = it
-                onSearch(it)
+                onSearch(query)
             },
             maxLines = 1,
             singleLine = true,
             textStyle = TextStyle(color = Color.Black),
+        /*    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onSearch(query)
+                }
+            ),*/
             modifier = Modifier
                 .fillMaxWidth()
                 .shadow(5.dp, RoundedCornerShape(8.dp))
