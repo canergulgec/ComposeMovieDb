@@ -8,13 +8,17 @@ import com.caner.composemoviedb.common.ext.filterMapperResponse
 import com.caner.composemoviedb.data.mapper.MovieMapper
 import com.caner.composemoviedb.domain.paging.MoviesPagingSource
 import com.caner.composemoviedb.domain.api.MovieApi
+import com.caner.composemoviedb.domain.qualifier.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
     private val movieApi: MovieApi,
-    private val movieMapper: MovieMapper
+    private val movieMapper: MovieMapper,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : MovieRepository {
 
     override fun getMovies(type: Int) =
@@ -27,5 +31,5 @@ class MovieRepositoryImp @Inject constructor(
         emit(data.filterMapperResponse(movieMapper))
     }.catch { error ->
         emit(Resource.Error(ApiError(4, error.message)))
-    }
+    }.flowOn(dispatcher)
 }
