@@ -27,7 +27,7 @@ import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.MoviePoster
-import com.caner.composemoviedb.ui.component.SearchBar
+import com.caner.composemoviedb.ui.component.MovieTextField
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
@@ -45,11 +45,11 @@ fun SearchScreen(
             .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SearchBar(
+        MovieTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            hint = stringResource(id = R.string.search_hint)
+            placeHolder = stringResource(id = R.string.search_hint)
         ) {
             viewModel.searchQuery.value = it
         }
