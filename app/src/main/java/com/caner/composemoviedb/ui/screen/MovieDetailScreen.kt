@@ -60,7 +60,7 @@ fun DetailScreen(
                     style = MaterialTheme.typography.body2,
                     color = MaterialTheme.colors.secondary,
                     lineHeight = 20.sp,
-                    text = movieState.data.overview ?: "",
+                    text = movieState.data.overview,
                 )
             }
         }
@@ -99,7 +99,7 @@ fun MovieTopSection(data: MovieDetailModel, navigateUp: () -> Unit) {
 
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = data.title ?: "",
+                    text = data.title,
                     style = MaterialTheme.typography.subtitle1,
                     color = MaterialTheme.colors.onPrimary
                 )
