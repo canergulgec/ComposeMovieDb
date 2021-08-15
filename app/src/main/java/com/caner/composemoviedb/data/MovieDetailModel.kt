@@ -11,11 +11,11 @@ data class MovieDetailModel(
     val poster: MovieImage? = null,
     val backdrop: MovieImage? = null,
     val genres: List<MovieGenre>? = null,
-    val title: String? = null,
-    val overview: String? = null,
+    val title: String,
+    val overview: String,
     val imdbId: String? = null,
     val runtime: Int? = null,
-    val voteAverage: Double? = null,
-    val voteCount: Int? = null,
+    val voteAverage: Double,
+    val voteCount: Int,
     val releaseDate: Date? = null
 )

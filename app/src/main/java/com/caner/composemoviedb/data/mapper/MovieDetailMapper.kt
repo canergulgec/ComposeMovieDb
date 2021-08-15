@@ -44,12 +44,12 @@ class MovieDetailMapper @Inject constructor() :
                 poster_path?.let { path -> MovieImage(path) },
                 backdrop_path?.let { path -> MovieImage(path) },
                 genres,
-                title,
-                overview,
+                title ?: "",
+                overview ?: "",
                 imdb_id,
                 runtime,
-                vote_average,
-                vote_count,
+                vote_average ?: 0.0,
+                vote_count ?: 0,
                 release_date?.let { date ->
                     if (date.isNotEmpty()) {
                         SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(

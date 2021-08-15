@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.common.Resource
+import com.caner.composemoviedb.data.MovieDetailModel
 import com.caner.composemoviedb.data.remote.MovieGenre
 import com.caner.composemoviedb.presentation.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
@@ -48,10 +49,9 @@ fun DetailScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieBackdropSection(movieState.data.backdrop?.original) {
+                MovieTopSection(movieState.data) {
                     navigateUp()
                 }
-                MovieTopSection(movieState.data.poster?.original, movieState.data.title ?: "")
                 ChipSection(movieState.data.genres)
                 Text(
                     modifier = Modifier
@@ -78,6 +78,39 @@ fun DetailScreen(
         }
 
         is Resource.Empty -> {
+        }
+    }
+}
+
+@Composable
+fun MovieTopSection(data: MovieDetailModel, navigateUp: () -> Unit) {
+    Column {
+        MovieBackdropSection(data.backdrop?.original) {
+            navigateUp()
+        }
+        Row(modifier = Modifier.fillMaxWidth()) {
+            MoviePoster(
+                poster = data.poster?.original, modifier = Modifier
+                    .offset(y = (-90).dp)
+                    .padding(start = 16.dp)
+                    .width(120.dp)
+                    .height(180.dp)
+            )
+
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = data.title ?: "",
+                    style = MaterialTheme.typography.subtitle1,
+                    color = MaterialTheme.colors.onPrimary
+                )
+
+                RatingBar(
+                    range = 1..5,
+                    isLargeRating = false,
+                    isSelectable = false,
+                    currentRating = (data.voteAverage / 2).toInt()
+                )
+            }
         }
     }
 }
@@ -119,36 +152,6 @@ fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
                     navigateUp()
                 }
         )
-    }
-}
-
-@Composable
-fun MovieTopSection(poster: String?, title: String) {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        MoviePoster(
-            poster = poster, modifier = Modifier
-                .offset(y = (-90).dp)
-                .padding(start = 16.dp)
-                .width(120.dp)
-                .height(180.dp)
-        )
-
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.subtitle1,
-                color = MaterialTheme.colors.onPrimary
-            )
-
-            RatingBar(
-                range = 0..5,
-                isLargeRating = false,
-                isSelectable = false,
-                currentRating = 2
-            ) {
-
-            }
-        }
     }
 }
 
