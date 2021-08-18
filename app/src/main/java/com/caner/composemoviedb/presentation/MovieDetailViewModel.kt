@@ -17,7 +17,7 @@ class MovieDetailViewModel @Inject constructor(
     private val movieDetailUseCase: MovieDetailUseCase
 ) : ViewModel() {
 
-    private val _movieDetailState = MutableStateFlow<Resource<MovieDetailModel>>(Resource.Empty)
+    private val _movieDetailState = MutableStateFlow<Resource<MovieDetailModel>>(Resource.Initial)
     val movieDetailState: StateFlow<Resource<MovieDetailModel>> get() = _movieDetailState
 
     fun getMovieDetail(movieId: Int?) {

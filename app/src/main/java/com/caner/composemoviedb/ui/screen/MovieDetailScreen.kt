@@ -77,7 +77,7 @@ fun DetailScreen(
         is Resource.Error -> {
         }
 
-        is Resource.Empty -> {
+        is Resource.Initial -> {
         }
     }
 }

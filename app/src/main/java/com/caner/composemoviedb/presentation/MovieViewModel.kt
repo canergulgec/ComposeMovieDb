@@ -23,7 +23,7 @@ class MovieViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _popularMovieState = MutableStateFlow<Resource<MovieModel>>(Resource.Empty)
+    private val _popularMovieState = MutableStateFlow<Resource<MovieModel>>(Resource.Initial)
     val popularMovieState: StateFlow<Resource<MovieModel>> get() = _popularMovieState
 
     val moviePagingFlow =

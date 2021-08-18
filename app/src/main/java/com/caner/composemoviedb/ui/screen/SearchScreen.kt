@@ -68,7 +68,7 @@ fun SearchList(
     viewModel: SearchViewModel = hiltViewModel(),
     openMovieDetail: (Int) -> Unit,
 ) {
-    when (val searchState = viewModel.searchFlow.collectAsState(initial = Resource.Empty).value) {
+    when (val searchState = viewModel.searchFlow.collectAsState(initial = Resource.Initial).value) {
         is Resource.Success -> {
             LazyColumn(
                 contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp),
@@ -90,7 +90,7 @@ fun SearchList(
         is Resource.Loading -> {
             CircularProgressIndicator()
         }
-        is Resource.Empty -> {
+        is Resource.Initial -> {
             MovieTypes()
         }
     }
