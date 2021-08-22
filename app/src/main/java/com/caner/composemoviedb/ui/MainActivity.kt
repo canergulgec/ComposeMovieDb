@@ -4,9 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.navigation.compose.rememberNavController
 import com.caner.composemoviedb.MovieApp
 import com.caner.composemoviedb.ui.screen.*
 import com.caner.composemoviedb.ui.theme.MovieItemComposeTheme
@@ -29,21 +26,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieItemComposeTheme(darkTheme = app.isDark.value) {
                 StatusBarColor(app.isDark.value)
-
-                val navController = rememberNavController()
-                Scaffold(
-                    bottomBar = { BottomNavigationBar(navController) },
-                    floatingActionButton = {
-                        val rippleExplode = remember { mutableStateOf(false) }
-                        FloatingButton(rippleExplode, app)
-                        if (rippleExplode.value) {
-
-                        }
-                    },
-                    content = {
-                        Navigation(navController = navController)
-                    }
-                )
+                Home(app.isDark.value) {
+                    app.changeTheme()
+                }
             }
         }
     }

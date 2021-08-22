@@ -1,6 +1,8 @@
 package com.caner.composemoviedb.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -9,14 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.navArgument
-import com.caner.composemoviedb.MovieApp
+import androidx.navigation.compose.*
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.utils.Screen
@@ -39,18 +38,61 @@ fun StatusBarColor(isDarkTheme: Boolean) {
     }
 }
 
+@ExperimentalCoroutinesApi
+@FlowPreview
+@ExperimentalFoundationApi
 @Composable
-fun FloatingButton(rippleExplode: MutableState<Boolean>, app: MovieApp) {
+fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(
+                controller = navController,
+                onNavigationSelected = { screen ->
+                    navController.navigate(screen.route) {
+                        // Pop up to the start destination of the graph to
+                        // avoid building up a large stack of destinations
+                        // on the back stack as users select items
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        // Avoid multiple copies of the same destination when
+                        // reselect the same item
+                        launchSingleTop = true
+                        // Restore state when reselect a previously selected item
+                        restoreState = true
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        floatingActionButton = {
+            val rippleExplode = remember { mutableStateOf(false) }
+            FloatingButton(rippleExplode, isDarkTheme) {
+                changeTheme()
+            }
+        }
+    ) { innerPadding ->
+        Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
+    }
+}
+
+@Composable
+fun FloatingButton(
+    rippleExplode: MutableState<Boolean>,
+    isDarkTheme: Boolean,
+    changeTheme: () -> Unit
+) {
     FloatingActionButton(
         onClick = {
-            app.changeTheme()
+            changeTheme()
             rippleExplode.value = !rippleExplode.value
 
         },
         backgroundColor = colorResource(id = R.color.purple_200)
     ) {
         Icon(
-            painter = if (app.isDark.value) {
+            painter = if (isDarkTheme) {
                 painterResource(id = R.drawable.ic_day)
             } else {
                 painterResource(id = R.drawable.ic_night)
@@ -63,43 +105,32 @@ fun FloatingButton(rippleExplode: MutableState<Boolean>, app: MovieApp) {
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
-    val items = listOf(
-        Screen.Movie,
-        Screen.Search
-    )
+fun BottomNavigationBar(
+    controller: NavHostController,
+    onNavigationSelected: (Screen) -> Unit,
+    modifier: Modifier
+) {
+    val navBackStackEntry by controller.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.surface,
-        elevation = 8.dp
+        elevation = 8.dp,
+        modifier = modifier
     ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-        items.forEach { item ->
+        HomeNavigationItems.forEach { screen ->
             BottomNavigationItem(
-                icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
-                label = { Text(text = item.title) },
+                icon = {
+                    Icon(
+                        painterResource(id = screen.icon),
+                        contentDescription = screen.title
+                    )
+                },
+                label = { Text(text = screen.title) },
+                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 selectedContentColor = colorResource(id = R.color.purple_200),
-                //unselectedContentColor = colorResource(id = R.color.purple_200).copy(0.4f),
                 unselectedContentColor = Color.LightGray,
-                alwaysShowLabel = true,
-                selected = currentRoute == item.route,
-                onClick = {
-                    navController.navigate(item.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        navController.graph.startDestinationRoute?.let { route ->
-                            popUpTo(route) {
-                                saveState = true
-                            }
-                        }
-                        // Avoid multiple copies of the same destination when
-                        // reselect the same item
-                        launchSingleTop = true
-                        // Restore state when reselect a previously selected item
-                        restoreState = true
-                    }
-                }
+                onClick = { onNavigationSelected(screen) },
             )
         }
     }
@@ -109,8 +140,8 @@ fun BottomNavigationBar(navController: NavController) {
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun Navigation(navController: NavHostController) {
-    NavHost(navController, startDestination = Screen.Movie.route) {
+fun Navigation(navController: NavHostController, modifier: Modifier) {
+    NavHost(navController, startDestination = Screen.Movie.route, modifier = modifier) {
         composable(Screen.Movie.route) {
             MovieScreen(
                 openMovieDetail = { movieId ->
@@ -141,3 +172,9 @@ fun Navigation(navController: NavHostController) {
         }
     }
 }
+
+
+private val HomeNavigationItems = listOf(
+    Screen.Movie,
+    Screen.Search
+)
