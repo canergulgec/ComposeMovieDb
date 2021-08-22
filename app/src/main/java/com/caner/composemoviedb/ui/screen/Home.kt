@@ -67,8 +67,7 @@ fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
             )
         },
         floatingActionButton = {
-            val rippleExplode = remember { mutableStateOf(false) }
-            FloatingButton(rippleExplode, isDarkTheme) {
+            FloatingButton(isDarkTheme) {
                 changeTheme()
             }
         }
@@ -79,15 +78,12 @@ fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
 
 @Composable
 fun FloatingButton(
-    rippleExplode: MutableState<Boolean>,
     isDarkTheme: Boolean,
     changeTheme: () -> Unit
 ) {
     FloatingActionButton(
         onClick = {
             changeTheme()
-            rippleExplode.value = !rippleExplode.value
-
         },
         backgroundColor = colorResource(id = R.color.purple_200)
     ) {
