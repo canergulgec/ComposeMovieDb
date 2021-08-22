@@ -43,7 +43,6 @@ fun MovieItemComposeTheme(
         LightColorPalette
     }
 
-
     val typography = Typography(defaultFontFamily = CustomFont)
     MaterialTheme(
         colors = colors,
