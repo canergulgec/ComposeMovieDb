@@ -66,8 +66,8 @@ fun CustomSearchBar(
 
     val paddingSize: Dp by animateDpAsState(
         targetValue = if (isHintActive) {
-            Dimens.MediumPadding.size
-        } else 4.dp
+            Dimens.UpperMediumPadding.size
+        } else Dimens.MediumPadding.size
     )
 
     val angle: Float by animateFloatAsState(
