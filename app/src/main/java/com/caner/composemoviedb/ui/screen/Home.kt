@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -38,6 +39,7 @@ fun StatusBarColor(isDarkTheme: Boolean) {
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
 @FlowPreview
 @ExperimentalFoundationApi
@@ -132,6 +134,7 @@ fun BottomNavigationBar(
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @FlowPreview

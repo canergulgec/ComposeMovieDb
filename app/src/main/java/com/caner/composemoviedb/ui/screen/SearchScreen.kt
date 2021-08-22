@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,11 +27,13 @@ import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
+import com.caner.composemoviedb.ui.component.CustomSearchBar
 import com.caner.composemoviedb.ui.component.MoviePoster
-import com.caner.composemoviedb.ui.component.MovieTextField
+import com.caner.composemoviedb.ui.theme.Dimens
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+@ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -45,14 +48,25 @@ fun SearchScreen(
             .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        MovieTextField(
+    /*    MovieTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             placeHolder = stringResource(id = R.string.search_hint)
         ) {
             viewModel.searchQuery.value = it
-        }
+        }*/
+        CustomSearchBar(
+            onSearch = {
+                viewModel.searchQuery.value = it
+            },
+            onDismissSearchClicked = {
+                viewModel.searchQuery.value = ""
+            },
+            modifier = Modifier.padding(
+                vertical = Dimens.MediumPadding.size
+            )
+        )
 
         SearchList {
             openMovieDetail(it.toString())
