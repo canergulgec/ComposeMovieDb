@@ -48,25 +48,27 @@ fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(
-                controller = navController,
-                onNavigationSelected = { screen ->
-                    navController.navigate(screen.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+            if (currentRoute(navController = navController) != Screen.Detail.route) {
+                BottomNavigationBar(
+                    controller = navController,
+                    onNavigationSelected = { screen ->
+                        navController.navigate(screen.route) {
+                            // Pop up to the start destination of the graph to
+                            // avoid building up a large stack of destinations
+                            // on the back stack as users select items
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            // Avoid multiple copies of the same destination when
+                            // reselect the same item
+                            launchSingleTop = true
+                            // Restore state when reselect a previously selected item
+                            restoreState = true
                         }
-                        // Avoid multiple copies of the same destination when
-                        // reselect the same item
-                        launchSingleTop = true
-                        // Restore state when reselect a previously selected item
-                        restoreState = true
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         },
         floatingActionButton = {
             FloatingButton(isDarkTheme) {
@@ -172,6 +174,11 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
     }
 }
 
+@Composable
+fun currentRoute(navController: NavHostController): String? {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.route
+}
 
 private val HomeNavigationItems = listOf(
     Screen.Movie,

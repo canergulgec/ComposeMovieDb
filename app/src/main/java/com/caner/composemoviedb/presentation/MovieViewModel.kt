@@ -4,10 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.caner.composemoviedb.domain.paging.MoviesPagingSource
 import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.common.Resource
-import com.caner.composemoviedb.data.MovieDetailModel
 import com.caner.composemoviedb.data.MovieModel
 import com.caner.composemoviedb.domain.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
