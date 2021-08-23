@@ -16,7 +16,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -28,7 +27,7 @@ import com.caner.composemoviedb.data.MovieDetailModel
 import com.caner.composemoviedb.data.remote.MovieGenre
 import com.caner.composemoviedb.presentation.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
-import com.caner.composemoviedb.ui.component.RatingBar
+import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.theme.*
 import com.google.accompanist.flowlayout.FlowRow
 
@@ -104,12 +103,14 @@ fun MovieTopSection(data: MovieDetailModel, navigateUp: () -> Unit) {
                     color = MaterialTheme.colors.onPrimary
                 )
 
-                RatingBar(
-                    range = 1..5,
-                    isLargeRating = false,
-                    isSelectable = false,
-                    currentRating = (data.voteAverage / 2).toInt()
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    MovieRating(voteAverage = data.voteAverage.toString(), size = 20.dp)
+                    Text(
+                        text = "${data.runtime} min",
+                        style = MaterialTheme.typography.caption,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
             }
         }
     }
@@ -122,25 +123,19 @@ fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
             .fillMaxWidth()
             .fillMaxHeight(0.4f)
     ) {
-        MoviePoster(
-            poster = backdrop, modifier = Modifier
-                .fillMaxSize()
-                .alpha(0.85f)
-        )
-
+        MoviePoster(poster = backdrop, modifier = Modifier.fillMaxSize())
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
                         colors = listOf(
-                            BLACK_TRANSPARENT,
-                            BLACK_TRANSPARENT_60
+                            BLACK_TRANSPARENT_60,
+                            BLACK_TRANSPARENT
                         )
                     )
                 )
         )
-
         Icon(
             imageVector = Icons.Default.ArrowBack,
             tint = Color.White,

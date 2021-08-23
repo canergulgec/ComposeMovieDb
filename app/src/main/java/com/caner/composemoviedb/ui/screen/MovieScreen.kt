@@ -5,11 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomStart
@@ -18,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -33,6 +29,7 @@ import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
 import com.caner.composemoviedb.presentation.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
+import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.state.ErrorItem
 import com.caner.composemoviedb.ui.state.ErrorView
 import com.caner.composemoviedb.ui.state.LoadingItem
@@ -161,24 +158,7 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
                 style = MaterialTheme.typography.caption,
             )
 
-            Row(
-                modifier = Modifier.padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Star,
-                    tint = colorResource(id = R.color.gold),
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-                Text(
-                    text = item?.voteAverage.toString(),
-                    style = MaterialTheme.typography.caption,
-                    color = MaterialTheme.colors.secondary,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
-            }
+            MovieRating(voteAverage = item?.voteAverage.toString(), size = 20.dp)
         }
     }
 }
