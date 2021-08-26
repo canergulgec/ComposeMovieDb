@@ -86,7 +86,7 @@ fun CustomSearchBar(
     )
 
     val hintAlpha: Float by animateFloatAsState(
-        targetValue = if (isHintActive) 1F else 0.5f
+        targetValue = if (isHintActive) 1F else 0.6f
     )
 
     Row(
