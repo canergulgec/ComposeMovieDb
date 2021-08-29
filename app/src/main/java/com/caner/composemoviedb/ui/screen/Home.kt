@@ -20,6 +20,7 @@ import androidx.navigation.compose.*
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.utils.Screen
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -39,6 +40,7 @@ fun StatusBarColor(isDarkTheme: Boolean) {
     }
 }
 
+@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -136,6 +138,7 @@ fun BottomNavigationBar(
     }
 }
 
+@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi

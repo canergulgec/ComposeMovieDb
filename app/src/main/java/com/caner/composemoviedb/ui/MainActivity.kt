@@ -8,6 +8,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import com.caner.composemoviedb.MovieApp
 import com.caner.composemoviedb.ui.screen.*
 import com.caner.composemoviedb.ui.theme.MovieItemComposeTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var app: MovieApp
 
+    @ExperimentalPagerApi
     @ExperimentalComposeUiApi
     @ExperimentalCoroutinesApi
     @FlowPreview

@@ -3,7 +3,7 @@ package com.caner.composemoviedb.ui.screen
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -12,14 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -34,7 +35,13 @@ import com.caner.composemoviedb.ui.state.ErrorItem
 import com.caner.composemoviedb.ui.state.ErrorView
 import com.caner.composemoviedb.ui.state.LoadingItem
 import com.caner.composemoviedb.ui.state.LoadingView
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import com.google.accompanist.pager.rememberPagerState
+import kotlin.math.absoluteValue
 
+@ExperimentalPagerApi
 @Composable
 fun MovieScreen(
     viewModel: MovieViewModel = hiltViewModel(),
@@ -163,6 +170,7 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
     }
 }
 
+@ExperimentalPagerApi
 @Composable
 fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
     when (val movieState = viewModel.popularMovieState.collectAsState().value) {
@@ -173,39 +181,72 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
                 style = MaterialTheme.typography.h6
             )
 
-            LazyRow(
-                contentPadding = PaddingValues(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 70.dp
-                ),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                items(movieState.data.movies) {
-                    Box(
-                        modifier = Modifier
-                            .height(180.dp)
-                            .aspectRatio(1.6f)
-                            .clip(MaterialTheme.shapes.small)
-                            .border(0.5.dp, Color.LightGray, MaterialTheme.shapes.small)
-                    ) {
-                        MoviePoster(poster = it.backdrop?.original, modifier = Modifier.alpha(0.9f))
-                        Text(
-                            text = it.title, color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
-                            modifier = Modifier
-                                .align(BottomStart)
-                                .padding(16.dp)
-                                .background(Color.DarkGray)
-                                .padding(8.dp)
-                        )
-                    }
-                }
-            }
+            PopularMoviesHorizontalPager(movieState.data.movies)
         }
         else -> {
+        }
+    }
+}
+
+@ExperimentalPagerApi
+@Composable
+fun PopularMoviesHorizontalPager(movies: List<Movie>) {
+    val pagerState = rememberPagerState(
+        pageCount = 10,
+        // We increase the offscreen limit, to allow pre-loading of images
+        initialOffscreenLimit = 2,
+    )
+
+    HorizontalPager(
+        state = pagerState,
+        modifier = Modifier.fillMaxSize()
+    ) { page ->
+        val movie = movies[page]
+        Card(
+            Modifier
+                .graphicsLayer {
+                    // Calculate the absolute offset for the current page from the
+                    // scroll position. We use the absolute value which allows us to mirror
+                    // any effects for both directions
+                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+
+                    // We animate the scaleX + scaleY, between 85% and 100%
+                    lerp(
+                        start = 0.85f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    ).also { scale ->
+                        scaleX = scale
+                        scaleY = scale
+                    }
+
+                    // We animate the alpha, between 50% and 100%
+                    alpha = lerp(
+                        start = 0.5f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    )
+                }
+                .fillMaxWidth(0.8f)
+                .aspectRatio(1.6f)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(MaterialTheme.shapes.small)
+            ) {
+                MoviePoster(poster = movie.backdrop?.original)
+                Text(
+                    text = movie.title, color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
+                    modifier = Modifier
+                        .align(BottomStart)
+                        .padding(16.dp)
+                        .background(Color.DarkGray, shape = RoundedCornerShape(8.dp))
+                        .padding(8.dp)
+                )
+            }
         }
     }
 }
