@@ -9,7 +9,7 @@ In order to use MovieDB:
 - Once you obtain key, create `secure.properties` which should be on the same level with build.gradle(Project:MovieDb)
 - Add your key into secure.properties `MOVIE_API_KEY = "xxx" `
 
-### Tech Stack & Dependencies
+### Tech Stack
 
 - [Kotlin](https://kotlinlang.org)
 - [Dagger Hilt](https://dagger.dev/hilt/)
