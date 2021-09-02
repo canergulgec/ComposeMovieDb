@@ -243,7 +243,10 @@ fun PopularMoviesHorizontalPager(movies: List<Movie>) {
                     modifier = Modifier
                         .align(BottomStart)
                         .padding(16.dp)
-                        .background(Color.DarkGray, shape = RoundedCornerShape(8.dp))
+                        .background(
+                            Color.Black.copy(alpha = 0.6f),
+                            shape = RoundedCornerShape(8.dp)
+                        )
                         .padding(8.dp)
                 )
             }
