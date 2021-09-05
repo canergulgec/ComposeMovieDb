@@ -28,6 +28,7 @@ import androidx.paging.compose.items
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
+import com.caner.composemoviedb.extension.rememberFlowWithLifecycle
 import com.caner.composemoviedb.presentation.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
@@ -81,20 +82,20 @@ fun NowPlayingMovies(
         )
     }
 
-    val lazyMovieItems = viewModel.moviePagingFlow.collectAsLazyPagingItems()
+    val nowPlayingMovieList = viewModel.moviePagingFlow.collectAsLazyPagingItems()
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(lazyMovieItems) {
+        items(nowPlayingMovieList) {
             showTitle = true
             MovieItem(it) { movieId ->
                 openMovieDetail(movieId)
             }
         }
 
-        lazyMovieItems.apply {
+        nowPlayingMovieList.apply {
             when {
                 loadState.refresh is LoadState.Loading -> {
                     item {
@@ -107,7 +108,7 @@ fun NowPlayingMovies(
                 }
 
                 loadState.refresh is LoadState.Error -> {
-                    val e = lazyMovieItems.loadState.refresh as LoadState.Error
+                    val e = nowPlayingMovieList.loadState.refresh as LoadState.Error
                     item {
                         ErrorView(
                             message = e.error.localizedMessage!!,
@@ -173,7 +174,10 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
 @ExperimentalPagerApi
 @Composable
 fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
-    when (val movieState = viewModel.popularMovieState.collectAsState().value) {
+    val popularMovieState by rememberFlowWithLifecycle(viewModel.popularMovieState)
+        .collectAsState(initial = Resource.Initial)
+
+    when (popularMovieState) {
         is Resource.Success -> {
             Text(
                 modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
@@ -181,7 +185,7 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
                 style = MaterialTheme.typography.h6
             )
 
-            PopularMoviesHorizontalPager(movieState.data.movies)
+            PopularMoviesHorizontalPager((popularMovieState as Resource.Success).data.movies)
         }
         else -> {
         }

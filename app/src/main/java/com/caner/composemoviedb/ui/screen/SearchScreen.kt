@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
+import com.caner.composemoviedb.extension.rememberFlowWithLifecycle
 import com.caner.composemoviedb.presentation.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.CustomSearchBar
@@ -82,13 +83,15 @@ fun SearchList(
     viewModel: SearchViewModel = hiltViewModel(),
     openMovieDetail: (Int) -> Unit,
 ) {
-    when (val searchState = viewModel.searchFlow.collectAsState(initial = Resource.Initial).value) {
+    val searchMovieState by rememberFlowWithLifecycle(viewModel.searchFlow)
+        .collectAsState(initial = Resource.Initial)
+    when (searchMovieState) {
         is Resource.Success -> {
             LazyColumn(
                 contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(searchState.data.movies) { item ->
+                items((searchMovieState as Resource.Success).data.movies) { item ->
                     SearchItem(item) {
                         openMovieDetail(it)
                     }
@@ -104,8 +107,12 @@ fun SearchList(
         is Resource.Loading -> {
             CircularProgressIndicator()
         }
-        is Resource.Initial -> {
+        is Resource.Initial, Resource.Empty -> {
             MovieTypes()
+        }
+
+        is Resource.Error -> {
+
         }
     }
 }

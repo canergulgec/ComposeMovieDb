@@ -10,8 +10,8 @@ ext {
     core_ktx = '1.6.0'
 
     // Lifecycle
-    lifecycle_runtime = '2.3.1'
-    lifecycle_viewmodel = '2.3.1'
+    lifecycle_runtime = '2.4.0-alpha01'
+    lifecycle_viewmodel = '2.4.0-alpha01'
 
     // Compose
     constraintlayout = '1.0.0-beta02'
