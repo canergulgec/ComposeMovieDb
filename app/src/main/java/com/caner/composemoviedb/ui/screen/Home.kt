@@ -77,8 +77,9 @@ fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
                 changeTheme()
             }
         }
-    ) { innerPadding ->
-        Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
+    ) {
+        //Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
+        Navigation(navController = navController, modifier = Modifier)
     }
 }
 
