@@ -14,17 +14,17 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import javax.inject.Inject
 
+@FlowPreview
+@ExperimentalCoroutinesApi
+@ExperimentalFoundationApi
+@ExperimentalComposeUiApi
+@ExperimentalPagerApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var app: MovieApp
 
-    @ExperimentalPagerApi
-    @ExperimentalComposeUiApi
-    @ExperimentalCoroutinesApi
-    @FlowPreview
-    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
