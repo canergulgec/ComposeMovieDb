@@ -39,7 +39,6 @@ import com.caner.composemoviedb.ui.state.LoadingView
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
-import com.google.accompanist.pager.rememberPagerState
 import kotlin.math.absoluteValue
 
 @ExperimentalPagerApi
@@ -195,14 +194,10 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
 @ExperimentalPagerApi
 @Composable
 fun PopularMoviesHorizontalPager(movies: List<Movie>) {
-    val pagerState = rememberPagerState(
-        pageCount = 10,
-        // We increase the offscreen limit, to allow pre-loading of images
-        initialOffscreenLimit = 2,
-    )
-
     HorizontalPager(
-        state = pagerState,
+        count = 10,
+        // Add 32.dp horizontal padding to 'center' the pages
+        contentPadding = PaddingValues(horizontal = 32.dp),
         modifier = Modifier.fillMaxSize()
     ) { page ->
         val movie = movies[page]
@@ -216,7 +211,7 @@ fun PopularMoviesHorizontalPager(movies: List<Movie>) {
 
                     // We animate the scaleX + scaleY, between 85% and 100%
                     lerp(
-                        start = 0.85f,
+                        start = 0.90f,
                         stop = 1f,
                         fraction = 1f - pageOffset.coerceIn(0f, 1f)
                     ).also { scale ->
@@ -231,7 +226,7 @@ fun PopularMoviesHorizontalPager(movies: List<Movie>) {
                         fraction = 1f - pageOffset.coerceIn(0f, 1f)
                     )
                 }
-                .fillMaxWidth(0.8f)
+                .fillMaxWidth()
                 .aspectRatio(1.6f)
         ) {
             Box(

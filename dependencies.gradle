@@ -10,8 +10,8 @@ ext {
     core_ktx = '1.6.0'
 
     // Lifecycle
-    lifecycle_runtime = '2.4.0-alpha01'
-    lifecycle_viewmodel = '2.4.0-alpha01'
+    lifecycle_runtime = '2.4.0-rc01'
+    lifecycle_viewmodel = '2.4.0-rc01'
 
     // Compose
     constraintlayout = '1.0.0-beta02'
@@ -22,7 +22,7 @@ ext {
     // Accompanist
     flowlayout = '0.16.1'
     ui_controller = '0.16.1'
-    pager = '0.17.0'
+    pager = '0.20.0'
 
     // Retrofit
     retrofit = '2.9.0'
