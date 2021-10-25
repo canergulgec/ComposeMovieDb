@@ -25,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
-import com.caner.composemoviedb.extension.rememberFlowWithLifecycle
 import com.caner.composemoviedb.presentation.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.CustomSearchBar
@@ -49,14 +48,14 @@ fun SearchScreen(
             .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-    /*    MovieTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            placeHolder = stringResource(id = R.string.search_hint)
-        ) {
-            viewModel.searchQuery.value = it
-        }*/
+        /*    MovieTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                placeHolder = stringResource(id = R.string.search_hint)
+            ) {
+                viewModel.searchQuery.value = it
+            }*/
         CustomSearchBar(
             onSearch = {
                 viewModel.searchQuery.value = it
@@ -83,15 +82,13 @@ fun SearchList(
     viewModel: SearchViewModel = hiltViewModel(),
     openMovieDetail: (Int) -> Unit,
 ) {
-    val searchMovieState by rememberFlowWithLifecycle(viewModel.searchFlow)
-        .collectAsState(initial = Resource.Initial)
-    when (searchMovieState) {
+    when (val result = viewModel.searchFlow.collectAsState(initial = Resource.Initial).value) {
         is Resource.Success -> {
             LazyColumn(
                 contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items((searchMovieState as Resource.Success).data.movies) { item ->
+                items(result.data.movies) { item ->
                     SearchItem(item) {
                         openMovieDetail(it)
                     }

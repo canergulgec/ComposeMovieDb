@@ -28,7 +28,6 @@ import androidx.paging.compose.items
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Resource
 import com.caner.composemoviedb.data.Movie
-import com.caner.composemoviedb.extension.rememberFlowWithLifecycle
 import com.caner.composemoviedb.presentation.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
@@ -173,10 +172,8 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
 @ExperimentalPagerApi
 @Composable
 fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
-    val popularMovieState by rememberFlowWithLifecycle(viewModel.popularMovieState)
-        .collectAsState(initial = Resource.Initial)
-
-    when (popularMovieState) {
+    when (val result =
+        viewModel.popularMovieState.collectAsState(initial = Resource.Initial).value) {
         is Resource.Success -> {
             Text(
                 modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
@@ -184,7 +181,7 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
                 style = MaterialTheme.typography.h6
             )
 
-            PopularMoviesHorizontalPager((popularMovieState as Resource.Success).data.movies)
+            PopularMoviesHorizontalPager(result.data.movies)
         }
         else -> {
         }
