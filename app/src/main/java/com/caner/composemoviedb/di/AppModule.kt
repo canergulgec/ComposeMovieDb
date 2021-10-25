@@ -1,9 +1,8 @@
 package com.caner.composemoviedb.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import com.caner.composemoviedb.MovieApp
-import com.caner.composemoviedb.common.Constants
+import com.caner.composemoviedb.domain.local.ThemeManager
+import com.caner.composemoviedb.domain.local.ThemeManagerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,13 +16,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(Constants.SHARED_PREF_KEY, Context.MODE_PRIVATE)
-    }
-
-    @Singleton
-    @Provides
-    fun provideApplication(@ApplicationContext app: Context): MovieApp {
-        return app as MovieApp
+    fun providePreferenceManager(@ApplicationContext context: Context): ThemeManager {
+        return ThemeManagerImpl(context = context)
     }
 }

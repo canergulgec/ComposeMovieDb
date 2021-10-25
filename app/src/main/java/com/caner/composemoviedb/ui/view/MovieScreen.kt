@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.screen
+package com.caner.composemoviedb.ui.view
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*

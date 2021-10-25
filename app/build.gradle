@@ -72,6 +72,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation"
 
+    // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     implementation "com.squareup.okhttp3:okhttp:$okhttp"
@@ -94,6 +95,9 @@ dependencies {
 
     // Coil
     implementation "io.coil-kt:coil-compose:$coil"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     // Flipper
     debugImplementation "com.facebook.flipper:flipper:$flipper"

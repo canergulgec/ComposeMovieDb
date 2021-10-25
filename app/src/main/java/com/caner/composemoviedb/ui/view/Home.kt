@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.screen
+package com.caner.composemoviedb.ui.view
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,24 +21,8 @@ import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.utils.Screen
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-
-@Composable
-fun StatusBarColor(isDarkTheme: Boolean) {
-    val systemUiController = rememberSystemUiController()
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = if (isDarkTheme) {
-                Color.DarkGray
-            } else {
-                Color.LightGray
-            },
-            darkIcons = true
-        )
-    }
-}
 
 @ExperimentalPagerApi
 @ExperimentalComposeUiApi
@@ -46,7 +30,7 @@ fun StatusBarColor(isDarkTheme: Boolean) {
 @FlowPreview
 @ExperimentalFoundationApi
 @Composable
-fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
+fun Home(changeTheme: () -> Unit) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -73,7 +57,7 @@ fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
             }
         },
         floatingActionButton = {
-            FloatingButton(isDarkTheme) {
+            FloatingButton {
                 changeTheme()
             }
         }
@@ -85,7 +69,6 @@ fun Home(isDarkTheme: Boolean, changeTheme: () -> Unit) {
 
 @Composable
 fun FloatingButton(
-    isDarkTheme: Boolean,
     changeTheme: () -> Unit
 ) {
     FloatingActionButton(
@@ -95,11 +78,7 @@ fun FloatingButton(
         backgroundColor = colorResource(id = R.color.purple_200)
     ) {
         Icon(
-            painter = if (isDarkTheme) {
-                painterResource(id = R.drawable.ic_day)
-            } else {
-                painterResource(id = R.drawable.ic_night)
-            },
+            painter = painterResource(id = R.drawable.ic_bulb),
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier.size(24.dp)
