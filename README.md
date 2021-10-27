@@ -26,6 +26,7 @@ In order to use MovieDB:
 - [Coroutines Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html)
 - [Jetpack](https://developer.android.com/jetpack?gclid=CjwKCAiA25v_BRBNEiwAZb4-ZRLrSzIFlpm0NDTFGSuapyosjuVKi0AVLXGgVqSwqe46gejCg31LvRoCAwIQAvD_BwE&gclsrc=aw.ds)
     * [Compose](https://developer.android.com/jetpack/compose)
+    * [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
     * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
     * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
 - [Accompanist](https://google.github.io/accompanist/)
