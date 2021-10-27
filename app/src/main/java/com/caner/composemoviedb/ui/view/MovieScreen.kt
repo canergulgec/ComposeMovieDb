@@ -35,16 +35,14 @@ import com.caner.composemoviedb.ui.state.ErrorItem
 import com.caner.composemoviedb.ui.state.ErrorView
 import com.caner.composemoviedb.ui.state.LoadingItem
 import com.caner.composemoviedb.ui.state.LoadingView
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
 
-@ExperimentalPagerApi
 @Composable
 fun MovieScreen(
-    viewModel: MovieViewModel = hiltViewModel(),
-    openMovieDetail: (String) -> Unit
+    openMovieDetail: (String) -> Unit,
+    viewModel: MovieViewModel = hiltViewModel()
 ) {
     // We only want the event stream to be attached once
     // even if there are multiple re-compositions
@@ -169,7 +167,6 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
     }
 }
 
-@ExperimentalPagerApi
 @Composable
 fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
     when (val result =
@@ -188,7 +185,6 @@ fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
     }
 }
 
-@ExperimentalPagerApi
 @Composable
 fun PopularMoviesHorizontalPager(movies: List<Movie>) {
     HorizontalPager(

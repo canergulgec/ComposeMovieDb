@@ -18,6 +18,17 @@ buildscript {
     }
 }
 
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            freeCompilerArgs += "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+            freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"
+            freeCompilerArgs += "-Xopt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        }
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

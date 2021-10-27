@@ -1,11 +1,9 @@
 package com.caner.composemoviedb.ui.view
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -20,15 +18,9 @@ import androidx.navigation.navArgument
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.common.Constants
 import com.caner.composemoviedb.utils.Screen
-import com.google.accompanist.pager.ExperimentalPagerApi
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-@ExperimentalPagerApi
-@ExperimentalComposeUiApi
-@ExperimentalCoroutinesApi
 @FlowPreview
-@ExperimentalFoundationApi
 @Composable
 fun Home(changeTheme: () -> Unit) {
     val navController = rememberNavController()
@@ -118,27 +110,19 @@ fun BottomNavigationBar(
     }
 }
 
-@ExperimentalPagerApi
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier) {
+    val openMovieDetail: (String) -> Unit = { movieId ->
+        navController.navigate(Screen.Detail.createRoute(movieId))
+    }
+
     NavHost(navController, startDestination = Screen.Movie.route, modifier = modifier) {
         composable(Screen.Movie.route) {
-            MovieScreen(
-                openMovieDetail = { movieId ->
-                    navController.navigate(Screen.Detail.createRoute(movieId))
-                }
-            )
+            MovieScreen(openMovieDetail)
         }
         composable(Screen.Search.route) {
-            SearchScreen(
-                openMovieDetail = { movieId ->
-                    navController.navigate(Screen.Detail.createRoute(movieId))
-                }
-            )
+            SearchScreen(openMovieDetail)
         }
 
         composable(

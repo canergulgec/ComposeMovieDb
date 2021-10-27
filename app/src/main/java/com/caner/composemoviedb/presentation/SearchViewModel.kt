@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caner.composemoviedb.domain.usecase.SearchMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -17,7 +16,6 @@ class SearchViewModel @Inject constructor(
 
     val searchQuery = MutableStateFlow("")
 
-    @ExperimentalCoroutinesApi
     val searchFlow = searchQuery
         .debounce(400)
         .filter { query ->

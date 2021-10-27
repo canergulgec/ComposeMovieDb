@@ -1,6 +1,5 @@
 package com.caner.composemoviedb.ui.view
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -30,17 +28,13 @@ import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.CustomSearchBar
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.theme.Dimens
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-@ExperimentalComposeUiApi
-@ExperimentalFoundationApi
-@ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel = hiltViewModel(),
-    openMovieDetail: (String) -> Unit
+    openMovieDetail: (String) -> Unit,
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -74,8 +68,6 @@ fun SearchScreen(
     }
 }
 
-@ExperimentalFoundationApi
-@ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
 fun SearchList(
@@ -158,7 +150,6 @@ fun SearchItem(
     }
 }
 
-@ExperimentalFoundationApi
 @Composable
 fun MovieTypes() {
     Text(
