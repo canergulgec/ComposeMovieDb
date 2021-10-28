@@ -61,6 +61,7 @@ fun Home(changeTheme: () -> Unit) {
 
 @Composable
 fun FloatingButton(
+    isLightTheme: Boolean = MaterialTheme.colors.isLight,
     changeTheme: () -> Unit
 ) {
     FloatingActionButton(
@@ -70,7 +71,10 @@ fun FloatingButton(
         backgroundColor = colorResource(id = R.color.purple_200)
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_bulb),
+            painter = when (isLightTheme) {
+                true -> painterResource(id = R.drawable.ic_dark)
+                false -> painterResource(id = R.drawable.ic_day)
+            },
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier.size(24.dp)
