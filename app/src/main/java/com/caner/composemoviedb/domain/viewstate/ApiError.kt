@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.common
+package com.caner.composemoviedb.domain.viewstate
 
 data class ApiError(
     val code: Int = -1,

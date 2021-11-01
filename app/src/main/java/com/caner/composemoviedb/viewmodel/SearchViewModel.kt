@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.presentation
+package com.caner.composemoviedb.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -2,11 +2,11 @@ package com.caner.composemoviedb.domain.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.caner.composemoviedb.common.ApiError
-import com.caner.composemoviedb.common.Resource
-import com.caner.composemoviedb.common.ext.filterMapperResponse
+import com.caner.composemoviedb.domain.viewstate.ApiError
+import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.domain.extension.filterMapperResponse
 import com.caner.composemoviedb.data.mapper.MovieMapper
-import com.caner.composemoviedb.domain.paging.MoviesPagingSource
+import com.caner.composemoviedb.domain.pagingsource.MoviesPagingSource
 import com.caner.composemoviedb.domain.api.MovieApi
 import com.caner.composemoviedb.domain.qualifier.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher

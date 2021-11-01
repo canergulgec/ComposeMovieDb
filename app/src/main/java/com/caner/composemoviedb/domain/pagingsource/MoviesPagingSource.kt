@@ -1,10 +1,10 @@
-package com.caner.composemoviedb.domain.paging
+package com.caner.composemoviedb.domain.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.caner.composemoviedb.data.Movie
+import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.data.mapper.MovieMapper
-import com.caner.composemoviedb.common.Constants
+import com.caner.composemoviedb.data.Constants
 import com.caner.composemoviedb.domain.api.MovieApi
 import javax.inject.Inject
 

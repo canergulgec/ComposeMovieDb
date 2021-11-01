@@ -1,12 +1,12 @@
 package com.caner.composemoviedb.di
 
-import com.caner.composemoviedb.data.MovieModel
-import com.caner.composemoviedb.data.remote.MoviesResponse
+import com.caner.composemoviedb.data.model.MovieModel
+import com.caner.composemoviedb.data.model.remote.MoviesResponse
 import com.caner.composemoviedb.data.mapper.MovieMapper
-import com.caner.composemoviedb.common.Mapper
-import com.caner.composemoviedb.data.MovieDetailModel
+import com.caner.composemoviedb.data.mapper.Mapper
+import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.mapper.MovieDetailMapper
-import com.caner.composemoviedb.data.remote.MovieDetailResponse
+import com.caner.composemoviedb.data.model.remote.MovieDetailResponse
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

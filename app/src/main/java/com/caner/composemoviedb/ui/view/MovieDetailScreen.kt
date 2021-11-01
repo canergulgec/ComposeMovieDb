@@ -22,10 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.caner.composemoviedb.common.Resource
-import com.caner.composemoviedb.data.MovieDetailModel
-import com.caner.composemoviedb.data.remote.MovieGenre
-import com.caner.composemoviedb.presentation.MovieDetailViewModel
+import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.model.MovieDetailModel
+import com.caner.composemoviedb.data.model.remote.MovieGenre
+import com.caner.composemoviedb.viewmodel.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.theme.*

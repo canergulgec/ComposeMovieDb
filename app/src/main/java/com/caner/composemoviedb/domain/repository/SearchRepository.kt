@@ -1,7 +1,7 @@
 package com.caner.composemoviedb.domain.repository
 
-import com.caner.composemoviedb.common.Resource
-import com.caner.composemoviedb.data.MovieModel
+import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.model.MovieModel
 import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {

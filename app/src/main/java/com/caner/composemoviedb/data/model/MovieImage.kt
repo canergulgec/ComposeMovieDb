@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.data
+package com.caner.composemoviedb.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel

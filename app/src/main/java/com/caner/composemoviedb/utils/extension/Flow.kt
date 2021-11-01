@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.extension
+package com.caner.composemoviedb.utils.extension
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

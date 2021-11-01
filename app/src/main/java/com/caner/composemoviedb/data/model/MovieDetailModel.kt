@@ -1,6 +1,6 @@
-package com.caner.composemoviedb.data
+package com.caner.composemoviedb.data.model
 
-import com.caner.composemoviedb.data.remote.MovieGenre
+import com.caner.composemoviedb.data.model.remote.MovieGenre
 import java.util.*
 
 data class MovieDetailModel(

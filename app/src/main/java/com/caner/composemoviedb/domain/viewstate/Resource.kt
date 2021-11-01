@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.common
+package com.caner.composemoviedb.domain.viewstate
 
 sealed class Resource<out T> {
     class Success<T>(val data: T) : Resource<T>()

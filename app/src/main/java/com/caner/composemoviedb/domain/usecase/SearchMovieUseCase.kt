@@ -1,8 +1,7 @@
 package com.caner.composemoviedb.domain.usecase
 
-import com.caner.composemoviedb.base.BaseUseCase
-import com.caner.composemoviedb.common.Resource
-import com.caner.composemoviedb.data.MovieModel
+import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.model.MovieModel
 import com.caner.composemoviedb.domain.qualifier.IoDispatcher
 import com.caner.composemoviedb.domain.repository.SearchRepository
 import kotlinx.coroutines.CoroutineDispatcher

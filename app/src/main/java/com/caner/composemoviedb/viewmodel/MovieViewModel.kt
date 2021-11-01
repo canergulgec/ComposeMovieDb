@@ -1,12 +1,12 @@
-package com.caner.composemoviedb.presentation
+package com.caner.composemoviedb.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.caner.composemoviedb.common.Constants
-import com.caner.composemoviedb.common.Resource
-import com.caner.composemoviedb.data.MovieModel
+import com.caner.composemoviedb.data.Constants
+import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.model.MovieModel
 import com.caner.composemoviedb.domain.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

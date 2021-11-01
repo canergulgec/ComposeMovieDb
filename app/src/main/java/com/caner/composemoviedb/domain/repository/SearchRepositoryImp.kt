@@ -1,6 +1,6 @@
 package com.caner.composemoviedb.domain.repository
 
-import com.caner.composemoviedb.common.ext.filterMapperResponse
+import com.caner.composemoviedb.domain.extension.filterMapperResponse
 import com.caner.composemoviedb.data.mapper.MovieMapper
 import com.caner.composemoviedb.domain.api.SearchApi
 import kotlinx.coroutines.flow.flow

@@ -1,8 +1,8 @@
-package com.caner.composemoviedb.common.ext
+package com.caner.composemoviedb.domain.extension
 
-import com.caner.composemoviedb.common.ApiError
-import com.caner.composemoviedb.common.Mapper
-import com.caner.composemoviedb.common.Resource
+import com.caner.composemoviedb.domain.viewstate.ApiError
+import com.caner.composemoviedb.data.mapper.Mapper
+import com.caner.composemoviedb.domain.viewstate.Resource
 import retrofit2.Response
 
 fun <A, B> Response<A>.filterMapperResponse(mapper: Mapper<A, B>): Resource<B> {

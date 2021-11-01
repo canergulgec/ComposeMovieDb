@@ -1,9 +1,10 @@
 package com.caner.composemoviedb.data.mapper
 
-import com.caner.composemoviedb.data.MovieModel
-import com.caner.composemoviedb.data.remote.MovieResponseItem
-import com.caner.composemoviedb.data.remote.MoviesResponse
-import com.caner.composemoviedb.common.Mapper
+import com.caner.composemoviedb.data.model.MovieImage
+import com.caner.composemoviedb.data.model.MovieModel
+import com.caner.composemoviedb.data.model.Movie
+import com.caner.composemoviedb.data.model.remote.MovieResponseItem
+import com.caner.composemoviedb.data.model.remote.MoviesResponse
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -45,13 +46,13 @@ class MovieMapper @Inject constructor() : Mapper<MoviesResponse, MovieModel> {
                 total = total,
                 page = page,
                 movies = results.map {
-                    com.caner.composemoviedb.data.Movie(
+                    Movie(
                         it.id,
                         it.popularity,
                         it.video,
-                        it.posterPath?.let { path -> com.caner.composemoviedb.data.MovieImage(path) },
+                        it.posterPath?.let { path -> MovieImage(path) },
                         it.adult,
-                        it.backdropPath?.let { path -> com.caner.composemoviedb.data.MovieImage(path) },
+                        it.backdropPath?.let { path -> MovieImage(path) },
                         it.originalLanguage,
                         it.originalTitle,
                         it.title,

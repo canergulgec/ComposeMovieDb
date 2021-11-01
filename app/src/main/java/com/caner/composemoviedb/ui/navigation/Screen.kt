@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.utils
+package com.caner.composemoviedb.ui.navigation
 
 import com.caner.composemoviedb.R
 

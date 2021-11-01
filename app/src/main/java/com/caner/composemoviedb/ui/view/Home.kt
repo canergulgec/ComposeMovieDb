@@ -16,8 +16,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.common.Constants
-import com.caner.composemoviedb.utils.Screen
+import com.caner.composemoviedb.data.Constants
+import com.caner.composemoviedb.ui.navigation.Screen
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
