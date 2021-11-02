@@ -2,8 +2,8 @@ package com.caner.composemoviedb.domain.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.caner.composemoviedb.domain.viewstate.ApiError
-import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.viewstate.ApiError
+import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.domain.extension.filterMapperResponse
 import com.caner.composemoviedb.data.mapper.MovieMapper
 import com.caner.composemoviedb.domain.pagingsource.MoviesPagingSource

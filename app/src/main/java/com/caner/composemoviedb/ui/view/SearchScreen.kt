@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.viewmodel.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress

@@ -2,7 +2,7 @@ package com.caner.composemoviedb.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.domain.usecase.MovieDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

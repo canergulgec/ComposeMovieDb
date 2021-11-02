@@ -26,7 +26,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.domain.viewstate.Resource
+import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.viewmodel.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
