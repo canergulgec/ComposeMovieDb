@@ -1,8 +1,8 @@
 package com.caner.composemoviedb.di
 
 import android.content.Context
-import com.caner.composemoviedb.domain.local.ThemeManager
-import com.caner.composemoviedb.domain.local.ThemeManagerImpl
+import com.caner.composemoviedb.data.local.ThemeManager
+import com.caner.composemoviedb.data.local.ThemeManagerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

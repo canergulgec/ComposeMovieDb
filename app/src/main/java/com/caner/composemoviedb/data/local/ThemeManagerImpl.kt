@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.domain.local
+package com.caner.composemoviedb.data.local
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
