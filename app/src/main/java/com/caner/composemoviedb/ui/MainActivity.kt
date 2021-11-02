@@ -11,7 +11,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
-import com.caner.composemoviedb.domain.local.ThemeManager
+import com.caner.composemoviedb.data.local.ThemeManager
 import com.caner.composemoviedb.ui.view.*
 import com.caner.composemoviedb.ui.theme.MovieItemComposeTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
