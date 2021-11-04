@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -117,16 +118,14 @@ fun BottomNavigationBar(
 @FlowPreview
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier) {
-    val openMovieDetail: (String) -> Unit = { movieId ->
-        navController.navigate(Screen.Detail.createRoute(movieId))
-    }
+    val actions = remember(navController) { NavActions(navController) }
 
     NavHost(navController, startDestination = Screen.Movie.route, modifier = modifier) {
         composable(Screen.Movie.route) {
-            MovieScreen(openMovieDetail)
+            MovieScreen(actions)
         }
         composable(Screen.Search.route) {
-            SearchScreen(openMovieDetail)
+            SearchScreen(actions)
         }
 
         composable(
@@ -136,11 +135,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
             })
         ) {
             val movieId = it.arguments?.getString(Constants.MOVIE_ID)
-            DetailScreen(movieId,
-                navigateUp = {
-                    navController.popBackStack()
-                }
-            )
+            DetailScreen(movieId, actions)
         }
     }
 }
@@ -155,3 +150,17 @@ private val HomeNavigationItems = listOf(
     Screen.Movie,
     Screen.Search
 )
+
+class NavActions(navController: NavController) {
+    val upPress: () -> Unit = {
+        navController.navigateUp()
+    }
+
+    val popBackStack: () -> Unit = {
+        navController.popBackStack()
+    }
+
+    val gotoDetail: (String) -> Unit = { movieId ->
+        navController.navigate(Screen.Detail.createRoute(movieId))
+    }
+}

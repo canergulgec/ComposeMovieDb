@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.domain.usecase.MovieDetailUseCase
+import com.caner.composemoviedb.ui.view.NavActions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +20,8 @@ class MovieDetailViewModel @Inject constructor(
 
     private val _movieDetailState = MutableStateFlow<Resource<MovieDetailModel>>(Resource.Initial)
     val movieDetailState: StateFlow<Resource<MovieDetailModel>> get() = _movieDetailState
+
+    lateinit var navActions: NavActions
 
     fun getMovieDetail(movieId: Int?) {
         viewModelScope.launch {

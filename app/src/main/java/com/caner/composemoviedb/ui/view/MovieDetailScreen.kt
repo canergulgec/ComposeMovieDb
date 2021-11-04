@@ -34,12 +34,13 @@ import com.google.accompanist.flowlayout.FlowRow
 @Composable
 fun DetailScreen(
     movieId: String?,
-    viewModel: MovieDetailViewModel = hiltViewModel(),
-    navigateUp: () -> Unit
+    navActions: NavActions,
+    viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
     // We only want the event stream to be attached once
     // even if there are multiple re-compositions
     LaunchedEffect(true) {
+        viewModel.navActions = navActions
         viewModel.getMovieDetail(movieId?.toInt())
     }
 
@@ -48,9 +49,7 @@ fun DetailScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieTopSection(movieState.data) {
-                    navigateUp()
-                }
+                MovieTopSection(movieState.data)
                 ChipSection(movieState.data.genres)
                 Text(
                     modifier = Modifier
@@ -82,11 +81,9 @@ fun DetailScreen(
 }
 
 @Composable
-fun MovieTopSection(data: MovieDetailModel, navigateUp: () -> Unit) {
+fun MovieTopSection(data: MovieDetailModel) {
     Column {
-        MovieBackdropSection(data.backdrop?.original) {
-            navigateUp()
-        }
+        MovieBackdropSection(data.backdrop?.original)
         Row(modifier = Modifier.fillMaxWidth()) {
             MoviePoster(
                 poster = data.poster?.original, modifier = Modifier
@@ -117,7 +114,7 @@ fun MovieTopSection(data: MovieDetailModel, navigateUp: () -> Unit) {
 }
 
 @Composable
-fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
+fun MovieBackdropSection(backdrop: String?, viewModel: MovieDetailViewModel = hiltViewModel()) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -144,7 +141,7 @@ fun MovieBackdropSection(backdrop: String?, navigateUp: () -> Unit) {
                 .padding(16.dp)
                 .align(Alignment.TopStart)
                 .clickable {
-                    navigateUp()
+                    viewModel.navActions.upPress.invoke()
                 }
         )
     }

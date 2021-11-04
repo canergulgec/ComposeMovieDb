@@ -33,7 +33,7 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 @Composable
 fun SearchScreen(
-    openMovieDetail: (String) -> Unit,
+    navActions: NavActions,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     Column(
@@ -62,17 +62,15 @@ fun SearchScreen(
             )
         )
 
-        SearchList {
-            openMovieDetail(it.toString())
-        }
+        SearchList(navActions)
     }
 }
 
 @FlowPreview
 @Composable
 fun SearchList(
-    viewModel: SearchViewModel = hiltViewModel(),
-    openMovieDetail: (Int) -> Unit,
+    navActions: NavActions,
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
     when (val result = viewModel.searchFlow.collectAsState(initial = Resource.Initial).value) {
         is Resource.Success -> {
@@ -81,8 +79,8 @@ fun SearchList(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(result.data.movies) { item ->
-                    SearchItem(item) {
-                        openMovieDetail(it)
+                    SearchItem(item) { movieId ->
+                        navActions.gotoDetail(movieId)
                     }
                     Divider(
                         color = Color.LightGray,
@@ -109,7 +107,7 @@ fun SearchList(
 @Composable
 fun SearchItem(
     item: Movie,
-    itemClicked: (Int) -> Unit
+    itemClicked: (String) -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -117,7 +115,7 @@ fun SearchItem(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clickable {
-                itemClicked(item.movieId)
+                itemClicked(item.movieId.toString())
             }
     ) {
         MoviePoster(

@@ -41,7 +41,7 @@ import kotlin.math.absoluteValue
 
 @Composable
 fun MovieScreen(
-    openMovieDetail: (String) -> Unit,
+    navActions: NavActions,
     viewModel: MovieViewModel = hiltViewModel()
 ) {
     // We only want the event stream to be attached once
@@ -57,7 +57,7 @@ fun MovieScreen(
             .background(MaterialTheme.colors.background)
             .verticalScroll(state = scrollState)
     ) {
-        NowPlayingMovies(openMovieDetail)
+        NowPlayingMovies(navActions)
         Spacer(modifier = Modifier.height(16.dp))
         PopularMovies()
     }
@@ -65,7 +65,7 @@ fun MovieScreen(
 
 @Composable
 fun NowPlayingMovies(
-    openMovieDetail: (String) -> Unit,
+    navActions: NavActions,
     title: String = stringResource(id = R.string.now_playing),
     viewModel: MovieViewModel = hiltViewModel()
 ) {
@@ -87,7 +87,7 @@ fun NowPlayingMovies(
         items(nowPlayingMovieList) {
             showTitle = true
             MovieItem(it) { movieId ->
-                openMovieDetail(movieId)
+                navActions.gotoDetail(movieId)
             }
         }
 
@@ -131,7 +131,7 @@ fun NowPlayingMovies(
 }
 
 @Composable
-fun MovieItem(item: Movie?, click: (String) -> Unit) {
+fun MovieItem(item: Movie?, itemClicked: (String) -> Unit) {
     Card(
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
@@ -141,7 +141,7 @@ fun MovieItem(item: Movie?, click: (String) -> Unit) {
         Column(horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .clickable {
-                    click(item?.movieId.toString())
+                    itemClicked(item?.movieId.toString())
                 }
         ) {
             MoviePoster(
