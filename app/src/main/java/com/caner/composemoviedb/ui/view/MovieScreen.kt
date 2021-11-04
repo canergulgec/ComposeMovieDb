@@ -41,15 +41,8 @@ import kotlin.math.absoluteValue
 
 @Composable
 fun MovieScreen(
-    navActions: NavActions,
-    viewModel: MovieViewModel = hiltViewModel()
+    navActions: NavActions
 ) {
-    // We only want the event stream to be attached once
-    // even if there are multiple re-compositions
-    LaunchedEffect(true) {
-        viewModel.getPopularMovies()
-    }
-
     val scrollState = rememberScrollState(0)
     Column(
         modifier = Modifier

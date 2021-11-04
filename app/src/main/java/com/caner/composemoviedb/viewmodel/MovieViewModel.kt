@@ -21,13 +21,17 @@ class MovieViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    init {
+        getPopularMovies()
+    }
+
     private val _popularMovieState = MutableStateFlow<Resource<MovieModel>>(Resource.Initial)
     val popularMovieState: StateFlow<Resource<MovieModel>> get() = _popularMovieState
 
     val moviePagingFlow =
         movieRepository.getMovies(Constants.NOW_PLAYING_MOVIES).cachedIn(viewModelScope)
 
-    fun getPopularMovies() {
+    private fun getPopularMovies() {
         viewModelScope.launch {
             movieRepository.getPopularMovies()
                 .collect {
