@@ -124,7 +124,7 @@ fun NowPlayingMovies(
 }
 
 @Composable
-fun MovieItem(item: Movie?, itemClicked: (String) -> Unit) {
+fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
     Card(
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
@@ -134,7 +134,7 @@ fun MovieItem(item: Movie?, itemClicked: (String) -> Unit) {
         Column(horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .clickable {
-                    itemClicked(item?.movieId.toString())
+                    itemClicked(item?.movieId ?: -1)
                 }
         ) {
             MoviePoster(

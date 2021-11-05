@@ -1,7 +1,9 @@
 package com.caner.composemoviedb.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.caner.composemoviedb.data.Constants
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.domain.usecase.MovieDetailUseCase
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val movieDetailUseCase: MovieDetailUseCase
+    private val movieDetailUseCase: MovieDetailUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _movieDetailState = MutableStateFlow<Resource<MovieDetailModel>>(Resource.Initial)
@@ -23,7 +26,15 @@ class MovieDetailViewModel @Inject constructor(
 
     lateinit var navActions: NavActions
 
-    fun getMovieDetail(movieId: Int?) {
+    init {
+        savedStateHandle.get<Int>(Constants.MOVIE_ID)?.let { movieId ->
+            if (movieId != -1) {
+                getMovieDetail(movieId)
+            }
+        }
+    }
+
+    private fun getMovieDetail(movieId: Int?) {
         viewModelScope.launch {
             movieDetailUseCase.execute(movieId)
                 .collect {

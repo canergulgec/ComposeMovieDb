@@ -131,11 +131,10 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
         composable(
             route = Screen.Detail.route,
             arguments = listOf(navArgument(Constants.MOVIE_ID) {
-                type = NavType.StringType
+                type = NavType.IntType
             })
         ) {
-            val movieId = it.arguments?.getString(Constants.MOVIE_ID)
-            DetailScreen(movieId, actions)
+            DetailScreen(actions)
         }
     }
 }
@@ -160,7 +159,7 @@ class NavActions(navController: NavController) {
         navController.popBackStack()
     }
 
-    val gotoDetail: (String) -> Unit = { movieId ->
+    val gotoDetail: (Int) -> Unit = { movieId ->
         navController.navigate(Screen.Detail.createRoute(movieId))
     }
 }

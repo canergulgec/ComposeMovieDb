@@ -33,7 +33,6 @@ import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun DetailScreen(
-    movieId: String?,
     navActions: NavActions,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
@@ -41,7 +40,6 @@ fun DetailScreen(
     // even if there are multiple re-compositions
     LaunchedEffect(true) {
         viewModel.navActions = navActions
-        viewModel.getMovieDetail(movieId?.toInt())
     }
 
     when (val movieState = viewModel.movieDetailState.collectAsState().value) {

@@ -107,7 +107,7 @@ fun SearchList(
 @Composable
 fun SearchItem(
     item: Movie,
-    itemClicked: (String) -> Unit
+    itemClicked: (Int) -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -115,7 +115,7 @@ fun SearchItem(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clickable {
-                itemClicked(item.movieId.toString())
+                itemClicked(item.movieId)
             }
     ) {
         MoviePoster(
