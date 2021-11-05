@@ -10,7 +10,7 @@ import com.caner.composemoviedb.data.model.MovieModel
 import com.caner.composemoviedb.domain.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class MovieViewModel @Inject constructor(
     }
 
     private val _popularMovieState = MutableStateFlow<Resource<MovieModel>>(Resource.Initial)
-    val popularMovieState: StateFlow<Resource<MovieModel>> get() = _popularMovieState
+    val popularMovieState = _popularMovieState.asStateFlow()
 
     val moviePagingFlow =
         movieRepository.getMovies(Constants.NOW_PLAYING_MOVIES).cachedIn(viewModelScope)
