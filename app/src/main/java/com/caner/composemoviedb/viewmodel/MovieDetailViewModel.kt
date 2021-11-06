@@ -27,7 +27,7 @@ class MovieDetailViewModel @Inject constructor(
     lateinit var navActions: NavActions
 
     init {
-        savedStateHandle.get<Int>(Constants.MOVIE_ID)?.let { movieId ->
+        savedStateHandle.get<Int>(Constants.MOVIE_ID).let { movieId ->
             if (movieId != -1) {
                 getMovieDetail(movieId)
             }

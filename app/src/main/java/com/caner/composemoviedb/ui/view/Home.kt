@@ -132,6 +132,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
             route = Screen.Detail.route,
             arguments = listOf(navArgument(Constants.MOVIE_ID) {
                 type = NavType.IntType
+                defaultValue = -1
             })
         ) {
             DetailScreen(actions)
