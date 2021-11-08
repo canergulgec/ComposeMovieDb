@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.state
+package com.caner.composemoviedb.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

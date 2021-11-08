@@ -31,10 +31,10 @@ import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.presentation.viewmodel.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
-import com.caner.composemoviedb.ui.state.ErrorItem
-import com.caner.composemoviedb.ui.state.ErrorView
-import com.caner.composemoviedb.ui.state.LoadingItem
-import com.caner.composemoviedb.ui.state.LoadingView
+import com.caner.composemoviedb.ui.component.ErrorItem
+import com.caner.composemoviedb.ui.component.ErrorView
+import com.caner.composemoviedb.ui.component.LoadingItem
+import com.caner.composemoviedb.ui.component.LoadingView
 import com.caner.composemoviedb.view.home.NavActions
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
@@ -63,8 +63,7 @@ fun NowPlayingMovies(
     title: String = stringResource(id = R.string.now_playing),
     viewModel: MovieViewModel = hiltViewModel()
 ) {
-    var showTitle by remember { mutableStateOf(false) }
-    if (showTitle) {
+    if (viewModel.showPaginationTitle.value) {
         Text(
             modifier = Modifier.padding(16.dp),
             text = title,
@@ -79,7 +78,6 @@ fun NowPlayingMovies(
         verticalAlignment = Alignment.CenterVertically
     ) {
         items(nowPlayingMovieList) {
-            showTitle = true
             MovieItem(it) { movieId ->
                 navActions.gotoDetail(movieId)
             }
@@ -89,6 +87,7 @@ fun NowPlayingMovies(
             when {
                 loadState.refresh is LoadState.Loading -> {
                     item {
+                        viewModel.showPaginationTitle.value = true
                         LoadingView(
                             modifier = Modifier
                                 .fillParentMaxSize()
@@ -96,7 +95,6 @@ fun NowPlayingMovies(
                         )
                     }
                 }
-
                 loadState.refresh is LoadState.Error -> {
                     val e = nowPlayingMovieList.loadState.refresh as LoadState.Error
                     item {
@@ -107,11 +105,9 @@ fun NowPlayingMovies(
                         )
                     }
                 }
-
                 loadState.append is LoadState.Loading -> {
                     item { LoadingItem() }
                 }
-
                 loadState.append is LoadState.Error -> {
                     item {
                         ErrorItem(
@@ -144,7 +140,6 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
                     .clip(MaterialTheme.shapes.small)
                     .height(200.dp)
             )
-
             Text(
                 text = item?.title ?: "",
                 modifier = Modifier
@@ -155,7 +150,6 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
                 color = MaterialTheme.colors.onSecondary,
                 style = MaterialTheme.typography.caption,
             )
-
             MovieRating(voteAverage = item?.voteAverage.toString(), size = 20.dp)
         }
     }

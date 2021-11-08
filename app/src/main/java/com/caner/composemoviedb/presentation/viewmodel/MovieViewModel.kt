@@ -1,5 +1,6 @@
 package com.caner.composemoviedb.presentation.viewmodel
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -28,6 +29,8 @@ class MovieViewModel @Inject constructor(
 
     val moviePagingFlow =
         movieRepository.getMovies(Constants.NOW_PLAYING_MOVIES).cachedIn(viewModelScope)
+
+    var showPaginationTitle = mutableStateOf(false)
 
     private fun getPopularMovies() {
         viewModelScope.launch {
