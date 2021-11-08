@@ -27,6 +27,7 @@ import com.caner.composemoviedb.viewmodel.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.CustomSearchBar
 import com.caner.composemoviedb.ui.component.MoviePoster
+import com.caner.composemoviedb.ui.state.TextEvent
 import com.caner.composemoviedb.ui.theme.Dimens
 import kotlinx.coroutines.FlowPreview
 
@@ -42,20 +43,18 @@ fun SearchScreen(
             .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        /*    MovieTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                placeHolder = stringResource(id = R.string.search_hint)
-            ) {
-                viewModel.searchQuery.value = it
-            }*/
+        val contentState = viewModel.searchContent.value
         CustomSearchBar(
-            onSearch = {
-                viewModel.searchQuery.value = it
+            text = contentState.text,
+            isHintVisible = contentState.isHintVisible,
+            onValueChange = {
+                viewModel.onEvent(TextEvent.OnValueChange(it))
             },
-            onDismissSearchClicked = {
-                viewModel.searchQuery.value = ""
+            onFocusChange = {
+                viewModel.onEvent(TextEvent.OnFocusChange(it))
+            },
+            onDismissClicked = {
+                viewModel.onEvent(TextEvent.OnValueChange(""))
             },
             modifier = Modifier.padding(
                 vertical = Dimens.MediumPadding.size

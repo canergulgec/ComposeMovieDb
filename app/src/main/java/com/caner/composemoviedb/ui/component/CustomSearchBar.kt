@@ -19,7 +19,6 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -44,39 +43,34 @@ import com.caner.composemoviedb.ui.theme.DIRTY_WHITE
 @Composable
 fun CustomSearchBar(
     modifier: Modifier = Modifier,
+    text: String = "",
     hint: String = stringResource(id = R.string.search_hint),
-    onSearch: (String) -> Unit = { },
-    onDismissSearchClicked: () -> Unit = { },
+    isHintVisible: Boolean = true,
+    onValueChange: (String) -> Unit = {},
+    onDismissClicked: () -> Unit = {},
+    onFocusChange: (Boolean) -> Unit = {},
     keyboardController: SoftwareKeyboardController?
     = LocalSoftwareKeyboardController.current,
     focusManager: FocusManager = LocalFocusManager.current
 ) {
-    var searchText by rememberSaveable {
-        mutableStateOf("")
-    }
 
-    var isHintActive by rememberSaveable {
-        mutableStateOf(hint.isNotEmpty())
-    }
-    var isTyping by rememberSaveable {
-        mutableStateOf(false)
-    }
+    var isTyping = text.isNotEmpty()
 
     val paddingSize: Dp by animateDpAsState(
-        targetValue = if (isHintActive) {
+        targetValue = if (isHintVisible) {
             Dimens.UpperMediumPadding.size
         } else Dimens.MediumPadding.size
     )
 
     val angle: Float by animateFloatAsState(
-        targetValue = if (isHintActive) -90F else 0F,
+        targetValue = if (isHintVisible) -90F else 0F,
         animationSpec = tween(
             durationMillis = 300,
             easing = FastOutSlowInEasing
         )
     )
     val searchAndOptionsAngle: Float by animateFloatAsState(
-        targetValue = if (isHintActive) 0F else 90F,
+        targetValue = if (isHintVisible) 0F else 90F,
         animationSpec = tween(
             durationMillis = 300,
             easing = FastOutSlowInEasing
@@ -84,7 +78,7 @@ fun CustomSearchBar(
     )
 
     val hintAlpha: Float by animateFloatAsState(
-        targetValue = if (isHintActive) 1F else 0.6f
+        targetValue = if (isHintVisible) 1F else 0.6f
     )
 
     Row(
@@ -99,7 +93,7 @@ fun CustomSearchBar(
             .border(width = 0.5.dp, color = Color.Gray, shape = MaterialTheme.shapes.large)
     ) {
         Box(contentAlignment = Alignment.CenterStart) {
-            if (isHintActive) {
+            if (isHintVisible) {
                 Icon(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = stringResource(id = R.string.search_icon),
@@ -111,11 +105,10 @@ fun CustomSearchBar(
             } else {
                 IconButton(
                     onClick = {
-                        onDismissSearchClicked()
-                        searchText = ""
+                        onDismissClicked()
                         keyboardController?.hide()
                         focusManager.clearFocus()
-                        isTyping = searchText.isNotBlank()
+                        isTyping = text.isNotBlank()
                     },
                     modifier = Modifier
                         .padding(4.dp)
@@ -149,11 +142,10 @@ fun CustomSearchBar(
                     )
                 }
                 BasicTextField(
-                    value = searchText,
+                    value = text,
                     onValueChange = {
-                        searchText = it
-                        onSearch(it)
-                        isTyping = searchText.isNotBlank()
+                        onValueChange(it)
+                        isTyping = text.isNotBlank()
                     },
                     maxLines = 1,
                     cursorBrush = SolidColor(MaterialTheme.colors.primary),
@@ -167,7 +159,7 @@ fun CustomSearchBar(
                     keyboardActions = KeyboardActions(
                         onSearch = {
                             keyboardController?.hide()
-                            if (searchText.isBlank()) {
+                            if (text.isBlank()) {
                                 focusManager.clearFocus()
                             }
                         }
@@ -175,7 +167,7 @@ fun CustomSearchBar(
                     modifier = Modifier
                         // .fillMaxWidth()
                         .onFocusChanged {
-                            isHintActive = !it.isFocused
+                            onFocusChange(!it.isFocused)
                         }
                 )
             }
@@ -184,12 +176,11 @@ fun CustomSearchBar(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
             ) {
-                if (!isHintActive) {
+                if (!isHintVisible) {
                     IconButton(
                         onClick = {
-                            onDismissSearchClicked()
-                            searchText = ""
-                            isTyping = searchText.isNotBlank()
+                            onDismissClicked()
+                            isTyping = text.isNotBlank()
                         },
                         modifier = Modifier
                             .padding(4.dp)
