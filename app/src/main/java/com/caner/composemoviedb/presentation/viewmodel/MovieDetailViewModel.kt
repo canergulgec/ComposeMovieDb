@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.viewmodel
+package com.caner.composemoviedb.presentation.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import com.caner.composemoviedb.data.Constants
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.domain.usecase.MovieDetailUseCase
-import com.caner.composemoviedb.ui.view.NavActions
+import com.caner.composemoviedb.view.home.NavActions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,12 +1,12 @@
-package com.caner.composemoviedb.viewmodel
+package com.caner.composemoviedb.presentation.viewmodel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caner.composemoviedb.domain.usecase.SearchMovieUseCase
-import com.caner.composemoviedb.ui.state.TextEvent
-import com.caner.composemoviedb.ui.state.TextFieldState
+import com.caner.composemoviedb.view.search.state.TextEvent
+import com.caner.composemoviedb.view.search.state.TextFieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*

@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.view
+package com.caner.composemoviedb.view.movie
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -28,13 +28,14 @@ import androidx.paging.compose.items
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.Movie
-import com.caner.composemoviedb.viewmodel.MovieViewModel
+import com.caner.composemoviedb.presentation.viewmodel.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.state.ErrorItem
 import com.caner.composemoviedb.ui.state.ErrorView
 import com.caner.composemoviedb.ui.state.LoadingItem
 import com.caner.composemoviedb.ui.state.LoadingView
+import com.caner.composemoviedb.view.home.NavActions
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue

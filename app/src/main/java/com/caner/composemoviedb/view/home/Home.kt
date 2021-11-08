@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.view
+package com.caner.composemoviedb.view.home
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -18,7 +18,10 @@ import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.Constants
-import com.caner.composemoviedb.ui.navigation.Screen
+import com.caner.composemoviedb.presentation.util.Screen
+import com.caner.composemoviedb.view.detail.DetailScreen
+import com.caner.composemoviedb.view.movie.MovieScreen
+import com.caner.composemoviedb.view.search.SearchScreen
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview

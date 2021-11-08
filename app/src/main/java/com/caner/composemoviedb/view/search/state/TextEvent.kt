@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.state
+package com.caner.composemoviedb.view.search.state
 
 sealed class TextEvent {
     data class OnValueChange(val text: String) : TextEvent()

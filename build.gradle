@@ -25,6 +25,7 @@ allprojects {
             freeCompilerArgs += "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"
             freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"
             freeCompilerArgs += "-Xopt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+            freeCompilerArgs += "-Xopt-in=coil.annotation.ExperimentalCoilApi"
         }
     }
 }

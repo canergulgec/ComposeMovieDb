@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.view
+package com.caner.composemoviedb.view.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,10 +25,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
-import com.caner.composemoviedb.viewmodel.MovieDetailViewModel
+import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.theme.*
+import com.caner.composemoviedb.view.home.NavActions
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable

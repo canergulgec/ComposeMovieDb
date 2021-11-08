@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui.view
+package com.caner.composemoviedb.view.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,12 +23,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.Movie
-import com.caner.composemoviedb.viewmodel.SearchViewModel
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.CustomSearchBar
+import com.caner.composemoviedb.presentation.viewmodel.SearchViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
-import com.caner.composemoviedb.ui.state.TextEvent
+import com.caner.composemoviedb.view.search.state.TextEvent
 import com.caner.composemoviedb.ui.theme.Dimens
+import com.caner.composemoviedb.view.home.NavActions
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview

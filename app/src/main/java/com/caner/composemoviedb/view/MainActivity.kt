@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.ui
+package com.caner.composemoviedb.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,8 +12,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
 import com.caner.composemoviedb.data.local.ThemeManager
-import com.caner.composemoviedb.ui.view.*
 import com.caner.composemoviedb.ui.theme.MovieItemComposeTheme
+import com.caner.composemoviedb.view.home.Home
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview

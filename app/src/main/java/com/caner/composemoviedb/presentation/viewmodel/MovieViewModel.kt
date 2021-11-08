@@ -1,6 +1,5 @@
-package com.caner.composemoviedb.viewmodel
+package com.caner.composemoviedb.presentation.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -17,8 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
-    private val movieRepository: MovieRepository,
-    savedStateHandle: SavedStateHandle
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
     init {
