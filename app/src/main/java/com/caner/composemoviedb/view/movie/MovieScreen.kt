@@ -126,7 +126,7 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
         contentColor = Color.LightGray,
-        modifier = Modifier.width(150.dp)
+        modifier = Modifier.width(135.dp)
     ) {
         Column(horizontalAlignment = CenterHorizontally,
             modifier = Modifier
@@ -137,8 +137,8 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
             MoviePoster(
                 item?.poster?.original, modifier = Modifier
                     .fillMaxWidth()
+                    .aspectRatio(0.8f)
                     .clip(MaterialTheme.shapes.small)
-                    .height(200.dp)
             )
             Text(
                 text = item?.title ?: "",
@@ -208,7 +208,7 @@ fun PopularMoviesHorizontalPager(movies: List<Movie>) {
                     )
                 }
                 .fillMaxWidth()
-                .aspectRatio(1.6f)
+                .aspectRatio(1.7f)
         ) {
             Box(
                 modifier = Modifier
