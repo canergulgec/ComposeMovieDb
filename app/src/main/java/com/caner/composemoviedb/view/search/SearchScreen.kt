@@ -29,7 +29,7 @@ import com.caner.composemoviedb.presentation.viewmodel.SearchViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.view.search.state.TextEvent
 import com.caner.composemoviedb.ui.theme.Dimens
-import com.caner.composemoviedb.view.home.NavActions
+import com.caner.composemoviedb.view.main.NavActions
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
