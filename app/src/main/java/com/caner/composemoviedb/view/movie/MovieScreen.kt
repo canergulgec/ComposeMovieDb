@@ -35,7 +35,7 @@ import com.caner.composemoviedb.ui.component.ErrorItem
 import com.caner.composemoviedb.ui.component.ErrorView
 import com.caner.composemoviedb.ui.component.LoadingItem
 import com.caner.composemoviedb.ui.component.LoadingView
-import com.caner.composemoviedb.view.home.NavActions
+import com.caner.composemoviedb.view.main.NavActions
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue

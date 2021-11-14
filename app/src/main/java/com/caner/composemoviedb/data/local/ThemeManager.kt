@@ -10,15 +10,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
-import javax.inject.Singleton
 
 val Context.themePrefDataStore by preferencesDataStore(Constants.PREF_KEY)
 
-class ThemeManagerImpl(context: Context) : ThemeManager {
+class ThemeManager(context: Context) {
 
     private val dataStore = context.themePrefDataStore
 
-    override val uiModeFlow: Flow<Boolean> = dataStore.data
+    val uiModeFlow: Flow<Boolean> = dataStore.data
         .catch {
             if (it is IOException) {
                 it.printStackTrace()
@@ -28,7 +27,7 @@ class ThemeManagerImpl(context: Context) : ThemeManager {
             }
         }.map { preference -> preference[IS_DARK_MODE] ?: false }
 
-    override suspend fun setDarkMode(enable: Boolean) {
+    suspend fun setDarkMode(enable: Boolean) {
         dataStore.edit { preferences ->
             preferences[IS_DARK_MODE] = enable
         }
@@ -37,10 +36,4 @@ class ThemeManagerImpl(context: Context) : ThemeManager {
     companion object {
         val IS_DARK_MODE = booleanPreferencesKey(Constants.DARK_MODE)
     }
-}
-
-@Singleton
-interface ThemeManager {
-    val uiModeFlow: Flow<Boolean>
-    suspend fun setDarkMode(enable: Boolean)
 }

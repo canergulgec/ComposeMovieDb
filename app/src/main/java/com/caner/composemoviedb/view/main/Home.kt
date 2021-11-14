@@ -1,5 +1,6 @@
-package com.caner.composemoviedb.view.home
+package com.caner.composemoviedb.view.main
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
@@ -9,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -19,6 +21,7 @@ import androidx.navigation.navArgument
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.Constants
 import com.caner.composemoviedb.presentation.util.Screen
+import com.caner.composemoviedb.presentation.viewmodel.MainViewModel
 import com.caner.composemoviedb.view.detail.DetailScreen
 import com.caner.composemoviedb.view.movie.MovieScreen
 import com.caner.composemoviedb.view.search.SearchScreen
@@ -26,11 +29,11 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
-fun Home(changeTheme: () -> Unit) {
+fun Home(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
-            if (currentRoute(navController = navController) != Screen.Detail.route) {
+            AnimatedVisibility(visible = viewModel.bottomBarVisibility.value) {
                 BottomNavigationBar(
                     controller = navController,
                     onNavigationSelected = { screen ->
@@ -60,6 +63,11 @@ fun Home(changeTheme: () -> Unit) {
     ) {
         //Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
         Navigation(navController = navController, modifier = Modifier)
+    }
+
+    when (currentRoute(navController = navController)) {
+        Screen.Detail.route -> viewModel.changeBottomBarVisibility(false)
+        else -> viewModel.changeBottomBarVisibility(true)
     }
 }
 
@@ -149,11 +157,6 @@ fun currentRoute(navController: NavHostController): String? {
     return navBackStackEntry?.destination?.route
 }
 
-private val HomeNavigationItems = listOf(
-    Screen.Movie,
-    Screen.Search
-)
-
 class NavActions(navController: NavController) {
     val upPress: () -> Unit = {
         navController.navigateUp()
@@ -167,3 +170,8 @@ class NavActions(navController: NavController) {
         navController.navigate(Screen.Detail.createRoute(movieId))
     }
 }
+
+private val HomeNavigationItems = listOf(
+    Screen.Movie,
+    Screen.Search
+)

@@ -31,7 +31,7 @@ import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.theme.*
-import com.caner.composemoviedb.view.home.NavActions
+import com.caner.composemoviedb.view.main.NavActions
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable

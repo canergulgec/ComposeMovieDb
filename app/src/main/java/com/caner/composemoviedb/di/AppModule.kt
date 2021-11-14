@@ -2,7 +2,6 @@ package com.caner.composemoviedb.di
 
 import android.content.Context
 import com.caner.composemoviedb.data.local.ThemeManager
-import com.caner.composemoviedb.data.local.ThemeManagerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +16,6 @@ class AppModule {
     @Singleton
     @Provides
     fun providePreferenceManager(@ApplicationContext context: Context): ThemeManager {
-        return ThemeManagerImpl(context = context)
+        return ThemeManager(context = context)
     }
 }
