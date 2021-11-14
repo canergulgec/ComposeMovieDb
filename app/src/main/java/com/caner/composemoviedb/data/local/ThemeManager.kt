@@ -13,7 +13,7 @@ import java.io.IOException
 
 val Context.themePrefDataStore by preferencesDataStore(Constants.PREF_KEY)
 
-class ThemeManagerImpl(context: Context) {
+class ThemeManager(context: Context) {
 
     private val dataStore = context.themePrefDataStore
 

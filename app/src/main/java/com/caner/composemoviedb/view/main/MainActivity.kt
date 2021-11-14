@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -20,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
 
-@ExperimentalAnimationApi //todo experimental
 @FlowPreview
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
