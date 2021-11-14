@@ -71,19 +71,19 @@ fun NowPlayingMovies(
         )
     }
 
-    val nowPlayingMovieList = viewModel.moviePagingFlow.collectAsLazyPagingItems()
+    val movieItems = viewModel.moviePagingFlow.collectAsLazyPagingItems()
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(nowPlayingMovieList) {
+        items(movieItems) {
             MovieItem(it) { movieId ->
                 navActions.gotoDetail(movieId)
             }
         }
 
-        nowPlayingMovieList.apply {
+        movieItems.apply {
             when {
                 loadState.refresh is LoadState.Loading -> {
                     item {
@@ -96,7 +96,7 @@ fun NowPlayingMovies(
                     }
                 }
                 loadState.refresh is LoadState.Error -> {
-                    val e = nowPlayingMovieList.loadState.refresh as LoadState.Error
+                    val e = movieItems.loadState.refresh as LoadState.Error
                     item {
                         ErrorView(
                             message = e.error.localizedMessage!!,

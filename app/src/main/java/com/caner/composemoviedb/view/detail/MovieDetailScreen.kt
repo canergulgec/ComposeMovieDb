@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
+import com.caner.composemoviedb.domain.extension.rememberFlowWithLifecycle
 import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
@@ -43,13 +45,16 @@ fun DetailScreen(
         viewModel.navActions = navActions
     }
 
-    when (val movieState = viewModel.movieDetailState.collectAsState().value) {
+    val viewState by rememberFlowWithLifecycle(flow = viewModel.movieDetailState)
+        .collectAsState(initial = Resource.Initial)
+    when (viewState) {
         is Resource.Success -> {
+            val data = (viewState as Resource.Success<MovieDetailModel>).data
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieTopSection(movieState.data)
-                ChipSection(movieState.data.genres)
+                MovieTopSection(data)
+                ChipSection(data.genres)
                 Text(
                     modifier = Modifier
                         .offset(y = (-58).dp)
@@ -57,7 +62,7 @@ fun DetailScreen(
                     style = MaterialTheme.typography.body2,
                     color = MaterialTheme.colors.secondary,
                     lineHeight = 20.sp,
-                    text = movieState.data.overview,
+                    text = data.overview,
                 )
             }
         }
@@ -71,10 +76,7 @@ fun DetailScreen(
             }
         }
 
-        is Resource.Error -> {
-        }
-
-        is Resource.Initial -> {
+        else -> {
         }
     }
 }
