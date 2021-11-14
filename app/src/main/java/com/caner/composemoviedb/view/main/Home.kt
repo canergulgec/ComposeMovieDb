@@ -1,7 +1,6 @@
 package com.caner.composemoviedb.view.main
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
@@ -28,7 +27,6 @@ import com.caner.composemoviedb.view.movie.MovieScreen
 import com.caner.composemoviedb.view.search.SearchScreen
 import kotlinx.coroutines.FlowPreview
 
-@ExperimentalAnimationApi
 @FlowPreview
 @Composable
 fun Home(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
