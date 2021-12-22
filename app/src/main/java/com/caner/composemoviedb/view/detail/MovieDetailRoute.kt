@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,11 +22,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
-import com.caner.composemoviedb.domain.extension.rememberFlowWithLifecycle
 import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
+import com.caner.composemoviedb.ui.component.FullScreenLoading
+import com.caner.composemoviedb.ui.component.LoadingContent
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.theme.*
@@ -35,7 +34,7 @@ import com.caner.composemoviedb.view.main.NavActions
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun DetailScreen(
+fun MovieDetailRoute(
     navActions: NavActions,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
@@ -45,40 +44,32 @@ fun DetailScreen(
         viewModel.navActions = navActions
     }
 
-    val viewState by rememberFlowWithLifecycle(flow = viewModel.movieDetailState)
-        .collectAsState(initial = Resource.Initial)
-    when (viewState) {
-        is Resource.Success -> {
-            val data = (viewState as Resource.Success<MovieDetailModel>).data
+    val uiState by viewModel.uiState.collectAsState()
+    val movieModel = uiState.movieDetailModel
+
+    LoadingContent(
+        loading = uiState.isFetchingMovieDetail,
+        loadingContent = { FullScreenLoading() },
+        content = {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieTopSection(data)
-                ChipSection(data.genres)
-                Text(
-                    modifier = Modifier
-                        .offset(y = (-58).dp)
-                        .padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.body2,
-                    color = MaterialTheme.colors.secondary,
-                    lineHeight = 20.sp,
-                    text = data.overview,
-                )
+                movieModel?.let {
+                    MovieTopSection(it)
+                    ChipSection(it.genres)
+                    Text(
+                        modifier = Modifier
+                            .offset(y = (-58).dp)
+                            .padding(horizontal = 16.dp),
+                        style = MaterialTheme.typography.body2,
+                        color = MaterialTheme.colors.secondary,
+                        lineHeight = 20.sp,
+                        text = it.overview,
+                    )
+                }
             }
         }
-
-        is Resource.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-
-        else -> {
-        }
-    }
+    )
 }
 
 @Composable

@@ -41,7 +41,7 @@ import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
 
 @Composable
-fun MovieScreen(
+fun MovieRoute(
     navActions: NavActions
 ) {
     val scrollState = rememberScrollState(0)

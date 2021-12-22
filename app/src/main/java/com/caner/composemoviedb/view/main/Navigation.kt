@@ -22,14 +22,14 @@ import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.Constants
 import com.caner.composemoviedb.presentation.util.Screen
 import com.caner.composemoviedb.presentation.viewmodel.MainViewModel
-import com.caner.composemoviedb.view.detail.DetailScreen
-import com.caner.composemoviedb.view.movie.MovieScreen
+import com.caner.composemoviedb.view.detail.MovieDetailRoute
+import com.caner.composemoviedb.view.movie.MovieRoute
 import com.caner.composemoviedb.view.search.SearchScreen
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
-fun Home(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
+fun MainNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -133,7 +133,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
 
     NavHost(navController, startDestination = Screen.Movie.route, modifier = modifier) {
         composable(Screen.Movie.route) {
-            MovieScreen(actions)
+            MovieRoute(actions)
         }
         composable(Screen.Search.route) {
             SearchScreen(actions)
@@ -146,7 +146,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
                 defaultValue = -1
             })
         ) {
-            DetailScreen(actions)
+            MovieDetailRoute(actions)
         }
     }
 }

@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 
             MovieItemComposeTheme(darkTheme = darkMode) {
                 SetStatusBarColor()
-                Home(toggleTheme)
+                MainNavigation(toggleTheme)
             }
         }
         observeThemeMode()

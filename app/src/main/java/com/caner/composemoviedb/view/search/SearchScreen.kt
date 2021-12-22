@@ -21,15 +21,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.CustomSearchBar
 import com.caner.composemoviedb.presentation.viewmodel.SearchViewModel
+import com.caner.composemoviedb.ui.component.LoadingContent
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.view.search.state.TextEvent
 import com.caner.composemoviedb.ui.theme.Dimens
 import com.caner.composemoviedb.view.main.NavActions
+import com.caner.composemoviedb.view.search.state.SearchUiState
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
@@ -44,10 +45,10 @@ fun SearchScreen(
             .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val contentState = viewModel.searchContent.value
+        val uiState by viewModel.uiState.collectAsState()
         CustomSearchBar(
-            text = contentState.text,
-            isHintVisible = contentState.isHintVisible,
+            text = uiState.searchTitle,
+            isHintVisible = uiState.isHintVisible,
             onValueChange = {
                 viewModel.onEvent(TextEvent.OnValueChange(it))
             },
@@ -62,44 +63,43 @@ fun SearchScreen(
             )
         )
 
-        SearchList(navActions)
+        SearchList(uiState, navActions)
     }
 }
 
 @FlowPreview
 @Composable
 fun SearchList(
-    navActions: NavActions,
-    viewModel: SearchViewModel = hiltViewModel()
+    uiState: SearchUiState,
+    navActions: NavActions
 ) {
-    when (val result = viewModel.searchFlow.collectAsState(initial = Resource.Initial).value) {
-        is Resource.Success -> {
-            LazyColumn(
-                contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(result.data.movies) { item ->
-                    SearchItem(item) { movieId ->
-                        navActions.gotoDetail(movieId)
-                    }
-                    Divider(
-                        color = Color.LightGray,
-                        thickness = 0.5.dp,
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                    )
-                }
-            }
-        }
-        is Resource.Loading -> {
-            CircularProgressIndicator()
-        }
-        is Resource.Initial, Resource.Empty -> {
+    when (uiState) {
+        is SearchUiState.NoMovies -> {
             MovieTypes()
         }
-
-        is Resource.Error -> {
-
+        is SearchUiState.HasMovies -> {
+            LoadingContent(
+                loading = uiState.isFetchingMovies,
+                loadingContent = { CircularProgressIndicator() },
+                content = {
+                    LazyColumn(
+                        contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(uiState.movies) { item ->
+                            SearchItem(
+                                item = item,
+                                itemClicked = { movieId -> navActions.gotoDetail(movieId) }
+                            )
+                            Divider(
+                                color = Color.LightGray,
+                                thickness = 0.5.dp,
+                                modifier = Modifier.padding(top = 16.dp)
+                            )
+                        }
+                    }
+                }
+            )
         }
     }
 }
