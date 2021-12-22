@@ -35,7 +35,7 @@ import com.caner.composemoviedb.view.main.NavActions
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun DetailScreen(
+fun MovieDetailRoute(
     navActions: NavActions,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
@@ -45,39 +45,54 @@ fun DetailScreen(
         viewModel.navActions = navActions
     }
 
-    val viewState by rememberFlowWithLifecycle(flow = viewModel.movieDetailState)
-        .collectAsState(initial = Resource.Initial)
-    when (viewState) {
-        is Resource.Success -> {
-            val data = (viewState as Resource.Success<MovieDetailModel>).data
+    val uiState by viewModel.uiState.collectAsState()
+    val movieModel = uiState.movieDetailModel
+
+    LoadingContent(
+        loading = uiState.isFetchingMovieDetail,
+        loadingContent = { FullScreenLoading() },
+        content = {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MovieTopSection(data)
-                ChipSection(data.genres)
-                Text(
-                    modifier = Modifier
-                        .offset(y = (-58).dp)
-                        .padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.body2,
-                    color = MaterialTheme.colors.secondary,
-                    lineHeight = 20.sp,
-                    text = data.overview,
-                )
+                movieModel?.let {
+                    MovieTopSection(it)
+                    ChipSection(it.genres)
+                    Text(
+                        modifier = Modifier
+                            .offset(y = (-58).dp)
+                            .padding(horizontal = 16.dp),
+                        style = MaterialTheme.typography.body2,
+                        color = MaterialTheme.colors.secondary,
+                        lineHeight = 20.sp,
+                        text = it.overview,
+                    )
+                }
             }
         }
+    )
+}
 
-        is Resource.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
+@Composable
+private fun LoadingContent(
+    loading: Boolean,
+    loadingContent: @Composable () -> Unit,
+    content: @Composable () -> Unit
+) {
+    if (loading) {
+        loadingContent()
+    } else {
+        content()
+    }
+}
 
-        else -> {
-        }
+@Composable
+private fun FullScreenLoading() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }
 
