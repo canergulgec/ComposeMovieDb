@@ -29,7 +29,7 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
-fun Home(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
+fun MainNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {

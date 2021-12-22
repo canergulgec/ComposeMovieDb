@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,11 +22,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
-import com.caner.composemoviedb.domain.extension.rememberFlowWithLifecycle
 import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
+import com.caner.composemoviedb.ui.component.FullScreenLoading
+import com.caner.composemoviedb.ui.component.LoadingContent
 import com.caner.composemoviedb.ui.component.MoviePoster
 import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.theme.*
@@ -71,29 +70,6 @@ fun MovieDetailRoute(
             }
         }
     )
-}
-
-@Composable
-private fun LoadingContent(
-    loading: Boolean,
-    loadingContent: @Composable () -> Unit,
-    content: @Composable () -> Unit
-) {
-    if (loading) {
-        loadingContent()
-    } else {
-        content()
-    }
-}
-
-@Composable
-private fun FullScreenLoading() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
 }
 
 @Composable
