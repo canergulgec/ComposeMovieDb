@@ -24,7 +24,7 @@ import com.caner.composemoviedb.presentation.util.Screen
 import com.caner.composemoviedb.presentation.viewmodel.MainViewModel
 import com.caner.composemoviedb.view.detail.MovieDetailRoute
 import com.caner.composemoviedb.view.movie.MovieRoute
-import com.caner.composemoviedb.view.search.SearchScreen
+import com.caner.composemoviedb.view.search.SearchRoute
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
@@ -136,7 +136,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
             MovieRoute(actions)
         }
         composable(Screen.Search.route) {
-            SearchScreen(actions)
+            SearchRoute(actions)
         }
 
         composable(

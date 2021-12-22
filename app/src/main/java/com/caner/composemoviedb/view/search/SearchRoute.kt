@@ -35,7 +35,7 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
-fun SearchScreen(
+fun SearchRoute(
     navActions: NavActions,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
