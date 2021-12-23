@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.presentation.viewmodel.MovieViewModel
 import com.caner.composemoviedb.ui.component.MoviePoster
@@ -36,42 +36,44 @@ import com.caner.composemoviedb.ui.component.ErrorView
 import com.caner.composemoviedb.ui.component.LoadingItem
 import com.caner.composemoviedb.ui.component.LoadingView
 import com.caner.composemoviedb.view.main.NavActions
+import com.caner.composemoviedb.view.movie.state.MovieUiState
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
 
 @Composable
 fun MovieRoute(
-    navActions: NavActions
+    navActions: NavActions,
+    viewModel: MovieViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState(0)
+    val nowPlayingMovies = viewModel.nowPlayingMoviesPagingFlow.collectAsLazyPagingItems()
+    val popularMovieState by viewModel.popularMovieUiState.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
             .verticalScroll(state = scrollState)
     ) {
-        NowPlayingMovies(navActions)
+        NowPlayingMovies(movieItems = nowPlayingMovies, navActions = navActions)
         Spacer(modifier = Modifier.height(16.dp))
-        PopularMovies()
+        PopularMovies(popularMovieState)
     }
 }
 
 @Composable
 fun NowPlayingMovies(
+    movieItems: LazyPagingItems<Movie>,
     navActions: NavActions,
-    title: String = stringResource(id = R.string.now_playing),
-    viewModel: MovieViewModel = hiltViewModel()
+    title: String = stringResource(id = R.string.now_playing)
 ) {
-    if (viewModel.showPaginationTitle.value) {
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = title,
-            style = MaterialTheme.typography.h6
-        )
-    }
+    Text(
+        modifier = Modifier.padding(16.dp),
+        text = title,
+        style = MaterialTheme.typography.h6
+    )
 
-    val movieItems = viewModel.moviePagingFlow.collectAsLazyPagingItems()
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -83,11 +85,10 @@ fun NowPlayingMovies(
             }
         }
 
-        movieItems.apply {
+        movieItems.loadState.apply {
             when {
-                loadState.refresh is LoadState.Loading -> {
+                refresh is LoadState.Loading -> {
                     item {
-                        viewModel.showPaginationTitle.value = true
                         LoadingView(
                             modifier = Modifier
                                 .fillParentMaxSize()
@@ -95,23 +96,23 @@ fun NowPlayingMovies(
                         )
                     }
                 }
-                loadState.refresh is LoadState.Error -> {
+                refresh is LoadState.Error -> {
                     val e = movieItems.loadState.refresh as LoadState.Error
                     item {
                         ErrorView(
                             message = e.error.localizedMessage!!,
                             modifier = Modifier.fillParentMaxSize(),
-                            onClickRetry = { retry() }
+                            onClickRetry = { movieItems.retry() }
                         )
                     }
                 }
-                loadState.append is LoadState.Loading -> {
+                append is LoadState.Loading -> {
                     item { LoadingItem() }
                 }
-                loadState.append is LoadState.Error -> {
+                append is LoadState.Error -> {
                     item {
                         ErrorItem(
-                            onClickRetry = { retry() }
+                            onClickRetry = { movieItems.retry() }
                         )
                     }
                 }
@@ -156,28 +157,22 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
 }
 
 @Composable
-fun PopularMovies(viewModel: MovieViewModel = hiltViewModel()) {
-    when (val result =
-        viewModel.popularMovieState.collectAsState(initial = Resource.Initial).value) {
-        is Resource.Success -> {
-            Text(
-                modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
-                text = stringResource(id = R.string.popular),
-                style = MaterialTheme.typography.h6
-            )
+fun PopularMovies(uiState: MovieUiState) {
+    if (!uiState.isFetchingPopularMovies) {
+        Text(
+            modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
+            text = stringResource(id = R.string.popular),
+            style = MaterialTheme.typography.h6
+        )
 
-            PopularMoviesHorizontalPager(result.data.movies)
-        }
-        else -> {
-        }
+        PopularMoviesHorizontalPager(uiState.popularMovies)
     }
 }
 
 @Composable
 fun PopularMoviesHorizontalPager(movies: List<Movie>) {
     HorizontalPager(
-        count = 10,
-        // Add 32.dp horizontal padding to 'center' the pages
+        count = movies.size,
         contentPadding = PaddingValues(horizontal = 32.dp),
         modifier = Modifier.fillMaxSize()
     ) { page ->

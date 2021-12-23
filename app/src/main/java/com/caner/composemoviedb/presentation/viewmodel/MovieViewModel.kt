@@ -1,17 +1,14 @@
 package com.caner.composemoviedb.presentation.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.caner.composemoviedb.data.Constants
 import com.caner.composemoviedb.data.viewstate.Resource
-import com.caner.composemoviedb.data.model.MovieModel
 import com.caner.composemoviedb.domain.repository.MovieRepository
+import com.caner.composemoviedb.view.movie.state.MovieUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,19 +21,30 @@ class MovieViewModel @Inject constructor(
         getPopularMovies()
     }
 
-    private val _popularMovieState = MutableStateFlow<Resource<MovieModel>>(Resource.Initial)
-    val popularMovieState = _popularMovieState.asStateFlow()
+    private val _popularMovieUiState =
+        MutableStateFlow(MovieUiState(isFetchingPopularMovies = true))
+    val popularMovieUiState: StateFlow<MovieUiState> = _popularMovieUiState.asStateFlow()
 
-    val moviePagingFlow =
+    val nowPlayingMoviesPagingFlow =
         movieRepository.getMovies(Constants.NOW_PLAYING_MOVIES).cachedIn(viewModelScope)
-
-    var showPaginationTitle = mutableStateOf(false)
 
     private fun getPopularMovies() {
         viewModelScope.launch {
             movieRepository.getPopularMovies()
-                .collect {
-                    _popularMovieState.value = it
+                .collect { resource ->
+                    when (resource) {
+                        is Resource.Success -> {
+                            _popularMovieUiState.update {
+                                it.copy(
+                                    popularMovies = resource.data.movies,
+                                    isFetchingPopularMovies = false
+                                )
+                            }
+                        }
+                        else -> {
+                            // Handle error state
+                        }
+                    }
                 }
         }
     }
