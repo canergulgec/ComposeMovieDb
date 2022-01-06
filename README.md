@@ -25,6 +25,7 @@ In order to use MovieDB:
 - [Kotlin](https://kotlinlang.org)
 - [Dagger Hilt](https://dagger.dev/hilt/)
 - [Coroutines Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html)
+- [Splash Screen API](https://developer.android.com/guide/topics/ui/splash-screen/migrate)
 - [Jetpack](https://developer.android.com/jetpack?gclid=CjwKCAiA25v_BRBNEiwAZb4-ZRLrSzIFlpm0NDTFGSuapyosjuVKi0AVLXGgVqSwqe46gejCg31LvRoCAwIQAvD_BwE&gclsrc=aw.ds)
     * [Compose](https://developer.android.com/jetpack/compose)
     * [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
