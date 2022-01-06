@@ -60,19 +60,21 @@ kapt {
 }
 
 dependencies {
+
+    // Jetpack
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "com.google.android.material:material:$materialDesign"
-
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel"
+    implementation "androidx.datastore:datastore-preferences:$dataStore"
 
     // Dagger - Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation"
 
-    // Retrofit
+    // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     implementation "com.squareup.okhttp3:okhttp:$okhttp"
@@ -96,14 +98,15 @@ dependencies {
     // Coil
     implementation "io.coil-kt:coil-compose:$coil"
 
-    // DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    // Splash Screen API
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha02"
 
-    // Flipper
+    // App Debugging
     debugImplementation "com.facebook.flipper:flipper:$flipper"
     debugImplementation "com.facebook.soloader:soloader:$soloader"
     debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper"
 
+    // Testing
     testImplementation "junit:junit:$junit"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"

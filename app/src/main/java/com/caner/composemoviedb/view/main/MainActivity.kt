@@ -11,9 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.caner.composemoviedb.presentation.viewmodel.MainViewModel
-import com.caner.composemoviedb.ui.theme.MovieItemComposeTheme
+import com.caner.composemoviedb.ui.theme.ComposeMovieDbTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
@@ -27,13 +28,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContent {
             val darkMode by viewModel.themeManager.uiModeFlow.collectAsState(initial = isSystemInDarkTheme())
             val toggleTheme: () -> Unit = {
                 viewModel.setDarkModeEnabled(!darkMode)
             }
 
-            MovieItemComposeTheme(darkTheme = darkMode) {
+            ComposeMovieDbTheme(darkTheme = darkMode) {
                 SetStatusBarColor()
                 MainNavigation(toggleTheme)
             }

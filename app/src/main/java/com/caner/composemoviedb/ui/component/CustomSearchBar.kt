@@ -36,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.caner.composemoviedb.ui.theme.Dimens
-import com.caner.composemoviedb.ui.theme.MovieItemComposeTheme
 import com.caner.composemoviedb.R
+import com.caner.composemoviedb.ui.theme.ComposeMovieDbTheme
 import com.caner.composemoviedb.ui.theme.DIRTY_WHITE
 
 @Composable
@@ -201,7 +201,7 @@ fun CustomSearchBar(
 @Preview
 @Composable
 private fun CustomSearchBarPreview() {
-    MovieItemComposeTheme {
+    ComposeMovieDbTheme {
         CustomSearchBar()
     }
 }

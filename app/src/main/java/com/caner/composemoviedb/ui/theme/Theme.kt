@@ -33,7 +33,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun MovieItemComposeTheme(
+fun ComposeMovieDbTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
