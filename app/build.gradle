@@ -95,11 +95,12 @@ dependencies {
     implementation "com.google.accompanist:accompanist-systemuicontroller:$ui_controller"
     implementation "com.google.accompanist:accompanist-pager:$pager"
 
-    // Coil
-    implementation "io.coil-kt:coil-compose:$coil"
-
     // Splash Screen API
     implementation "androidx.core:core-splashscreen:1.0.0-alpha02"
+
+    // Image Loading
+    implementation "io.coil-kt:coil-compose:$coil"
+    implementation "com.github.skydoves:landscapist-glide:$landscapist_glide"
 
     // App Debugging
     debugImplementation "com.facebook.flipper:flipper:$flipper"

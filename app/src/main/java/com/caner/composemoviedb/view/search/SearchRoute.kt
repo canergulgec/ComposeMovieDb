@@ -26,7 +26,7 @@ import com.caner.composemoviedb.ui.component.CircularProgress
 import com.caner.composemoviedb.ui.component.CustomSearchBar
 import com.caner.composemoviedb.presentation.viewmodel.SearchViewModel
 import com.caner.composemoviedb.ui.component.LoadingContent
-import com.caner.composemoviedb.ui.component.MoviePoster
+import com.caner.composemoviedb.ui.component.MoviePhoto
 import com.caner.composemoviedb.view.search.state.TextEvent
 import com.caner.composemoviedb.ui.theme.Dimens
 import com.caner.composemoviedb.view.main.NavActions
@@ -118,7 +118,7 @@ fun SearchItem(
                 itemClicked(item.movieId)
             }
     ) {
-        MoviePoster(
+        MoviePhoto(
             poster = item.poster?.original,
             modifier = Modifier
                 .width(100.dp)

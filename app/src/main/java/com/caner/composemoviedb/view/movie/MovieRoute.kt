@@ -29,12 +29,7 @@ import androidx.paging.compose.items
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.presentation.viewmodel.MovieViewModel
-import com.caner.composemoviedb.ui.component.MoviePoster
-import com.caner.composemoviedb.ui.component.MovieRating
-import com.caner.composemoviedb.ui.component.ErrorItem
-import com.caner.composemoviedb.ui.component.ErrorView
-import com.caner.composemoviedb.ui.component.LoadingItem
-import com.caner.composemoviedb.ui.component.LoadingView
+import com.caner.composemoviedb.ui.component.*
 import com.caner.composemoviedb.view.main.NavActions
 import com.caner.composemoviedb.view.movie.state.MovieUiState
 import com.google.accompanist.pager.HorizontalPager
@@ -135,7 +130,7 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
                     itemClicked(item?.movieId ?: -1)
                 }
         ) {
-            MoviePoster(
+            MoviePhoto(
                 item?.poster?.original, modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(0.8f)
@@ -210,7 +205,7 @@ fun PopularMoviesHorizontalPager(movies: List<Movie>) {
                     .fillMaxSize()
                     .clip(MaterialTheme.shapes.small)
             ) {
-                MoviePoster(poster = movie.backdrop?.original)
+                MoviePhoto(poster = movie.backdrop?.original)
                 Text(
                     text = movie.title, color = Color.White,
                     fontWeight = FontWeight.Bold,

@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.presentation.util
+package com.caner.composemoviedb.view.main
 
 import com.caner.composemoviedb.R
 

@@ -27,7 +27,7 @@ import com.caner.composemoviedb.data.model.remote.MovieGenre
 import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
 import com.caner.composemoviedb.ui.component.FullScreenLoading
 import com.caner.composemoviedb.ui.component.LoadingContent
-import com.caner.composemoviedb.ui.component.MoviePoster
+import com.caner.composemoviedb.ui.component.MoviePhoto
 import com.caner.composemoviedb.ui.component.MovieRating
 import com.caner.composemoviedb.ui.theme.*
 import com.caner.composemoviedb.view.main.NavActions
@@ -77,7 +77,7 @@ fun MovieTopSection(data: MovieDetailModel) {
     Column {
         MovieBackdropSection(data.backdrop?.original)
         Row(modifier = Modifier.fillMaxWidth()) {
-            MoviePoster(
+            MoviePhoto(
                 poster = data.poster?.original, modifier = Modifier
                     .offset(y = (-90).dp)
                     .padding(start = 16.dp)
@@ -112,7 +112,7 @@ fun MovieBackdropSection(backdrop: String?, viewModel: MovieDetailViewModel = hi
             .fillMaxWidth()
             .fillMaxHeight(0.4f)
     ) {
-        MoviePoster(poster = backdrop, modifier = Modifier.fillMaxSize())
+        MoviePhoto(poster = backdrop, modifier = Modifier.fillMaxSize())
         Box(
             modifier = Modifier
                 .fillMaxSize()

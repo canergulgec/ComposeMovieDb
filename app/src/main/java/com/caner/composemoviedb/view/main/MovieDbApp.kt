@@ -20,7 +20,6 @@ import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.Constants
-import com.caner.composemoviedb.presentation.util.Screen
 import com.caner.composemoviedb.presentation.viewmodel.MainViewModel
 import com.caner.composemoviedb.view.detail.MovieDetailRoute
 import com.caner.composemoviedb.view.movie.MovieRoute
@@ -29,7 +28,7 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
-fun MainNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
+fun MovieDbApp(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
