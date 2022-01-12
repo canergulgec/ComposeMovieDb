@@ -36,6 +36,7 @@ In order to use MovieDB:
     * [Pager](https://google.github.io/accompanist/pager/)
     * [Flow Layouts](https://google.github.io/accompanist/flowlayout/)
 - [Coil](https://github.com/coil-kt/coil)
+- [Landscapist](https://github.com/skydoves/Landscapist)
 
 ## 🗼 Architecture
 
