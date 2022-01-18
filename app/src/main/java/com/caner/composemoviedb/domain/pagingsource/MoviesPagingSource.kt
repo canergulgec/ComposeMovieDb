@@ -10,20 +10,14 @@ import javax.inject.Inject
 
 class MoviesPagingSource @Inject constructor(
     private val movieApi: MovieApi,
-    private val movieMapper: MovieMapper,
-    private val type: Int
+    private val movieMapper: MovieMapper
 ) : PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key ?: Constants.MOVIE_STARTING_PAGE_INDEX
 
         return try {
-            val apiRequest = if (type == Constants.NOW_PLAYING_MOVIES) {
-                movieApi.getNowPlayingMovies(getParams(page))
-            } else {
-                movieApi.getUpcomingMovies(getParams(page))
-            }
-            apiRequest.run {
+            movieApi.getNowPlayingMovies(getParams(page)).run {
                 val data = movieMapper.to(this)
                 LoadResult.Page(
                     data = data.movies,

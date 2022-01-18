@@ -3,7 +3,6 @@ package com.caner.composemoviedb.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.caner.composemoviedb.data.Constants
 import com.caner.composemoviedb.data.viewstate.Resource
 import com.caner.composemoviedb.domain.repository.MovieRepository
 import com.caner.composemoviedb.view.movie.state.MovieUiState
@@ -25,8 +24,7 @@ class MovieViewModel @Inject constructor(
         MutableStateFlow(MovieUiState(isFetchingPopularMovies = true))
     val popularMovieUiState: StateFlow<MovieUiState> = _popularMovieUiState.asStateFlow()
 
-    val nowPlayingMoviesPagingFlow =
-        movieRepository.getMovies(Constants.NOW_PLAYING_MOVIES).cachedIn(viewModelScope)
+    val nowPlayingMoviesPagingFlow = movieRepository.getMovies().cachedIn(viewModelScope)
 
     private fun getPopularMovies() {
         viewModelScope.launch {

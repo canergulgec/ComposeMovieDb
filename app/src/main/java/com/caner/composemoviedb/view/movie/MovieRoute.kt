@@ -131,7 +131,7 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
                 }
         ) {
             MoviePhoto(
-                item?.poster?.original, modifier = Modifier
+                item?.poster?.medium, modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(0.8f)
                     .clip(MaterialTheme.shapes.small)
@@ -207,7 +207,8 @@ fun PopularMoviesHorizontalPager(movies: List<Movie>) {
             ) {
                 MoviePhoto(poster = movie.backdrop?.original)
                 Text(
-                    text = movie.title, color = Color.White,
+                    text = movie.title,
+                    color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp,
                     modifier = Modifier

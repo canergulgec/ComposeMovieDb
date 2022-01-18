@@ -16,3 +16,7 @@ fun <A, B> Response<A>.filterMapperResponse(mapper: Mapper<A, B>): Resource<B> {
         false -> Resource.Error(ApiError(code(), "Response is not successful"))
     }
 }
+
+fun <A, B> A.filterMapperResponse(mapper: Mapper<A, B>): Resource<B> {
+    return Resource.Success(mapper.to(this))
+}
