@@ -5,26 +5,28 @@ import androidx.paging.PagingState
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.data.mapper.MovieMapper
 import com.caner.composemoviedb.data.Constants
-import com.caner.composemoviedb.domain.api.MovieApi
+import com.caner.composemoviedb.data.model.remote.MoviesResponse
+import com.caner.composemoviedb.domain.HttpParams
+import com.caner.composemoviedb.domain.HttpRoutes
+import io.ktor.client.*
+import io.ktor.client.request.*
 import javax.inject.Inject
 
 class MoviesPagingSource @Inject constructor(
-    private val movieApi: MovieApi,
-    private val movieMapper: MovieMapper,
-    private val type: Int
+    private val client: HttpClient,
+    private val mapper: MovieMapper
 ) : PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key ?: Constants.MOVIE_STARTING_PAGE_INDEX
 
         return try {
-            val apiRequest = if (type == Constants.NOW_PLAYING_MOVIES) {
-                movieApi.getNowPlayingMovies(getParams(page))
-            } else {
-                movieApi.getUpcomingMovies(getParams(page))
+            val response: MoviesResponse = client.get {
+                url(HttpRoutes.NOW_PLAYING_MOVIES)
+                parameter(HttpParams.PAGE, page)
             }
-            apiRequest.run {
-                val data = movieMapper.to(this)
+            response.run {
+                val data = mapper.to(this)
                 LoadResult.Page(
                     data = data.movies,
                     prevKey = if (page == Constants.MOVIE_STARTING_PAGE_INDEX) null else page - 1,
@@ -33,14 +35,6 @@ class MoviesPagingSource @Inject constructor(
             }
         } catch (e: Exception) {
             return LoadResult.Error(e)
-        }
-    }
-
-    private fun getParams(page: Int): HashMap<String, Any> {
-        return object : LinkedHashMap<String, Any>() {
-            init {
-                put(Constants.PAGE, page)
-            }
         }
     }
 

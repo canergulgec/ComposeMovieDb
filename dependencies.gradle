@@ -3,13 +3,16 @@ ext {
     minSdk = 23
     targetSdk = 30
 
-    // Jetpack
-    appcompat = "1.4.0"
+    // AndroidX
+    appcompat = "1.4.1"
     core_ktx = "1.7.0"
-    materialDesign = "1.4.0"
     dataStore = "1.0.0"
     lifecycle_runtime = "2.4.0"
     lifecycle_viewmodel = "2.4.0"
+    splashScreen = "1.0.0-beta01"
+
+    // Google
+    materialDesign = "1.5.0"
 
     // Compose
     constraintlayout = "1.0.0-rc02"
@@ -22,10 +25,8 @@ ext {
     ui_controller = "0.20.0"
     pager = "0.20.0"
 
-    // Network
-    retrofit = "2.9.0"
-    gsonConverter = "2.9.0"
-    okhttp = "4.9.2"
+    // Ktor
+    ktor = "1.6.7"
 
     // Hilt
     hilt_navigation = "1.0.0-rc01"

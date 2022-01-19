@@ -6,6 +6,7 @@ import com.caner.composemoviedb.domain.qualifier.IoDispatcher
 import com.caner.composemoviedb.domain.repository.MovieDetailRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject

@@ -28,6 +28,9 @@ class SearchMovieUseCase @Inject constructor(
                         if (resource.data.movies.isEmpty()) {
                             flow { emit(Resource.Empty) }
                         } else {
+                            val sortedMovieList =
+                                resource.data.movies.sortedByDescending { it.popularity }
+                            resource.data.movies = sortedMovieList
                             flow { emit(resource) }
                         }
                     }

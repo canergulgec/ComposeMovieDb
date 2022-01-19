@@ -61,24 +61,21 @@ kapt {
 
 dependencies {
 
-    // Jetpack
+    // AndroidX
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.appcompat:appcompat:$appcompat"
-    implementation "com.google.android.material:material:$materialDesign"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel"
     implementation "androidx.datastore:datastore-preferences:$dataStore"
+    implementation "androidx.core:core-splashscreen:$splashScreen"
 
-    // Dagger - Hilt
+    // Google
+    implementation "com.google.android.material:material:$materialDesign"
+
+    // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation"
-
-    // Network
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
-    implementation "com.squareup.okhttp3:okhttp:$okhttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
 
     // Compose
     implementation "androidx.compose.ui:ui:$compose_version"
@@ -95,9 +92,6 @@ dependencies {
     implementation "com.google.accompanist:accompanist-systemuicontroller:$ui_controller"
     implementation "com.google.accompanist:accompanist-pager:$pager"
 
-    // Splash Screen API
-    implementation "androidx.core:core-splashscreen:1.0.0-alpha02"
-
     // Image Loading
     implementation "io.coil-kt:coil-compose:$coil"
     implementation "com.github.skydoves:landscapist-glide:$landscapist_glide"
@@ -106,6 +100,13 @@ dependencies {
     debugImplementation "com.facebook.flipper:flipper:$flipper"
     debugImplementation "com.facebook.soloader:soloader:$soloader"
     debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper"
+
+    // Ktor
+    implementation "io.ktor:ktor-client-android:$ktor"
+    implementation "io.ktor:ktor-client-core:$ktor"
+    implementation "io.ktor:ktor-client-gson:$ktor"
+    implementation "io.ktor:ktor-client-logging-jvm:$ktor"
+    implementation "io.ktor:ktor-client-okhttp:$ktor"
 
     // Testing
     testImplementation "junit:junit:$junit"
