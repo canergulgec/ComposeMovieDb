@@ -110,12 +110,9 @@ dependencies {
     // Ktor
     implementation 'io.ktor:ktor-client-android:1.6.7'
     implementation("io.ktor:ktor-client-core:1.6.7")
-    implementation 'io.ktor:ktor-client-serialization:1.6.7'
+    implementation "io.ktor:ktor-client-gson:1.6.7"
     implementation 'io.ktor:ktor-client-logging-jvm:1.6.7'
     implementation "io.ktor:ktor-client-okhttp:1.6.7"
-
-    // Kotlin serialization
-    implementation "io.ktor:ktor-client-gson:1.6.7"
 
     // Testing
     testImplementation "junit:junit:$junit"

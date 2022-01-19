@@ -23,8 +23,7 @@ class MovieViewModel @Inject constructor(
     private val _popularMovieUiState =
         MutableStateFlow(MovieUiState(isFetchingPopularMovies = true))
     val popularMovieUiState: StateFlow<MovieUiState> = _popularMovieUiState.asStateFlow()
-
-    val nowPlayingMoviesPagingFlow = movieRepository.getMovies().cachedIn(viewModelScope)
+    val nowPlayingMoviesPagingFlow = movieRepository.getNowPlayingMovies().cachedIn(viewModelScope)
 
     private fun getPopularMovies() {
         viewModelScope.launch {
