@@ -23,6 +23,7 @@ In order to use MovieDB:
 ## 🛠 Built With
 
 - [Kotlin](https://kotlinlang.org)
+- [Ktor Client](https://ktor.io/docs/client.html)
 - [Dagger Hilt](https://dagger.dev/hilt/)
 - [Coroutines Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html)
 - [Splash Screen API](https://developer.android.com/guide/topics/ui/splash-screen/migrate)
