@@ -9,7 +9,6 @@ import com.caner.composemoviedb.data.repository.MovieDetailRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class MovieDetailUseCase @Inject constructor(
@@ -25,6 +24,5 @@ class MovieDetailUseCase @Inject constructor(
             is Resource.Error -> emit(Resource.Error(response.apiError))
         }
     }
-        .onStart { emit(Resource.Loading) }
         .flowOn(dispatcher)
 }
