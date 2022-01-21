@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.domain.qualifier
+package com.caner.composemoviedb.utils.qualifier
 
 import javax.inject.Qualifier
 

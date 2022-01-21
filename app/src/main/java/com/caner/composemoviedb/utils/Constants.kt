@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.data
+package com.caner.composemoviedb.utils
 
 object Constants {
     const val MOVIE_ID = "movieId"

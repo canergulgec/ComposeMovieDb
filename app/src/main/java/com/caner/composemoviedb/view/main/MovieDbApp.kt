@@ -19,7 +19,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.data.Constants
+import com.caner.composemoviedb.utils.Constants
 import com.caner.composemoviedb.presentation.viewmodel.MainViewModel
 import com.caner.composemoviedb.view.detail.MovieDetailRoute
 import com.caner.composemoviedb.view.movie.MovieRoute
