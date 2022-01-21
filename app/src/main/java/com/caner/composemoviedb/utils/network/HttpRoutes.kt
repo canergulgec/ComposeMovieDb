@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.domain
+package com.caner.composemoviedb.utils.network
 
 object HttpRoutes {
     const val BASE_URL = "api.themoviedb.org/3"

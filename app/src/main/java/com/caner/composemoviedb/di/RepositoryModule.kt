@@ -1,6 +1,6 @@
 package com.caner.composemoviedb.di
 
-import com.caner.composemoviedb.domain.repository.*
+import com.caner.composemoviedb.data.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

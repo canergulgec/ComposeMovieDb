@@ -3,9 +3,9 @@ package com.caner.composemoviedb.presentation.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caner.composemoviedb.data.Constants
-import com.caner.composemoviedb.data.viewstate.Resource
-import com.caner.composemoviedb.data.viewstate.UserMessage
+import com.caner.composemoviedb.utils.Constants
+import com.caner.composemoviedb.utils.network.Resource
+import com.caner.composemoviedb.utils.network.UserMessage
 import com.caner.composemoviedb.domain.usecase.MovieDetailUseCase
 import com.caner.composemoviedb.view.detail.state.MovieDetailUiState
 import com.caner.composemoviedb.view.main.NavActions
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val movieDetailUseCase: MovieDetailUseCase,
+    private val useCase: MovieDetailUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -36,31 +36,32 @@ class MovieDetailViewModel @Inject constructor(
 
     private fun getMovieDetail(movieId: Int?) {
         viewModelScope.launch {
-            movieDetailUseCase.execute(movieId)
-                .collect { resource ->
-                    when (resource) {
-                        is Resource.Success -> {
-                            _uiState.update {
-                                it.copy(
-                                    movieDetailModel = resource.data,
-                                    isFetchingMovieDetail = false
-                                )
-                            }
+            useCase.execute(movieId).collect { resource ->
+                when (resource) {
+                    is Resource.Success -> {
+                        _uiState.update {
+                            it.copy(
+                                movieDetailModel = resource.data,
+                                isFetchingMovieDetail = false
+                            )
                         }
-                        is Resource.Error -> {
-                            _uiState.update { state ->
-                                val messages = state.userMessages + UserMessage(
-                                    id = UUID.randomUUID().mostSignificantBits,
-                                    message = resource.apiError.message
-                                )
-                                state.copy(userMessages = messages, isFetchingMovieDetail = false)
-                            }
+                    }
+                    is Resource.Error -> {
+                        _uiState.update { state ->
+                            val messages = state.userMessages + UserMessage(
+                                id = UUID.randomUUID().mostSignificantBits,
+                                message = resource.apiError.message
+                            )
+                            state.copy(userMessages = messages, isFetchingMovieDetail = false)
                         }
-                        else -> {
-                            // invalid state
+                    }
+                    is Resource.Loading -> {
+                        _uiState.update {
+                            it.copy(isFetchingMovieDetail = true)
                         }
                     }
                 }
+            }
         }
     }
 }

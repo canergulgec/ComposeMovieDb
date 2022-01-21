@@ -4,10 +4,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.data.mapper.MovieMapper
-import com.caner.composemoviedb.data.Constants
+import com.caner.composemoviedb.utils.Constants
 import com.caner.composemoviedb.data.model.remote.MoviesResponse
-import com.caner.composemoviedb.domain.HttpParams
-import com.caner.composemoviedb.domain.HttpRoutes
+import com.caner.composemoviedb.utils.network.HttpParams
+import com.caner.composemoviedb.utils.network.HttpRoutes
 import io.ktor.client.*
 import io.ktor.client.request.*
 import javax.inject.Inject

@@ -2,7 +2,7 @@ package com.caner.composemoviedb.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caner.composemoviedb.data.viewstate.Resource
+import com.caner.composemoviedb.utils.network.Resource
 import com.caner.composemoviedb.domain.usecase.SearchMovieUseCase
 import com.caner.composemoviedb.view.search.state.SearchViewModelState
 import com.caner.composemoviedb.view.search.state.TextEvent
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @FlowPreview
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val searchUseCase: SearchMovieUseCase
+    private val useCase: SearchMovieUseCase
 ) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
@@ -54,7 +54,7 @@ class SearchViewModel @Inject constructor(
                     return@filter query.length > 2
                 }
                 .flatMapLatest { title ->
-                    searchUseCase.execute(title)
+                    useCase.execute(title)
                 }.collect { resource ->
                     when (resource) {
                         is Resource.Success -> {
@@ -69,12 +69,7 @@ class SearchViewModel @Inject constructor(
                                 it.copy(isLoading = true)
                             }
                         }
-                        is Resource.Empty -> {
-                            viewModelState.update {
-                                it.copy(movies = emptyList())
-                            }
-                        }
-                        else -> {
+                        is Resource.Error -> {
                             // Handle error state
                         }
                     }

@@ -1,7 +1,7 @@
 package com.caner.composemoviedb.domain.usecase
 
-import com.caner.composemoviedb.data.viewstate.ApiError
-import com.caner.composemoviedb.data.viewstate.Resource
+import com.caner.composemoviedb.utils.network.ApiError
+import com.caner.composemoviedb.utils.network.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 

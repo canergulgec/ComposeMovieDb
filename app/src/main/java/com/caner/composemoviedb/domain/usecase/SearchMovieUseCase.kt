@@ -1,44 +1,36 @@
 package com.caner.composemoviedb.domain.usecase
 
-import com.caner.composemoviedb.data.viewstate.Resource
+import com.caner.composemoviedb.data.mapper.MovieMapper
+import com.caner.composemoviedb.utils.network.Resource
 import com.caner.composemoviedb.data.model.MovieModel
-import com.caner.composemoviedb.domain.qualifier.IoDispatcher
-import com.caner.composemoviedb.domain.repository.SearchRepository
+import com.caner.composemoviedb.utils.extension.toModel
+import com.caner.composemoviedb.utils.qualifier.IoDispatcher
+import com.caner.composemoviedb.data.repository.SearchRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
-@FlowPreview
 class SearchMovieUseCase @Inject constructor(
-    private val apiRepository: SearchRepository,
+    private val repository: SearchRepository,
+    private val mapper: MovieMapper,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : BaseUseCase<MovieModel, String?>() {
 
-    override fun buildRequest(params: String?): Flow<Resource<MovieModel>> {
-        return apiRepository.searchMovie(params)
-            .onStart { emit(Resource.Loading) }
-            .flatMapConcat { resource ->
-                when (resource) {
-                    is Resource.Success -> {
-                        if (resource.data.movies.isEmpty()) {
-                            flow { emit(Resource.Empty) }
-                        } else {
-                            val sortedMovieList =
-                                resource.data.movies.sortedByDescending { it.popularity }
-                            resource.data.movies = sortedMovieList
-                            flow { emit(resource) }
-                        }
-                    }
-                    else -> {
-                        flow { emit(resource) }
-                    }
+    override fun buildRequest(params: String?) = flow {
+        when (val response = repository.searchMovie(params)) {
+            is Resource.Success -> {
+                response.data.apply {
+                    val sortedList = results.sortedByDescending { it.popularity }
+                    results = sortedList
+                    emit(this.toModel(mapper))
                 }
             }
-            .flowOn(dispatcher)
+            is Resource.Loading -> emit(Resource.Loading)
+            is Resource.Error -> emit(Resource.Error(response.apiError))
+        }
     }
+        .onStart { emit(Resource.Loading) }
+        .flowOn(dispatcher)
 }

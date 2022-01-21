@@ -3,8 +3,8 @@ package com.caner.composemoviedb.di
 import android.content.Context
 import android.util.Log
 import com.caner.composemoviedb.BuildConfig
-import com.caner.composemoviedb.domain.HttpParams
-import com.caner.composemoviedb.domain.HttpRoutes
+import com.caner.composemoviedb.utils.network.HttpParams
+import com.caner.composemoviedb.utils.network.HttpRoutes
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin

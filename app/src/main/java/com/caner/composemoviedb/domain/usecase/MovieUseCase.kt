@@ -1,30 +1,35 @@
 package com.caner.composemoviedb.domain.usecase
 
-import com.caner.composemoviedb.data.mapper.MovieDetailMapper
+import androidx.paging.PagingData
+import com.caner.composemoviedb.data.mapper.MovieMapper
+import com.caner.composemoviedb.data.model.Movie
+import com.caner.composemoviedb.data.model.MovieModel
 import com.caner.composemoviedb.utils.network.Resource
-import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.utils.extension.toModel
 import com.caner.composemoviedb.utils.qualifier.IoDispatcher
-import com.caner.composemoviedb.data.repository.MovieDetailRepository
+import com.caner.composemoviedb.data.repository.MovieRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
-class MovieDetailUseCase @Inject constructor(
-    private val repository: MovieDetailRepository,
-    private val mapper: MovieDetailMapper,
+class MovieUseCase @Inject constructor(
+    private val repository: MovieRepository,
+    private val mapper: MovieMapper,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
-) : BaseUseCase<MovieDetailModel, Int?>() {
+) : BaseUseCase<MovieModel, Int?>() {
 
     override fun buildRequest(params: Int?) = flow {
-        when (val response = repository.getMovieDetail(params)) {
+        when (val response = repository.getPopularMovies()) {
             is Resource.Success -> emit(response.data.toModel(mapper))
             is Resource.Loading -> emit(Resource.Loading)
             is Resource.Error -> emit(Resource.Error(response.apiError))
         }
     }
-        .onStart { emit(Resource.Loading) }
         .flowOn(dispatcher)
+
+    fun getNowPlayingMovies(): Flow<PagingData<Movie>> {
+        return repository.getNowPlayingMovies()
+    }
 }
