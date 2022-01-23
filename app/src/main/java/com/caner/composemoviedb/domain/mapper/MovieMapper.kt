@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.data.mapper
+package com.caner.composemoviedb.domain.mapper
 
 import com.caner.composemoviedb.data.model.MovieImage
 import com.caner.composemoviedb.data.model.MovieModel
@@ -10,35 +10,6 @@ import java.util.*
 import javax.inject.Inject
 
 class MovieMapper @Inject constructor() : Mapper<MoviesResponse, MovieModel> {
-
-    override fun from(e: MovieModel): MoviesResponse {
-        return with(e) {
-            MoviesResponse(
-                total = total,
-                page = page,
-                results = e.movies.map {
-                    MovieResponseItem(
-                        it.movieId,
-                        it.popularity,
-                        it.video,
-                        it.poster?.original,
-                        it.adult,
-                        it.backdrop?.original,
-                        it.originalLanguage,
-                        it.originalTitle,
-                        it.title,
-                        it.voteAverage,
-                        it.overview,
-                        it.releaseDate?.let { date ->
-                            SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).format(
-                                date
-                            )
-                        }
-                    )
-                }
-            )
-        }
-    }
 
     override fun to(t: MoviesResponse): MovieModel {
         return with(t) {
@@ -70,6 +41,35 @@ class MovieMapper @Inject constructor() : Mapper<MoviesResponse, MovieModel> {
                             }
                         }
                     )
+                }
+            )
+        }
+    }
+
+    fun toMovie(t: MovieResponseItem): Movie {
+        return with(t) {
+            Movie(
+                id,
+                popularity,
+                video,
+                posterPath?.let { path -> MovieImage(path) },
+                adult,
+                backdropPath?.let { path -> MovieImage(path) },
+                originalLanguage,
+                originalTitle,
+                title,
+                voteAverage,
+                overview,
+                releaseDate?.let { date ->
+                    if (date.isNotEmpty()) {
+                        val parsedDate =
+                            SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(
+                                date
+                            ) ?: Date()
+                        SimpleDateFormat("yyyy", Locale.getDefault()).format(parsedDate)
+                    } else {
+                        null
+                    }
                 }
             )
         }

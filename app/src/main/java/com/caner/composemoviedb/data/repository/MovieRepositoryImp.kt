@@ -4,22 +4,20 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.caner.composemoviedb.utils.network.ApiError
 import com.caner.composemoviedb.utils.network.Resource
-import com.caner.composemoviedb.data.mapper.MovieMapper
+import com.caner.composemoviedb.domain.mapper.MovieMapper
 import com.caner.composemoviedb.data.model.remote.MoviesResponse
-import com.caner.composemoviedb.domain.pagingsource.MoviesPagingSource
 import com.caner.composemoviedb.utils.network.HttpRoutes
 import io.ktor.client.*
 import io.ktor.client.request.*
 import javax.inject.Inject
 
 class MovieRepositoryImp @Inject constructor(
-    private val client: HttpClient,
-    private val mapper: MovieMapper
+    private val client: HttpClient
 ) : MovieRepository {
 
     override fun getNowPlayingMovies() =
         Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { MoviesPagingSource(client, mapper) }
+            pagingSourceFactory = { MoviesPagingSource(client) }
         ).flow
 
     override suspend fun getPopularMovies(): Resource<MoviesResponse> {

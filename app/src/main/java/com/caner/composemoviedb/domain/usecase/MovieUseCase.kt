@@ -1,8 +1,9 @@
 package com.caner.composemoviedb.domain.usecase
 
 import androidx.paging.PagingData
-import com.caner.composemoviedb.data.mapper.MovieMapper
+import androidx.paging.map
 import com.caner.composemoviedb.data.model.Movie
+import com.caner.composemoviedb.domain.mapper.MovieMapper
 import com.caner.composemoviedb.data.model.MovieModel
 import com.caner.composemoviedb.utils.network.Resource
 import com.caner.composemoviedb.utils.extension.toModel
@@ -12,6 +13,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MovieUseCase @Inject constructor(
@@ -31,5 +33,10 @@ class MovieUseCase @Inject constructor(
 
     fun getNowPlayingMovies(): Flow<PagingData<Movie>> {
         return repository.getNowPlayingMovies()
+            .map { pagingData ->
+                pagingData.map {
+                    mapper.toMovie(it)
+                }
+            }
     }
 }

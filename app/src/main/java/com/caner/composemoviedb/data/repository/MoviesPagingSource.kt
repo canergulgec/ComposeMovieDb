@@ -1,9 +1,8 @@
-package com.caner.composemoviedb.domain.pagingsource
+package com.caner.composemoviedb.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.caner.composemoviedb.data.model.Movie
-import com.caner.composemoviedb.data.mapper.MovieMapper
+import com.caner.composemoviedb.data.model.remote.MovieResponseItem
 import com.caner.composemoviedb.utils.Constants
 import com.caner.composemoviedb.data.model.remote.MoviesResponse
 import com.caner.composemoviedb.utils.network.HttpParams
@@ -13,11 +12,10 @@ import io.ktor.client.request.*
 import javax.inject.Inject
 
 class MoviesPagingSource @Inject constructor(
-    private val client: HttpClient,
-    private val mapper: MovieMapper
-) : PagingSource<Int, Movie>() {
+    private val client: HttpClient
+) : PagingSource<Int, MovieResponseItem>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResponseItem> {
         val page = params.key ?: Constants.MOVIE_STARTING_PAGE_INDEX
 
         return try {
@@ -26,9 +24,8 @@ class MoviesPagingSource @Inject constructor(
                 parameter(HttpParams.PAGE, page)
             }
             response.run {
-                val data = mapper.to(this)
                 LoadResult.Page(
-                    data = data.movies,
+                    data = this.results,
                     prevKey = if (page == Constants.MOVIE_STARTING_PAGE_INDEX) null else page - 1,
                     nextKey = if (page == this.total) null else page + 1
                 )
@@ -38,7 +35,7 @@ class MoviesPagingSource @Inject constructor(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, MovieResponseItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)

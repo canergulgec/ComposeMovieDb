@@ -1,6 +1,6 @@
 package com.caner.composemoviedb.domain.usecase
 
-import com.caner.composemoviedb.data.mapper.MovieDetailMapper
+import com.caner.composemoviedb.domain.mapper.MovieDetailMapper
 import com.caner.composemoviedb.utils.network.Resource
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.utils.extension.toModel
