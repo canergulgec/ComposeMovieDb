@@ -24,43 +24,47 @@ import com.caner.composemoviedb.presentation.viewmodel.MainViewModel
 import com.caner.composemoviedb.view.detail.MovieDetailRoute
 import com.caner.composemoviedb.view.movie.MovieRoute
 import com.caner.composemoviedb.view.search.SearchRoute
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.navigationBarsPadding
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
 fun MovieDbApp(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
-    val navController = rememberNavController()
-    Scaffold(
-        bottomBar = {
-            AnimatedVisibility(visible = viewModel.bottomBarVisibility.value) {
-                BottomNavigationBar(
-                    controller = navController,
-                    onNavigationSelected = { screen ->
-                        navController.navigate(screen.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
+    ProvideWindowInsets {
+        val navController = rememberNavController()
+        Scaffold(
+            bottomBar = {
+                AnimatedVisibility(visible = viewModel.bottomBarVisibility.value) {
+                    BottomNavigationBar(
+                        controller = navController,
+                        onNavigationSelected = { screen ->
+                            navController.navigate(screen.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                        },
+                        modifier = Modifier.fillMaxWidth().navigationBarsPadding()
+                    )
+                }
+            },
+            floatingActionButton = {
+                FloatingButton {
+                    changeTheme()
+                }
             }
-        },
-        floatingActionButton = {
-            FloatingButton {
-                changeTheme()
-            }
+        ) {
+            //Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
+            Navigation(navController = navController, modifier = Modifier)
         }
-    ) {
-        //Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
-        Navigation(navController = navController, modifier = Modifier)
-    }
 
-    when (currentRoute(navController = navController)) {
-        Screen.Detail.route -> viewModel.changeBottomBarVisibility(false)
-        else -> viewModel.changeBottomBarVisibility(true)
+        when (currentRoute(navController = navController)) {
+            Screen.Detail.route -> viewModel.changeBottomBarVisibility(false)
+            else -> viewModel.changeBottomBarVisibility(true)
+        }
     }
 }
 
