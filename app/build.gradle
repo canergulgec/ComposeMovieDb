@@ -91,6 +91,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-flowlayout:$flowlayout"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$ui_controller"
     implementation "com.google.accompanist:accompanist-pager:$pager"
+    implementation "com.google.accompanist:accompanist-insets:$insets"
 
     // Image Loading
     implementation "io.coil-kt:coil-compose:$coil"
