@@ -1,12 +1,11 @@
 package com.caner.composemoviedb.domain.usecase
 
 import com.caner.composemoviedb.domain.mapper.MovieMapper
-import com.caner.composemoviedb.utils.network.Resource
 import com.caner.composemoviedb.data.model.MovieModel
 import com.caner.composemoviedb.data.repository.SearchRepository
 import com.caner.composemoviedb.utils.extension.mapTo
+import com.caner.composemoviedb.utils.extension.onProgress
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class SearchMovieUseCase @Inject constructor(
@@ -22,5 +21,5 @@ class SearchMovieUseCase @Inject constructor(
             emit(this.mapTo(mapper))
         }
     }
-        .onStart { emit(Resource.Loading) }
+        .onProgress()
 }

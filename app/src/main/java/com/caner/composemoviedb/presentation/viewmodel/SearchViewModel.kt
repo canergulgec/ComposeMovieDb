@@ -58,16 +58,10 @@ class SearchViewModel @Inject constructor(
                 }.collect { resource ->
                     when (resource) {
                         is Resource.Success -> {
-                            viewModelState.update {
-                                it.copy(
-                                    movies = resource.data.movies, isLoading = false
-                                )
-                            }
+                            viewModelState.update { it.copy(movies = resource.data.movies) }
                         }
                         is Resource.Loading -> {
-                            viewModelState.update {
-                                it.copy(isLoading = true)
-                            }
+                            viewModelState.update { it.copy(isLoading = resource.status) }
                         }
                         is Resource.Error -> {
                             // Handle error state

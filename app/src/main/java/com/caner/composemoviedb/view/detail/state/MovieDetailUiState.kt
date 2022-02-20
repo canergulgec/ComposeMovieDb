@@ -6,5 +6,5 @@ import com.caner.composemoviedb.utils.network.UserMessage
 data class MovieDetailUiState(
     val movieDetailModel: MovieDetailModel? = null,
     val isFetchingMovieDetail: Boolean = false,
-    val userMessages: List<UserMessage> = emptyList()
+    val userMessages: UserMessage? = null
 )

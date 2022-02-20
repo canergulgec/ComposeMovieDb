@@ -1,6 +1,5 @@
 package com.caner.composemoviedb.domain.usecase
 
-import com.caner.composemoviedb.utils.network.ApiError
 import com.caner.composemoviedb.utils.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +17,8 @@ abstract class BaseUseCase<M, Params> {
 
     fun execute(params: Params? = null) =
         buildResponse(params).catch { error ->
-            emit(Resource.Error(ApiError(4, error.message)))
+            emit(Resource.Error(Throwable(message = error.message)))
+            emit(Resource.Loading(false))
         }
             .flowOn(Dispatchers.IO)
 }

@@ -12,7 +12,6 @@ import com.caner.composemoviedb.view.main.NavActions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,7 +20,7 @@ class MovieDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(MovieDetailUiState(isFetchingMovieDetail = true))
+    private val _uiState = MutableStateFlow(MovieDetailUiState())
     val uiState: StateFlow<MovieDetailUiState> = _uiState.asStateFlow()
 
     lateinit var navActions: NavActions
@@ -40,28 +39,25 @@ class MovieDetailViewModel @Inject constructor(
                 when (resource) {
                     is Resource.Success -> {
                         _uiState.update {
-                            it.copy(
-                                movieDetailModel = resource.data,
-                                isFetchingMovieDetail = false
-                            )
+                            it.copy(movieDetailModel = resource.data)
                         }
                     }
                     is Resource.Error -> {
-                        _uiState.update { state ->
-                            val messages = state.userMessages + UserMessage(
-                                id = UUID.randomUUID().mostSignificantBits,
-                                message = resource.apiError.message
-                            )
-                            state.copy(userMessages = messages, isFetchingMovieDetail = false)
+                        _uiState.update {
+                            it.copy(userMessages = UserMessage(message = resource.error.message))
                         }
                     }
                     is Resource.Loading -> {
                         _uiState.update {
-                            it.copy(isFetchingMovieDetail = true)
+                            it.copy(isFetchingMovieDetail = resource.status)
                         }
                     }
                 }
             }
         }
+    }
+
+    fun userMessageShown() {
+        _uiState.update { it.copy(userMessages = null) }
     }
 }
