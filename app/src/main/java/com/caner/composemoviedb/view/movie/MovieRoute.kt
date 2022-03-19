@@ -74,9 +74,11 @@ fun NowPlayingMovies(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(movieItems) {
-            MovieItem(it) { movieId ->
-                navActions.gotoDetail(movieId)
+        items(movieItems) { movieItem ->
+            movieItem?.let {
+                MovieItem(it) { movieId ->
+                    navActions.gotoDetail(movieId)
+                }
             }
         }
 
@@ -117,7 +119,7 @@ fun NowPlayingMovies(
 }
 
 @Composable
-fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
+fun MovieItem(item: Movie, itemClicked: (Int) -> Unit) {
     Card(
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
@@ -127,17 +129,17 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
         Column(horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .clickable {
-                    itemClicked(item?.movieId ?: -1)
+                    itemClicked(item.movieId)
                 }
         ) {
             MoviePhoto(
-                item?.poster?.medium, modifier = Modifier
+                item.poster?.medium, modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(0.8f)
                     .clip(MaterialTheme.shapes.small)
             )
             Text(
-                text = item?.title ?: "",
+                text = item.title,
                 modifier = Modifier
                     .align(CenterHorizontally)
                     .padding(top = 8.dp, start = 8.dp, end = 8.dp),
@@ -146,7 +148,7 @@ fun MovieItem(item: Movie?, itemClicked: (Int) -> Unit) {
                 color = MaterialTheme.colors.onSecondary,
                 style = MaterialTheme.typography.caption,
             )
-            MovieRating(voteAverage = item?.voteAverage.toString(), size = 20.dp)
+            MovieRating(voteAverage = item.voteAverage, size = 20.dp)
         }
     }
 }

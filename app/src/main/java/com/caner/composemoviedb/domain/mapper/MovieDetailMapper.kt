@@ -19,7 +19,7 @@ class MovieDetailMapper @Inject constructor() :
                 adult,
                 poster_path?.let { path -> MovieImage(path) },
                 backdrop_path?.let { path -> MovieImage(path) },
-                genres,
+                genres?: listOf(),
                 title ?: "",
                 overview ?: "",
                 imdb_id,

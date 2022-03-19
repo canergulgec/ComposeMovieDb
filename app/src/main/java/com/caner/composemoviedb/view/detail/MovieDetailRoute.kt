@@ -93,7 +93,7 @@ fun MovieTopSection(data: MovieDetailModel) {
                 )
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    MovieRating(voteAverage = data.voteAverage.toString(), size = 20.dp)
+                    MovieRating(voteAverage = data.voteAverage, size = 20.dp)
                     Text(
                         text = "${data.runtime} min",
                         style = MaterialTheme.typography.caption,
@@ -140,13 +140,13 @@ fun MovieBackdropSection(backdrop: String?, viewModel: MovieDetailViewModel = hi
 }
 
 @Composable
-fun ChipSection(genres: List<MovieGenre>?) {
+fun ChipSection(genres: List<MovieGenre>) {
     FlowRow(
         modifier = Modifier
             .offset(y = (-74).dp)
             .padding(horizontal = 16.dp)
     ) {
-        repeat(genres?.size ?: 0) {
+        repeat(genres.size) { pos ->
             Box(
                 modifier = Modifier
                     .padding(4.dp)
@@ -157,7 +157,7 @@ fun ChipSection(genres: List<MovieGenre>?) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = genres?.get(it)?.name ?: "",
+                    text = genres[pos].name,
                     color = MaterialTheme.colors.onPrimary,
                     style = MaterialTheme.typography.caption
                 )

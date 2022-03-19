@@ -2,7 +2,7 @@
 apply from: 'dependencies.gradle'
 buildscript {
     ext.hilt_version = '2.40.5'
-    ext.compose_version = '1.1.0'
+    ext.compose_version = '1.1.1'
     ext.kotlin_version = '1.6.10'
     repositories {
         google()

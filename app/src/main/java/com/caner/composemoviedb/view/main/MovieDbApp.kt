@@ -2,6 +2,7 @@ package com.caner.composemoviedb.view.main
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -57,8 +58,7 @@ fun MovieDbApp(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel
                 }
             }
         ) {
-            //Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
-            Navigation(navController = navController, modifier = Modifier)
+            Navigation(navController = navController, modifier = Modifier.padding(it))
         }
 
         when (currentRoute(navController = navController)) {

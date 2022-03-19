@@ -10,7 +10,7 @@ data class MovieDetailModel(
     val adult: Boolean? = null,
     val poster: MovieImage? = null,
     val backdrop: MovieImage? = null,
-    val genres: List<MovieGenre>? = null,
+    val genres: List<MovieGenre> = listOf(),
     val title: String,
     val overview: String,
     val imdbId: String? = null,
