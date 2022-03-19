@@ -124,7 +124,7 @@ fun MovieItem(item: Movie, itemClicked: (Int) -> Unit) {
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
         contentColor = Color.LightGray,
-        modifier = Modifier.width(135.dp)
+        modifier = Modifier.width(140.dp)
     ) {
         Column(horizontalAlignment = CenterHorizontally,
             modifier = Modifier
@@ -135,7 +135,7 @@ fun MovieItem(item: Movie, itemClicked: (Int) -> Unit) {
             MoviePhoto(
                 item.poster?.medium, modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(0.8f)
+                    .aspectRatio(0.7f)
                     .clip(MaterialTheme.shapes.small)
             )
             Text(
