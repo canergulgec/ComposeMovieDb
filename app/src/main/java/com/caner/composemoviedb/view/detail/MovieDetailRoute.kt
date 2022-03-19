@@ -11,7 +11,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -38,12 +37,6 @@ fun MovieDetailRoute(
     navActions: NavActions,
     viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
-    // We only want the event stream to be attached once
-    // even if there are multiple re-compositions
-    LaunchedEffect(true) {
-        viewModel.navActions = navActions
-    }
-
     val uiState by viewModel.uiState.collectAsState()
     val movieModel = uiState.movieDetailModel
 
@@ -55,7 +48,9 @@ fun MovieDetailRoute(
                 modifier = Modifier.fillMaxSize()
             ) {
                 movieModel?.let {
-                    MovieTopSection(it)
+                    MovieTopSection(it, onBackPressed = {
+                        navActions.upPress.invoke()
+                    })
                     ChipSection(it.genres)
                     Text(
                         modifier = Modifier
@@ -73,9 +68,39 @@ fun MovieDetailRoute(
 }
 
 @Composable
-fun MovieTopSection(data: MovieDetailModel) {
+fun MovieTopSection(data: MovieDetailModel, onBackPressed: () -> Unit) {
     Column {
-        MovieBackdropSection(data.backdrop?.original)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.4f)
+        ) {
+            MoviePhoto(poster = data.backdrop?.original, modifier = Modifier.fillMaxSize())
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                BLACK_TRANSPARENT_60,
+                                BLACK_TRANSPARENT
+                            )
+                        )
+                    )
+            )
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                tint = Color.White,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.TopStart)
+                    .clickable {
+                        onBackPressed.invoke()
+                    }
+            )
+        }
+
         Row(modifier = Modifier.fillMaxWidth()) {
             MoviePhoto(
                 poster = data.poster?.original, modifier = Modifier
@@ -102,40 +127,6 @@ fun MovieTopSection(data: MovieDetailModel) {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun MovieBackdropSection(backdrop: String?, viewModel: MovieDetailViewModel = hiltViewModel()) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.4f)
-    ) {
-        MoviePhoto(poster = backdrop, modifier = Modifier.fillMaxSize())
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            BLACK_TRANSPARENT_60,
-                            BLACK_TRANSPARENT
-                        )
-                    )
-                )
-        )
-        Icon(
-            imageVector = Icons.Default.ArrowBack,
-            tint = Color.White,
-            contentDescription = null,
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.TopStart)
-                .clickable {
-                    viewModel.navActions.upPress.invoke()
-                }
-        )
     }
 }
 

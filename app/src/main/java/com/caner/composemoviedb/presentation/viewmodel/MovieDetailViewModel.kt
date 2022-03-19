@@ -23,8 +23,6 @@ class MovieDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(MovieDetailUiState())
     val uiState: StateFlow<MovieDetailUiState> = _uiState.asStateFlow()
 
-    lateinit var navActions: NavActions
-
     init {
         savedStateHandle.get<Int>(Constants.MOVIE_ID).let { movieId ->
             if (movieId != -1) {
