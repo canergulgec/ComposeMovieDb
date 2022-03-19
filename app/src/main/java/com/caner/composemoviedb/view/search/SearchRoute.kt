@@ -83,7 +83,7 @@ fun SearchList(
                 loadingContent = { CircularProgressIndicator() },
                 content = {
                     LazyColumn(
-                        contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 70.dp),
+                        contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(uiState.movies) { item ->

@@ -138,11 +138,12 @@ fun MovieItem(item: Movie, itemClicked: (Int) -> Unit) {
                     .aspectRatio(0.7f)
                     .clip(MaterialTheme.shapes.small)
             )
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = item.title,
                 modifier = Modifier
                     .align(CenterHorizontally)
-                    .padding(top = 8.dp, start = 8.dp, end = 8.dp),
+                    .padding(horizontal = 8.dp),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colors.onSecondary,
