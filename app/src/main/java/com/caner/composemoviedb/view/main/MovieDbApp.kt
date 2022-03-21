@@ -3,7 +3,6 @@ package com.caner.composemoviedb.view.main
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -85,8 +84,7 @@ fun FloatingButton(
                 false -> painterResource(id = R.drawable.ic_day)
             },
             contentDescription = null,
-            tint = Color.White,
-            modifier = Modifier.size(24.dp)
+            tint = Color.White
         )
     }
 }

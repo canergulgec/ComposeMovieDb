@@ -2,6 +2,8 @@ package com.caner.composemoviedb.view.movie
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -31,7 +33,6 @@ import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.presentation.viewmodel.MovieViewModel
 import com.caner.composemoviedb.ui.component.*
 import com.caner.composemoviedb.view.main.NavActions
-import com.caner.composemoviedb.view.movie.state.MovieUiState
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
@@ -41,122 +42,58 @@ fun MovieRoute(
     navActions: NavActions,
     viewModel: MovieViewModel = hiltViewModel()
 ) {
-    val scrollState = rememberScrollState(0)
     val nowPlayingMovies = viewModel.nowPlayingMoviesPagingFlow.collectAsLazyPagingItems()
     val popularMovieState by viewModel.popularMovieUiState.collectAsState()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-            .verticalScroll(state = scrollState)
-    ) {
-        NowPlayingMovies(movieItems = nowPlayingMovies, navActions = navActions)
-        Spacer(modifier = Modifier.height(16.dp))
-        PopularMovies(popularMovieState)
+    fun navigateTo(movieId: Int) {
+        navActions.gotoDetail.invoke(movieId)
     }
-}
-
-@Composable
-fun NowPlayingMovies(
-    movieItems: LazyPagingItems<Movie>,
-    navActions: NavActions,
-    title: String = stringResource(id = R.string.now_playing)
-) {
-    Text(
-        modifier = Modifier.padding(16.dp),
-        text = title,
-        style = MaterialTheme.typography.h6
-    )
-
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        items(movieItems) { movieItem ->
-            movieItem?.let {
-                MovieItem(it) { movieId ->
-                    navActions.gotoDetail(movieId)
-                }
+    LoadingContent(
+        loading = popularMovieState.isFetchingMovies,
+        loadingContent = { FullScreenLoading() },
+        content = {
+            LazyColumn(
+                contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                nowPlayingMovies(data = nowPlayingMovies, ::navigateTo)
+                popularMovies(data = popularMovieState.popularMovies, ::navigateTo)
             }
         }
+    )
+}
 
-        movieItems.loadState.apply {
-            when {
-                refresh is LoadState.Loading -> {
-                    item {
-                        LoadingView(
-                            modifier = Modifier
-                                .fillParentMaxSize()
-                                .padding(top = 16.dp)
-                        )
-                    }
+fun LazyListScope.nowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
+    item {
+        Text(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = stringResource(R.string.now_playing),
+            style = MaterialTheme.typography.h6
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            items(data) { movieItem ->
+                movieItem?.let {
+                    MovieItem(item = it, onClicked = onClicked)
                 }
-                refresh is LoadState.Error -> {
-                    val e = movieItems.loadState.refresh as LoadState.Error
-                    item {
-                        ErrorView(
-                            message = e.error.localizedMessage!!,
-                            modifier = Modifier.fillParentMaxSize(),
-                            onClickRetry = { movieItems.retry() }
-                        )
-                    }
-                }
-                append is LoadState.Loading -> {
+            }
+
+            data.loadState.apply {
+                if (append is LoadState.Loading) {
                     item { LoadingItem() }
                 }
-                append is LoadState.Error -> {
-                    item {
-                        ErrorItem(
-                            onClickRetry = { movieItems.retry() }
-                        )
-                    }
-                }
             }
         }
     }
 }
 
-@Composable
-fun MovieItem(item: Movie, itemClicked: (Int) -> Unit) {
-    Card(
-        elevation = 8.dp,
-        shape = MaterialTheme.shapes.small,
-        contentColor = Color.LightGray,
-        modifier = Modifier.width(140.dp)
-    ) {
-        Column(horizontalAlignment = CenterHorizontally,
-            modifier = Modifier
-                .clickable {
-                    itemClicked(item.movieId)
-                }
-        ) {
-            MoviePhoto(
-                item.poster?.medium, modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(0.7f)
-                    .clip(MaterialTheme.shapes.small)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = item.title,
-                modifier = Modifier
-                    .align(CenterHorizontally)
-                    .padding(horizontal = 8.dp),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colors.onSecondary,
-                style = MaterialTheme.typography.caption,
-            )
-            MovieRating(voteAverage = item.voteAverage, size = 20.dp)
-        }
-    }
-}
-
-@Composable
-fun PopularMovies(uiState: MovieUiState) {
-    if (!uiState.isFetchingPopularMovies) {
+fun LazyListScope.popularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
+    item {
         Text(
             modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
             text = stringResource(id = R.string.popular),
@@ -164,11 +101,11 @@ fun PopularMovies(uiState: MovieUiState) {
         )
 
         HorizontalPager(
-            count = uiState.popularMovies.size,
+            count = data.size,
             contentPadding = PaddingValues(horizontal = 32.dp),
             modifier = Modifier.fillMaxSize()
         ) { page ->
-            val movie = uiState.popularMovies[page]
+            val movie = data[page]
             Card(
                 Modifier
                     .graphicsLayer {
@@ -196,6 +133,9 @@ fun PopularMovies(uiState: MovieUiState) {
                     }
                     .fillMaxWidth()
                     .aspectRatio(1.7f)
+                    .clickable {
+                        onClicked(movie.movieId)
+                    }
             ) {
                 Box(
                     modifier = Modifier
@@ -219,6 +159,42 @@ fun PopularMovies(uiState: MovieUiState) {
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MovieItem(item: Movie, onClicked: (Int) -> Unit) {
+    Card(
+        elevation = 8.dp,
+        shape = MaterialTheme.shapes.small,
+        contentColor = Color.LightGray,
+        modifier = Modifier.width(140.dp)
+    ) {
+        Column(horizontalAlignment = CenterHorizontally,
+            modifier = Modifier
+                .clickable {
+                    onClicked(item.movieId)
+                }
+        ) {
+            MoviePhoto(
+                item.poster?.medium, modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(0.7f)
+                    .clip(MaterialTheme.shapes.small)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = item.title,
+                modifier = Modifier
+                    .align(CenterHorizontally)
+                    .padding(horizontal = 8.dp),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colors.onSecondary,
+                style = MaterialTheme.typography.caption,
+            )
+            MovieRating(voteAverage = item.voteAverage, size = 20.dp)
         }
     }
 }

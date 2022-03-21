@@ -4,5 +4,5 @@ import com.caner.composemoviedb.data.model.Movie
 
 data class MovieUiState(
     val popularMovies: List<Movie> = emptyList(),
-    val isFetchingPopularMovies: Boolean = false
+    val isFetchingMovies: Boolean = false
 )

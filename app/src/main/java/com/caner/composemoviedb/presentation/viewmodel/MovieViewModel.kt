@@ -21,7 +21,7 @@ class MovieViewModel @Inject constructor(
     }
 
     private val _popularMovieUiState =
-        MutableStateFlow(MovieUiState(isFetchingPopularMovies = true))
+        MutableStateFlow(MovieUiState(isFetchingMovies = true))
     val popularMovieUiState: StateFlow<MovieUiState> = _popularMovieUiState.asStateFlow()
 
     val nowPlayingMoviesPagingFlow = useCase.getNowPlayingMovies()
@@ -35,14 +35,14 @@ class MovieViewModel @Inject constructor(
                         _popularMovieUiState.update {
                             it.copy(
                                 popularMovies = resource.data.movies,
-                                isFetchingPopularMovies = false
+                                isFetchingMovies = false
                             )
                         }
                     }
                     is Resource.Loading -> {
                         _popularMovieUiState.update {
                             it.copy(
-                                isFetchingPopularMovies = true
+                                isFetchingMovies = true
                             )
                         }
                     }
