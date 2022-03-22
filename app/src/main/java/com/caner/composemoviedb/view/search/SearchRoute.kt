@@ -22,11 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.Movie
-import com.caner.composemoviedb.ui.component.CircularProgress
-import com.caner.composemoviedb.ui.component.CustomSearchBar
 import com.caner.composemoviedb.presentation.viewmodel.SearchViewModel
-import com.caner.composemoviedb.ui.component.LoadingContent
-import com.caner.composemoviedb.ui.component.MoviePhoto
+import com.caner.composemoviedb.ui.component.*
 import com.caner.composemoviedb.view.search.state.TextEvent
 import com.caner.composemoviedb.ui.theme.Dimens
 import com.caner.composemoviedb.view.main.NavActions
@@ -118,8 +115,9 @@ fun SearchItem(
                 itemClicked(item.movieId)
             }
     ) {
-        MoviePhoto(
-            poster = item.poster?.original,
+        CustomImage(
+            image = item.poster?.medium,
+            fadeDuration = 300,
             modifier = Modifier
                 .width(100.dp)
                 .height(150.dp)

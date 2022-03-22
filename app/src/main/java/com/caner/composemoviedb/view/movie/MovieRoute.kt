@@ -142,7 +142,7 @@ fun LazyListScope.popularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
                         .fillMaxSize()
                         .clip(MaterialTheme.shapes.small)
                 ) {
-                    MoviePhoto(poster = movie.backdrop?.original)
+                    CustomImage(image = movie.backdrop?.original, fadeDuration = 300)
                     Text(
                         text = movie.title,
                         color = Color.White,
@@ -177,8 +177,10 @@ fun MovieItem(item: Movie, onClicked: (Int) -> Unit) {
                     onClicked(item.movieId)
                 }
         ) {
-            MoviePhoto(
-                item.poster?.medium, modifier = Modifier
+            CustomImage(
+                image = item.poster?.medium,
+                fadeDuration = 300,
+                modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(0.7f)
                     .clip(MaterialTheme.shapes.small)

@@ -37,8 +37,7 @@ ext {
     soloader = "0.10.1"
 
     // Image Loading
-    coil = "1.4.0"
-    landscapist_glide = "1.4.5"
+    coil = "2.0.0-rc02"
 
     // Testing
     espresso = "3.3.0"

@@ -24,10 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
 import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
-import com.caner.composemoviedb.ui.component.FullScreenLoading
-import com.caner.composemoviedb.ui.component.LoadingContent
-import com.caner.composemoviedb.ui.component.MoviePhoto
-import com.caner.composemoviedb.ui.component.MovieRating
+import com.caner.composemoviedb.ui.component.*
 import com.caner.composemoviedb.ui.theme.*
 import com.caner.composemoviedb.view.main.NavActions
 import com.google.accompanist.flowlayout.FlowRow
@@ -75,7 +72,11 @@ fun MovieTopSection(data: MovieDetailModel, onBackPressed: () -> Unit) {
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f)
         ) {
-            MoviePhoto(poster = data.backdrop?.original, modifier = Modifier.fillMaxSize())
+            CustomImage(
+                image = data.backdrop?.original,
+                fadeDuration = 300,
+                modifier = Modifier.fillMaxSize()
+            )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -102,8 +103,9 @@ fun MovieTopSection(data: MovieDetailModel, onBackPressed: () -> Unit) {
         }
 
         Row(modifier = Modifier.fillMaxWidth()) {
-            MoviePhoto(
-                poster = data.poster?.original, modifier = Modifier
+            CustomImage(
+                image = data.poster?.original,
+                modifier = Modifier
                     .offset(y = (-90).dp)
                     .padding(start = 16.dp)
                     .width(120.dp)

@@ -95,7 +95,6 @@ dependencies {
 
     // Image Loading
     implementation "io.coil-kt:coil-compose:$coil"
-    implementation "com.github.skydoves:landscapist-glide:$landscapist_glide"
 
     // App Debugging
     debugImplementation "com.facebook.flipper:flipper:$flipper"
