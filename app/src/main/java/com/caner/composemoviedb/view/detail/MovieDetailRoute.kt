@@ -104,7 +104,7 @@ fun MovieTopSection(data: MovieDetailModel, onBackPressed: () -> Unit) {
 
         Row(modifier = Modifier.fillMaxWidth()) {
             CustomImage(
-                image = data.poster?.original,
+                image = data.poster?.medium,
                 modifier = Modifier
                     .offset(y = (-90).dp)
                     .padding(start = 16.dp)

@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import coil.size.Scale
 import com.caner.composemoviedb.R
 
 @Composable
@@ -19,11 +20,13 @@ fun CustomImage(
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(image)
-            .crossfade(fadeDuration)
+            //.crossfade(fadeDuration)
+            .scale(Scale.FIT)
             .build(),
         placeholder = painterResource(R.drawable.placeholder),
+        error = painterResource(R.drawable.placeholder),
         contentDescription = description,
-        contentScale = ContentScale.FillHeight,
+        contentScale = ContentScale.Crop,
         modifier = modifier
     )
 }
