@@ -7,6 +7,7 @@
     <string name="movie_types">Movie Types</string>
     <string name="search_hint">Search..</string>
     <string name="try_again">Try again</string>
+    <string name="minutes">min</string>
 
     <!--Content Description-->
     <string name="search_icon">Search Icon</string>

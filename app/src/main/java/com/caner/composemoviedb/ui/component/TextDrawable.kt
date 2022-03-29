@@ -18,9 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.caner.composemoviedb.R
 
 @Composable
-fun MovieRating(voteAverage: Double, size: Dp, modifier: Modifier = Modifier) {
+fun MovieRating(voteAverage: Double, size: Dp) {
     Row(
-        modifier = modifier.padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

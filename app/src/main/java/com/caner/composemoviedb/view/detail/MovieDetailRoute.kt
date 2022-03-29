@@ -4,9 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -18,9 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
 import com.caner.composemoviedb.presentation.viewmodel.MovieDetailViewModel
@@ -41,23 +43,33 @@ fun MovieDetailRoute(
         loading = uiState.isFetchingMovieDetail,
         loadingContent = { FullScreenLoading() },
         content = {
-            Column(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                movieModel?.let {
-                    MovieTopSection(it, onBackPressed = {
-                        navActions.upPress.invoke()
+            movieModel?.let {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    MovieBackdrop(it.backdrop?.original, onBackPressed = {
+                        navActions.upPress()
                     })
-                    ChipSection(it.genres)
-                    Text(
+
+                    Surface(
                         modifier = Modifier
-                            .offset(y = (-58).dp)
-                            .padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.body2,
-                        color = MaterialTheme.colors.secondary,
-                        lineHeight = 20.sp,
-                        text = it.overview,
-                    )
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.5f)
+                            .align(Alignment.BottomCenter),
+                        shape = MaterialTheme.shapes.large
+                    ) {
+                        Column(modifier = Modifier.padding(horizontal = Dimens.MediumPadding.size)) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            MovieContent(movie = it)
+                            Spacer(modifier = Modifier.height(16.dp))
+                            ChipSection(genres = it.genres)
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                style = MaterialTheme.typography.body2,
+                                color = MaterialTheme.colors.secondary,
+                                lineHeight = 20.sp,
+                                text = it.overview,
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -65,88 +77,85 @@ fun MovieDetailRoute(
 }
 
 @Composable
-fun MovieTopSection(data: MovieDetailModel, onBackPressed: () -> Unit) {
-    Column {
+fun MovieBackdrop(poster: String?, onBackPressed: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.55f)
+    ) {
+        CustomImage(
+            image = poster,
+            fadeDuration = 300,
+            modifier = Modifier.fillMaxSize()
+        )
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.4f)
-        ) {
-            CustomImage(
-                image = data.backdrop?.original,
-                fadeDuration = 300,
-                modifier = Modifier.fillMaxSize()
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                BLACK_TRANSPARENT_60,
-                                BLACK_TRANSPARENT
-                            )
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            BLACK_TRANSPARENT_60,
+                            BLACK_TRANSPARENT
                         )
                     )
-            )
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                tint = Color.White,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.TopStart)
-                    .clickable {
-                        onBackPressed.invoke()
-                    }
-            )
-        }
-
-        Row(modifier = Modifier.fillMaxWidth()) {
-            CustomImage(
-                image = data.poster?.medium,
-                modifier = Modifier
-                    .offset(y = (-90).dp)
-                    .padding(start = 16.dp)
-                    .width(120.dp)
-                    .height(180.dp)
-            )
-
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = data.title,
-                    style = MaterialTheme.typography.subtitle1,
-                    color = MaterialTheme.colors.onPrimary
                 )
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    MovieRating(voteAverage = data.voteAverage, size = 20.dp)
-                    Text(
-                        text = "${data.runtime} min",
-                        style = MaterialTheme.typography.caption,
-                        modifier = Modifier.padding(start = 16.dp)
-                    )
+        )
+        Icon(
+            imageVector = Icons.Default.ArrowBack,
+            tint = Color.White,
+            contentDescription = null,
+            modifier = Modifier
+                .padding(Dimens.MediumPadding.size)
+                .align(Alignment.TopStart)
+                .clickable {
+                    onBackPressed()
                 }
-            }
+        )
+    }
+}
+
+@Composable
+fun MovieContent(movie: MovieDetailModel) {
+    Column {
+        Text(
+            text = movie.title,
+            style = MaterialTheme.typography.subtitle1,
+            color = MaterialTheme.colors.onPrimary
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            MovieRating(voteAverage = movie.voteAverage, size = 20.dp)
+            Spacer(
+                modifier = Modifier
+                    .padding(horizontal = Dimens.SmallPadding.size)
+                    .width(1.dp)
+                    .height(16.dp)
+                    .background(Color.LightGray)
+            )
+            Text(
+                text = "${movie.runtime} ${stringResource(id = R.string.minutes)}",
+                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colors.secondary
+            )
         }
     }
 }
 
 @Composable
 fun ChipSection(genres: List<MovieGenre>) {
-    FlowRow(
-        modifier = Modifier
-            .offset(y = (-74).dp)
-            .padding(horizontal = 16.dp)
-    ) {
+    FlowRow {
         repeat(genres.size) { pos ->
             Box(
                 modifier = Modifier
-                    .padding(4.dp)
-                    .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp))
+                    .padding(Dimens.XSmallPadding.size)
+                    .border(1.dp, Color.LightGray, MaterialTheme.shapes.medium)
                     .clip(MaterialTheme.shapes.small)
                     .background(Color.Transparent)
-                    .padding(vertical = 4.dp, horizontal = 8.dp),
+                    .padding(
+                        vertical = Dimens.XSmallPadding.size,
+                        horizontal = Dimens.SmallPadding.size
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Text(

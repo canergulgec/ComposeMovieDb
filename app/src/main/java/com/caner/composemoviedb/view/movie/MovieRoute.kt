@@ -198,7 +198,9 @@ fun MovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 color = MaterialTheme.colors.onSecondary,
                 style = MaterialTheme.typography.caption,
             )
+            Spacer(modifier = Modifier.height(8.dp))
             MovieRating(voteAverage = item.voteAverage, size = 20.dp)
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
