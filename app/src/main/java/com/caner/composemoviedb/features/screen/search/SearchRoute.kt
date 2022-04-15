@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.features.component.CircularProgress
@@ -36,7 +35,7 @@ import kotlinx.coroutines.FlowPreview
 @Composable
 fun SearchRoute(
     navActions: NavActions,
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchViewModel
 ) {
     Column(
         modifier = Modifier

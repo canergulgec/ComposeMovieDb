@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
@@ -38,7 +37,7 @@ import com.google.accompanist.flowlayout.FlowRow
 @Composable
 fun MovieDetailRoute(
     navActions: NavActions,
-    viewModel: MovieDetailViewModel = hiltViewModel()
+    viewModel: MovieDetailViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val movieModel = uiState.movieDetailModel

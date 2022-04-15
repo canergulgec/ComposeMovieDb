@@ -131,10 +131,10 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
 
     NavHost(navController, startDestination = NavScreen.Movie.route, modifier = modifier) {
         composable(NavScreen.Movie.route) {
-            MovieRoute(actions)
+            MovieRoute(actions, hiltViewModel())
         }
         composable(NavScreen.Search.route) {
-            SearchRoute(actions)
+            SearchRoute(actions, hiltViewModel())
         }
 
         composable(
@@ -144,7 +144,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
                 defaultValue = -1
             })
         ) {
-            MovieDetailRoute(actions)
+            MovieDetailRoute(actions, hiltViewModel())
         }
     }
 }
