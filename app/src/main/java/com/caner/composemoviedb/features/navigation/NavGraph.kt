@@ -47,7 +47,9 @@ fun NavGraph(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()
                                 restoreState = true
                             }
                         },
-                        modifier = Modifier.fillMaxWidth().navigationBarsPadding()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .navigationBarsPadding()
                     )
                 }
             },
@@ -92,7 +94,7 @@ fun FloatingButton(
 @Composable
 fun BottomNavigationBar(
     controller: NavHostController,
-    onNavigationSelected: (NavScreen) -> Unit,
+    onNavigationSelected: (BottomNavItem) -> Unit,
     modifier: Modifier
 ) {
     val navBackStackEntry by controller.currentBackStackEntryAsState()
@@ -103,7 +105,7 @@ fun BottomNavigationBar(
         elevation = 8.dp,
         modifier = modifier
     ) {
-        HomeNavigationItems.forEach { screen ->
+        BottomNavItem.values().forEach { screen ->
             BottomNavigationItem(
                 icon = {
                     Icon(
@@ -165,8 +167,3 @@ class NavActions(navController: NavController) {
         navController.navigate(NavScreen.Detail.createRoute(movieId))
     }
 }
-
-private val HomeNavigationItems = listOf(
-    NavScreen.Movie,
-    NavScreen.Search
-)
