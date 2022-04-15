@@ -13,4 +13,9 @@
     <string name="search_icon">Search Icon</string>
     <string name="back_icon">Go Back</string>
     <string name="clear_icon">Clear Input</string>
+
+    <!--Screen Names-->
+    <string name="screen_name_movie">Movie</string>
+    <string name="screen_name_search">Search</string>
+
 </resources>

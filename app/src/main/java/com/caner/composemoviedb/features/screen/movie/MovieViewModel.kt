@@ -16,37 +16,31 @@ class MovieViewModel @Inject constructor(
     private val useCase: MovieUseCase
 ) : ViewModel() {
 
+    private val _movieUiState = MutableStateFlow(MovieUiState(isFetchingMovies = true))
+    val movieUiState: StateFlow<MovieUiState> = _movieUiState.asStateFlow()
+
     init {
         getPopularMovies()
+        getNowPlayingMovies()
     }
 
-    private val _popularMovieUiState =
-        MutableStateFlow(MovieUiState(isFetchingMovies = true))
-    val popularMovieUiState: StateFlow<MovieUiState> = _popularMovieUiState.asStateFlow()
-
-    val nowPlayingMoviesPagingFlow = useCase.getNowPlayingMovies()
-        .cachedIn(viewModelScope)
+    private fun getNowPlayingMovies() {
+        val moviesPagingFlow = useCase.getNowPlayingMovies().cachedIn(scope = viewModelScope)
+        _movieUiState.update { it.copy(nowPlayingMovies = moviesPagingFlow) }
+    }
 
     private fun getPopularMovies() {
         viewModelScope.launch {
             useCase.execute().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
-                        _popularMovieUiState.update {
-                            it.copy(
-                                popularMovies = resource.data.movies,
-                                isFetchingMovies = false
-                            )
+                        _movieUiState.update {
+                            it.copy(popularMovies = resource.data.movies, isFetchingMovies = false)
                         }
                     }
-                    is Resource.Loading -> {
-                        _popularMovieUiState.update {
-                            it.copy(
-                                isFetchingMovies = true
-                            )
-                        }
+                    is Resource.Loading -> _movieUiState.update { it.copy(isFetchingMovies = true) }
+                    is Resource.Error -> {
                     }
-                    is Resource.Error -> {}
                 }
             }
         }

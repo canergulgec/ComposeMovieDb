@@ -41,22 +41,22 @@ fun MovieRoute(
     navActions: NavActions,
     viewModel: MovieViewModel = hiltViewModel()
 ) {
-    val nowPlayingMovies = viewModel.nowPlayingMoviesPagingFlow.collectAsLazyPagingItems()
-    val popularMovieState by viewModel.popularMovieUiState.collectAsState()
+    val movieViewState by viewModel.movieUiState.collectAsState()
+    val moviePagingItems = movieViewState.nowPlayingMovies?.collectAsLazyPagingItems()
 
     fun navigateTo(movieId: Int) {
         navActions.gotoDetail.invoke(movieId)
     }
     LoadingContent(
-        loading = popularMovieState.isFetchingMovies,
+        loading = movieViewState.isFetchingMovies,
         loadingContent = { FullScreenLoading() },
         content = {
             LazyColumn(
                 contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                nowPlayingMovies(data = nowPlayingMovies, ::navigateTo)
-                popularMovies(data = popularMovieState.popularMovies, ::navigateTo)
+                moviePagingItems?.let { nowPlayingMovies(data = it, ::navigateTo) }
+                popularMovies(data = movieViewState.popularMovies, ::navigateTo)
             }
         }
     )
@@ -174,7 +174,8 @@ fun MovieItem(item: Movie, onClicked: (Int) -> Unit) {
         contentColor = Color.LightGray,
     ) {
         Column(horizontalAlignment = CenterHorizontally,
-            modifier = Modifier.width(140.dp)
+            modifier = Modifier
+                .width(140.dp)
                 .clickable {
                     onClicked(item.movieId)
                 }

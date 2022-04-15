@@ -1,9 +1,9 @@
 package com.caner.composemoviedb.features.navigation
 
+import androidx.annotation.StringRes
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.utils.Constants
 
-enum class BottomNavItem(var route: String, var icon: Int, var title: String) {
-    MOVIE(NavScreen.Movie.route, R.drawable.ic_movie, Constants.SCREEN_NAME_MOVIE),
-    SEARCH(NavScreen.Search.route, R.drawable.ic_search, Constants.SCREEN_NAME_SEARCH)
+enum class BottomNavItem(val route: String, val icon: Int, @StringRes val title: Int) {
+    MOVIE(NavScreen.Movie.route, R.drawable.ic_movie, R.string.screen_name_movie),
+    SEARCH(NavScreen.Search.route, R.drawable.ic_search, R.string.screen_name_search)
 }

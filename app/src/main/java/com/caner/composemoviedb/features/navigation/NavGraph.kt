@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -110,10 +111,10 @@ fun BottomNavigationBar(
                 icon = {
                     Icon(
                         painterResource(id = screen.icon),
-                        contentDescription = screen.title
+                        contentDescription = stringResource(id = screen.title)
                     )
                 },
-                label = { Text(text = screen.title) },
+                label = { Text(text = stringResource(id = screen.title)) },
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 selectedContentColor = colorResource(id = R.color.purple_200),
                 unselectedContentColor = Color.LightGray,
