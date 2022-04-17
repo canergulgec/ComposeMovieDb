@@ -30,9 +30,9 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getMovieDetail(movieId: Int?) {
+    private fun getMovieDetail(id: Int?) {
         viewModelScope.launch {
-            useCase.execute(movieId).collect { resource ->
+            useCase.execute(id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _uiState.update {
@@ -40,8 +40,11 @@ class MovieDetailViewModel @Inject constructor(
                         }
                     }
                     is Resource.Error -> {
-                        _uiState.update {
-                            it.copy(userMessages = UserMessage(message = resource.error.message))
+                        _uiState.update { state ->
+                            state.copy(
+                                hasError = true,
+                                errorMessage = UserMessage(resource.error.message)
+                            )
                         }
                     }
                     is Resource.Loading -> {
@@ -52,9 +55,5 @@ class MovieDetailViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    fun userMessageShown() {
-        _uiState.update { it.copy(userMessages = null) }
     }
 }

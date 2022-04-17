@@ -3,7 +3,6 @@ package com.caner.composemoviedb.features.screen.search.state
 import com.caner.composemoviedb.data.model.Movie
 
 sealed interface SearchUiState {
-
     val searchTitle: String
     val searchHint: String
     val isHintVisible: Boolean
@@ -11,7 +10,7 @@ sealed interface SearchUiState {
     data class NoMovies(
         override val searchTitle: String,
         override val searchHint: String,
-        override val isHintVisible: Boolean,
+        override val isHintVisible: Boolean
     ) : SearchUiState
 
     data class HasMovies(
@@ -19,6 +18,6 @@ sealed interface SearchUiState {
         val isFetchingMovies: Boolean,
         override val searchTitle: String,
         override val searchHint: String,
-        override val isHintVisible: Boolean,
+        override val isHintVisible: Boolean
     ) : SearchUiState
 }

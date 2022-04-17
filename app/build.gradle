@@ -108,6 +108,9 @@ dependencies {
     implementation "io.ktor:ktor-client-logging-jvm:$ktor"
     implementation "io.ktor:ktor-client-okhttp:$ktor"
 
+    // Lottie
+    implementation "com.airbnb.android:lottie-compose:4.2.2"
+
     // Testing
     testImplementation "junit:junit:$junit"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

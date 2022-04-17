@@ -36,7 +36,7 @@ import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
 
 @Composable
-fun MovieRoute(
+fun MovieScreen(
     navActions: NavActions,
     viewModel: MovieViewModel
 ) {
@@ -46,8 +46,8 @@ fun MovieRoute(
     fun navigateTo(movieId: Int) {
         navActions.gotoDetail.invoke(movieId)
     }
-    LoadingContent(
-        loading = movieViewState.isFetchingMovies,
+    ViewContent(
+        isLoading = movieViewState.isFetchingMovies,
         loadingContent = { FullScreenLoading() },
         content = {
             LazyColumn(

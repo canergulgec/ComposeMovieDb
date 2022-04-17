@@ -4,10 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -24,10 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
-import com.caner.composemoviedb.features.component.CustomImage
-import com.caner.composemoviedb.features.component.FullScreenLoading
-import com.caner.composemoviedb.features.component.LoadingContent
-import com.caner.composemoviedb.features.component.MovieRating
+import com.caner.composemoviedb.features.component.*
 import com.caner.composemoviedb.features.navigation.NavActions
 import com.caner.composemoviedb.features.ui.theme.BLACK_TRANSPARENT
 import com.caner.composemoviedb.features.ui.theme.BLACK_TRANSPARENT_60
@@ -35,48 +29,65 @@ import com.caner.composemoviedb.features.ui.theme.Dimens
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun MovieDetailRoute(
+fun MovieDetailScreen(
     navActions: NavActions,
     viewModel: MovieDetailViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val movieModel = uiState.movieDetailModel
 
-    LoadingContent(
-        loading = uiState.isFetchingMovieDetail,
+    ViewContent(
+        isLoading = uiState.isFetchingMovieDetail,
+        hasError = uiState.hasError,
         loadingContent = { FullScreenLoading() },
+        errorContent = {
+            AnimationPlaceHolder(
+                anim = R.raw.error_anim,
+                message = stringResource(id = R.string.default_error_message)
+            )
+        },
         content = {
             movieModel?.let {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    MovieBackdrop(it.backdrop?.original, onBackPressed = {
-                        navActions.upPress()
-                    })
-
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(0.5f)
-                            .align(Alignment.BottomCenter),
-                        shape = MaterialTheme.shapes.large
-                    ) {
-                        Column(modifier = Modifier.padding(horizontal = Dimens.MediumPadding.size)) {
-                            Spacer(modifier = Modifier.height(16.dp))
-                            MovieContent(movie = it)
-                            Spacer(modifier = Modifier.height(16.dp))
-                            ChipSection(genres = it.genres)
-                            Spacer(modifier = Modifier.height(16.dp))
-                            Text(
-                                style = MaterialTheme.typography.body2,
-                                color = MaterialTheme.colors.secondary,
-                                lineHeight = 20.sp,
-                                text = it.overview,
-                            )
-                        }
-                    }
-                }
+                MovieDetailUi(movieModel = it, onBackPressed = {
+                    navActions.upPress()
+                })
             }
         }
     )
+}
+
+@Composable
+fun MovieDetailUi(
+    movieModel: MovieDetailModel,
+    onBackPressed: () -> Unit
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        MovieBackdrop(
+            poster = movieModel.backdrop?.original,
+            onBackPressed = { onBackPressed() })
+
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
+                .align(Alignment.BottomCenter),
+            shape = MaterialTheme.shapes.large
+        ) {
+            Column(modifier = Modifier.padding(horizontal = Dimens.MediumPadding.size)) {
+                Spacer(modifier = Modifier.height(16.dp))
+                MovieContent(movie = movieModel)
+                Spacer(modifier = Modifier.height(16.dp))
+                ChipSection(genres = movieModel.genres)
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.secondary,
+                    lineHeight = 20.sp,
+                    text = movieModel.overview,
+                )
+            }
+        }
+    }
 }
 
 @Composable

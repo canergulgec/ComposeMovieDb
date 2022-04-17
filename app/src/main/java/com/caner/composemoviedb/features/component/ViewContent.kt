@@ -8,15 +8,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun LoadingContent(
-    loading: Boolean,
+fun ViewContent(
+    isLoading: Boolean,
+    hasError: Boolean = false,
     loadingContent: @Composable () -> Unit,
+    errorContent: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
-    if (loading) {
-        loadingContent()
-    } else {
-        content()
+    when {
+        hasError -> errorContent?.invoke()
+        isLoading -> loadingContent()
+        else -> content()
     }
 }
 

@@ -21,10 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.Movie
-import com.caner.composemoviedb.features.component.CircularProgress
-import com.caner.composemoviedb.features.component.CustomImage
-import com.caner.composemoviedb.features.component.CustomSearchBar
-import com.caner.composemoviedb.features.component.LoadingContent
+import com.caner.composemoviedb.features.component.*
 import com.caner.composemoviedb.features.navigation.NavActions
 import com.caner.composemoviedb.features.screen.search.state.TextEvent
 import com.caner.composemoviedb.features.ui.theme.Dimens
@@ -33,7 +30,7 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
-fun SearchRoute(
+fun SearchScreen(
     navActions: NavActions,
     viewModel: SearchViewModel
 ) {
@@ -76,8 +73,8 @@ fun SearchList(
             MovieTypes()
         }
         is SearchUiState.HasMovies -> {
-            LoadingContent(
-                loading = uiState.isFetchingMovies,
+            ViewContent(
+                isLoading = uiState.isFetchingMovies,
                 loadingContent = { CircularProgressIndicator() },
                 content = {
                     LazyColumn(

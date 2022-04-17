@@ -20,9 +20,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.features.screen.detail.MovieDetailRoute
-import com.caner.composemoviedb.features.screen.movie.MovieRoute
-import com.caner.composemoviedb.features.screen.search.SearchRoute
+import com.caner.composemoviedb.features.screen.detail.MovieDetailScreen
+import com.caner.composemoviedb.features.screen.movie.MovieScreen
+import com.caner.composemoviedb.features.screen.search.SearchScreen
 import com.caner.composemoviedb.utils.Constants
 import com.caner.composemoviedb.features.screen.main.MainViewModel
 import com.google.accompanist.insets.ProvideWindowInsets
@@ -131,10 +131,10 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
 
     NavHost(navController, startDestination = NavScreen.Movie.route, modifier = modifier) {
         composable(NavScreen.Movie.route) {
-            MovieRoute(actions, hiltViewModel())
+            MovieScreen(actions, hiltViewModel())
         }
         composable(NavScreen.Search.route) {
-            SearchRoute(actions, hiltViewModel())
+            SearchScreen(actions, hiltViewModel())
         }
 
         composable(
@@ -144,7 +144,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
                 defaultValue = -1
             })
         ) {
-            MovieDetailRoute(actions, hiltViewModel())
+            MovieDetailScreen(actions, hiltViewModel())
         }
     }
 }

@@ -18,4 +18,7 @@
     <string name="screen_name_movie">Movie</string>
     <string name="screen_name_search">Search</string>
 
+    <!--Error Messages-->
+    <string name="default_error_message">Something went wrong..</string>
+
 </resources>
