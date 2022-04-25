@@ -31,14 +31,14 @@ class MovieViewModel @Inject constructor(
 
     private fun getPopularMovies() {
         viewModelScope.launch {
-            useCase.execute().collect { resource ->
+            useCase.getPopularMovies().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _movieUiState.update {
-                            it.copy(popularMovies = resource.data.movies, isFetchingMovies = false)
+                            it.copy(popularMovies = resource.data.movies)
                         }
                     }
-                    is Resource.Loading -> _movieUiState.update { it.copy(isFetchingMovies = true) }
+                    is Resource.Loading -> _movieUiState.update { it.copy(isFetchingMovies = resource.status) }
                     is Resource.Error -> {
                     }
                 }

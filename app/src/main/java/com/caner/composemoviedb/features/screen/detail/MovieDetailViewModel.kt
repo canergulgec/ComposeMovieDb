@@ -25,14 +25,14 @@ class MovieDetailViewModel @Inject constructor(
     init {
         savedStateHandle.get<Int>(Constants.MOVIE_ID).let { movieId ->
             if (movieId != -1) {
-                getMovieDetail(movieId)
+                getMovieDetail(id = movieId)
             }
         }
     }
 
     private fun getMovieDetail(id: Int?) {
         viewModelScope.launch {
-            useCase.execute(id).collect { resource ->
+            useCase.getMovieDetail(movieId = id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _uiState.update {
