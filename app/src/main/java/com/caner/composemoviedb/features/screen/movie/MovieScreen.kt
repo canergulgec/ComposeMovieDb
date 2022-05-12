@@ -164,7 +164,16 @@ fun PopularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
                     onClicked(movie.movieId)
                 }
         ) {
-            PopularMovieItem(movie = movie)
+            PopularMovieItem(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .background(
+                        Color.Black.copy(alpha = 0.6f),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .padding(8.dp),
+                movie = movie
+            )
         }
     }
 }
@@ -209,7 +218,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
 }
 
 @Composable
-fun PopularMovieItem(movie: Movie) {
+fun PopularMovieItem(modifier: Modifier, movie: Movie) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -225,14 +234,7 @@ fun PopularMovieItem(movie: Movie) {
             color = Color.White,
             fontWeight = FontWeight.Bold,
             fontSize = 14.sp,
-            modifier = Modifier
-                .align(BottomStart)
-                .padding(16.dp)
-                .background(
-                    Color.Black.copy(alpha = 0.6f),
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .padding(8.dp)
+            modifier = modifier.align(BottomStart)
         )
     }
 }
