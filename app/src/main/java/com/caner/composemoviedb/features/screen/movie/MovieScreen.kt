@@ -1,6 +1,7 @@
 package com.caner.composemoviedb.features.screen.movie
 
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -50,12 +51,16 @@ fun MovieScreen(
         isLoading = movieViewState.isFetchingMovies,
         loadingContent = { FullScreenLoading() },
         content = {
-            LazyColumn(
-                contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+            CompositionLocalProvider(
+                LocalOverScrollConfiguration provides null
             ) {
-                moviePagingItems?.let { nowPlayingMovies(data = it, ::navigateTo) }
-                popularMovies(data = movieViewState.popularMovies, ::navigateTo)
+                LazyColumn(
+                    contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    moviePagingItems?.let { nowPlayingMovies(data = it, ::navigateTo) }
+                    popularMovies(data = movieViewState.popularMovies, ::navigateTo)
+                }
             }
         }
     )

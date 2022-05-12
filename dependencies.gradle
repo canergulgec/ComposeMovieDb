@@ -16,15 +16,14 @@ ext {
 
     // Compose
     constraintlayout = "1.0.0"
-    navigation = "2.4.1"
+    navigation = "2.4.2"
     paging = "1.0.0-alpha14"
     activity_compose = "1.4.0"
 
     // Accompanist
     flowlayout = "0.23.0"
-    ui_controller = "0.23.0"
-    pager = "0.23.0"
-    insets = "0.23.0"
+    ui_controller = "0.23.1"
+    pager = "0.23.1"
 
     // Ktor
     ktor = "1.6.7"
@@ -37,7 +36,7 @@ ext {
     soloader = "0.10.1"
 
     // Image Loading
-    coil = "2.0.0-rc02"
+    coil = "2.0.0"
 
     // Testing
     espresso = "3.3.0"

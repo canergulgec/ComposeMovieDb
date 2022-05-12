@@ -25,48 +25,42 @@ import com.caner.composemoviedb.features.screen.movie.MovieScreen
 import com.caner.composemoviedb.features.screen.search.SearchScreen
 import com.caner.composemoviedb.utils.Constants
 import com.caner.composemoviedb.features.screen.main.MainViewModel
-import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.insets.navigationBarsPadding
 import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @Composable
 fun NavGraph(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
-    ProvideWindowInsets {
-        val navController = rememberNavController()
-        Scaffold(
-            bottomBar = {
-                AnimatedVisibility(visible = viewModel.bottomBarVisibility.value) {
-                    BottomNavigationBar(
-                        controller = navController,
-                        onNavigationSelected = { screen ->
-                            navController.navigate(screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = {
+            AnimatedVisibility(visible = viewModel.bottomBarVisibility.value) {
+                BottomNavigationBar(
+                    controller = navController,
+                    onNavigationSelected = { screen ->
+                        navController.navigate(screen.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
                             }
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .navigationBarsPadding()
-                    )
-                }
-            },
-            floatingActionButton = {
-                FloatingButton {
-                    changeTheme()
-                }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
-        ) {
-            Navigation(navController = navController, modifier = Modifier.padding(it))
+        },
+        floatingActionButton = {
+            FloatingButton {
+                changeTheme()
+            }
         }
+    ) {
+        Navigation(navController = navController, modifier = Modifier.padding(it))
+    }
 
-        when (currentRoute(navController = navController)) {
-            NavScreen.Detail.route -> viewModel.changeBottomBarVisibility(false)
-            else -> viewModel.changeBottomBarVisibility(true)
-        }
+    when (currentRoute(navController = navController)) {
+        NavScreen.Detail.route -> viewModel.changeBottomBarVisibility(false)
+        else -> viewModel.changeBottomBarVisibility(true)
     }
 }
 
