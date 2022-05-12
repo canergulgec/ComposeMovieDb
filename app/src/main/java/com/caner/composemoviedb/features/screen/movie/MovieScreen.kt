@@ -1,10 +1,10 @@
 package com.caner.composemoviedb.features.screen.movie
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -58,113 +58,136 @@ fun MovieScreen(
                     contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    moviePagingItems?.let { nowPlayingMovies(data = it, ::navigateTo) }
-                    popularMovies(data = movieViewState.popularMovies, ::navigateTo)
+                    moviePagingItems?.let { movies ->
+                        item {
+                            MovieContentUI(
+                                title = R.string.now_playing,
+                                content = {
+                                    NowPlayingMovies(data = movies, onClicked = { navigateTo(it) })
+                                }
+                            )
+                        }
+                    }
+                    item {
+                        MovieContentUI(
+                            title = R.string.popular,
+                            content = {
+                                PopularMovies(
+                                    data = movieViewState.popularMovies,
+                                    onClicked = { navigateTo(it) }
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }
     )
 }
 
-fun LazyListScope.nowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
-    item {
+@Composable
+fun MovieContentUI(
+    modifier: Modifier = Modifier,
+    @StringRes title: Int,
+    content: @Composable () -> Unit
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         Text(
             modifier = Modifier.padding(horizontal = 16.dp),
-            text = stringResource(R.string.now_playing),
+            text = stringResource(title),
             style = MaterialTheme.typography.h6
         )
+        content()
+    }
+}
 
-        Spacer(modifier = Modifier.height(16.dp))
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            items(data) { movieItem ->
-                movieItem?.let {
-                    MovieItem(item = it, onClicked = onClicked)
-                }
+@Composable
+fun NowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        items(data) { movieItem ->
+            movieItem?.let {
+                MovieItem(item = it, onClicked = onClicked)
             }
+        }
 
-            data.loadState.apply {
-                if (append is LoadState.Loading) {
-                    item { LoadingItem() }
-                }
+        data.loadState.apply {
+            if (append is LoadState.Loading) {
+                item { LoadingItem() }
             }
         }
     }
 }
 
-fun LazyListScope.popularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
-    item {
-        Text(
-            modifier = Modifier.padding(bottom = 16.dp, start = 16.dp),
-            text = stringResource(id = R.string.popular),
-            style = MaterialTheme.typography.h6
-        )
+@Composable
+fun PopularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
+    HorizontalPager(
+        count = data.size,
+        contentPadding = PaddingValues(horizontal = 32.dp),
+        modifier = Modifier.fillMaxSize()
+    ) { page ->
+        val movie = data[page]
+        Card(
+            Modifier
+                .graphicsLayer {
+                    // Calculate the absolute offset for the current page from the
+                    // scroll position. We use the absolute value which allows us to mirror
+                    // any effects for both directions
+                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
 
-        HorizontalPager(
-            count = data.size,
-            contentPadding = PaddingValues(horizontal = 32.dp),
-            modifier = Modifier.fillMaxSize()
-        ) { page ->
-            val movie = data[page]
-            Card(
-                Modifier
-                    .graphicsLayer {
-                        // Calculate the absolute offset for the current page from the
-                        // scroll position. We use the absolute value which allows us to mirror
-                        // any effects for both directions
-                        val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-
-                        // We animate the scaleX + scaleY, between 85% and 100%
-                        lerp(
-                            start = 0.90f,
-                            stop = 1f,
-                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                        ).also { scale ->
-                            scaleX = scale
-                            scaleY = scale
-                        }
-
-                        // We animate the alpha, between 50% and 100%
-                        alpha = lerp(
-                            start = 0.5f,
-                            stop = 1f,
-                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                        )
+                    // We animate the scaleX + scaleY, between 85% and 100%
+                    lerp(
+                        start = 0.90f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    ).also { scale ->
+                        scaleX = scale
+                        scaleY = scale
                     }
-                    .fillMaxWidth()
-                    .aspectRatio(1.7f)
-                    .clickable {
-                        onClicked(movie.movieId)
-                    }
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(MaterialTheme.shapes.small)
-                ) {
-                    CustomImage(
-                        image = movie.backdrop?.original,
-                        fadeDuration = 300,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                    Text(
-                        text = movie.title,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp,
-                        modifier = Modifier
-                            .align(BottomStart)
-                            .padding(16.dp)
-                            .background(
-                                Color.Black.copy(alpha = 0.6f),
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .padding(8.dp)
+
+                    // We animate the alpha, between 50% and 100%
+                    alpha = lerp(
+                        start = 0.5f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
                     )
                 }
+                .fillMaxWidth()
+                .aspectRatio(1.7f)
+                .clickable {
+                    onClicked(movie.movieId)
+                }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(MaterialTheme.shapes.small)
+            ) {
+                CustomImage(
+                    image = movie.backdrop?.original,
+                    fadeDuration = 300,
+                    modifier = Modifier.fillMaxSize()
+                )
+                Text(
+                    text = movie.title,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
+                    modifier = Modifier
+                        .align(BottomStart)
+                        .padding(16.dp)
+                        .background(
+                            Color.Black.copy(alpha = 0.6f),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(8.dp)
+                )
             }
         }
     }
