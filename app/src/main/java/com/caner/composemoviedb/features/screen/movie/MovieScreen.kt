@@ -113,7 +113,7 @@ fun NowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
     ) {
         items(data) { movieItem ->
             movieItem?.let {
-                MovieItem(item = it, onClicked = onClicked)
+                NowPlayingMovieItem(item = it, onClicked = onClicked)
             }
         }
 
@@ -164,37 +164,13 @@ fun PopularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
                     onClicked(movie.movieId)
                 }
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(MaterialTheme.shapes.small)
-            ) {
-                CustomImage(
-                    image = movie.backdrop?.original,
-                    fadeDuration = 300,
-                    modifier = Modifier.fillMaxSize()
-                )
-                Text(
-                    text = movie.title,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
-                    modifier = Modifier
-                        .align(BottomStart)
-                        .padding(16.dp)
-                        .background(
-                            Color.Black.copy(alpha = 0.6f),
-                            shape = RoundedCornerShape(8.dp)
-                        )
-                        .padding(8.dp)
-                )
-            }
+            PopularMovieItem(movie = movie)
         }
     }
 }
 
 @Composable
-fun MovieItem(item: Movie, onClicked: (Int) -> Unit) {
+fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
     Card(
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
@@ -229,6 +205,35 @@ fun MovieItem(item: Movie, onClicked: (Int) -> Unit) {
             MovieRating(voteAverage = item.voteAverage, size = 20.dp)
             Spacer(modifier = Modifier.height(8.dp))
         }
+    }
+}
+
+@Composable
+fun PopularMovieItem(movie: Movie) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .clip(MaterialTheme.shapes.small)
+    ) {
+        CustomImage(
+            image = movie.backdrop?.original,
+            fadeDuration = 300,
+            modifier = Modifier.fillMaxSize()
+        )
+        Text(
+            text = movie.title,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 14.sp,
+            modifier = Modifier
+                .align(BottomStart)
+                .padding(16.dp)
+                .background(
+                    Color.Black.copy(alpha = 0.6f),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .padding(8.dp)
+        )
     }
 }
 
