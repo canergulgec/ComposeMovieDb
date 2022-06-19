@@ -42,7 +42,7 @@ fun SearchScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val uiState by viewModel.uiState.collectAsState()
-        CustomSearchBar(
+        SearchBarComponent(
             text = uiState.searchTitle,
             isHintVisible = uiState.isHintVisible,
             onValueChange = {
@@ -114,7 +114,7 @@ fun SearchItem(
                 itemClicked(item.movieId)
             }
     ) {
-        CustomImage(
+        ImageComponent(
             image = item.poster?.medium,
             fadeDuration = 300,
             modifier = Modifier
@@ -140,7 +140,7 @@ fun SearchItem(
                 modifier = Modifier.wrapContentSize()
             )
             Spacer(modifier = Modifier.height(12.dp))
-            CircularProgress(percentage = ((item.voteAverage) / 10).toFloat(), number = 100)
+            CircularProgressComponent(percentage = ((item.voteAverage) / 10).toFloat(), total = 100)
         }
     }
 }

@@ -41,7 +41,7 @@ import com.caner.composemoviedb.features.ui.theme.ComposeMovieDbTheme
 import com.caner.composemoviedb.features.ui.theme.DIRTY_WHITE
 
 @Composable
-fun CustomSearchBar(
+fun SearchBarComponent(
     modifier: Modifier = Modifier,
     text: String = "",
     hint: String = stringResource(id = R.string.search_hint),
@@ -202,6 +202,6 @@ fun CustomSearchBar(
 @Composable
 private fun CustomSearchBarPreview() {
     ComposeMovieDbTheme {
-        CustomSearchBar()
+        SearchBarComponent()
     }
 }

@@ -41,7 +41,7 @@ fun MovieDetailScreen(
         hasError = uiState.hasError,
         loadingContent = { FullScreenLoading() },
         errorContent = {
-            AnimationPlaceHolder(
+            LottieAnimationComponent(
                 anim = R.raw.error_anim,
                 message = stringResource(id = R.string.default_error_message)
             )
@@ -97,7 +97,7 @@ fun MovieBackdrop(poster: String?, onBackPressed: () -> Unit) {
             .fillMaxWidth()
             .fillMaxHeight(0.55f)
     ) {
-        CustomImage(
+        ImageComponent(
             image = poster,
             fadeDuration = 300,
             modifier = Modifier.fillMaxSize()
@@ -139,7 +139,7 @@ fun MovieContent(movie: MovieDetailModel) {
 
         Spacer(modifier = Modifier.height(8.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            MovieRating(voteAverage = movie.voteAverage, size = 20.dp)
+            MovieRatingComponent(voteAverage = movie.voteAverage, size = 20.dp)
             Spacer(
                 modifier = Modifier
                     .padding(horizontal = Dimens.SmallPadding.size)

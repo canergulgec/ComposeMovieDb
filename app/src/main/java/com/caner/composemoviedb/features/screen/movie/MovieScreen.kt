@@ -2,12 +2,12 @@ package com.caner.composemoviedb.features.screen.movie
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -52,7 +52,7 @@ fun MovieScreen(
         loadingContent = { FullScreenLoading() },
         content = {
             CompositionLocalProvider(
-                LocalOverScrollConfiguration provides null
+                LocalOverscrollConfiguration provides null
             ) {
                 LazyColumn(
                     contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
@@ -119,7 +119,12 @@ fun NowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
 
         data.loadState.apply {
             if (append is LoadState.Loading) {
-                item { LoadingItem() }
+                item {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                    )
+                }
             }
         }
     }
@@ -192,7 +197,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                     onClicked(item.movieId)
                 }
         ) {
-            CustomImage(
+            ImageComponent(
                 image = item.poster?.large,
                 fadeDuration = 300,
                 modifier = Modifier
@@ -211,7 +216,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 style = MaterialTheme.typography.caption,
             )
             Spacer(modifier = Modifier.height(8.dp))
-            MovieRating(voteAverage = item.voteAverage, size = 20.dp)
+            MovieRatingComponent(voteAverage = item.voteAverage, size = 20.dp)
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
@@ -224,7 +229,7 @@ fun PopularMovieItem(modifier: Modifier, movie: Movie) {
             .fillMaxSize()
             .clip(MaterialTheme.shapes.small)
     ) {
-        CustomImage(
+        ImageComponent(
             image = movie.backdrop?.original,
             fadeDuration = 300,
             modifier = Modifier.fillMaxSize()

@@ -10,7 +10,7 @@ import coil.request.ImageRequest
 import com.caner.composemoviedb.R
 
 @Composable
-fun CustomImage(
+fun ImageComponent(
     image: String?,
     modifier: Modifier = Modifier,
     description: String = "",

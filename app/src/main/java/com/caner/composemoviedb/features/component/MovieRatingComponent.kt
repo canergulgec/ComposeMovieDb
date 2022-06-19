@@ -13,12 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.caner.composemoviedb.R
+import com.caner.composemoviedb.features.ui.theme.ComposeMovieDbTheme
 
 @Composable
-fun MovieRating(voteAverage: Double, size: Dp) {
+fun MovieRatingComponent(voteAverage: Double, size: Dp) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -35,5 +37,13 @@ fun MovieRating(voteAverage: Double, size: Dp) {
             color = MaterialTheme.colors.secondary,
             modifier = Modifier.padding(start = 4.dp)
         )
+    }
+}
+
+@Preview
+@Composable
+fun MovieRatingComponentPreview() {
+    ComposeMovieDbTheme {
+        MovieRatingComponent(voteAverage = 4.0, size = 20.dp)
     }
 }

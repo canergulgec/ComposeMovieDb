@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
 
 @Composable
-fun AnimationPlaceHolder(anim: Int, message: String) {
+fun LottieAnimationComponent(anim: Int, message: String) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

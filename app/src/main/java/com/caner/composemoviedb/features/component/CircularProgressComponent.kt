@@ -14,16 +14,18 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.caner.composemoviedb.R
+import com.caner.composemoviedb.features.ui.theme.ComposeMovieDbTheme
 
 @Composable
-fun CircularProgress(
+fun CircularProgressComponent(
     percentage: Float,
-    number: Int,
+    total: Int,
     fontSize: TextUnit = 12.sp,
     radius: Dp = 20.dp,
     color: Color = colorResource(id = R.color.gold),
@@ -62,9 +64,17 @@ fun CircularProgress(
         }
 
         Text(
-            text = "% ${(curPercentage.value * number).toInt()}",
+            text = "% ${(curPercentage.value * total).toInt()}",
             fontSize = fontSize,
             fontWeight = FontWeight.Bold
         )
+    }
+}
+
+@Preview
+@Composable
+fun CircularProgressComponentPreview() {
+    ComposeMovieDbTheme {
+        CircularProgressComponent(percentage = 40f, total = 100)
     }
 }
