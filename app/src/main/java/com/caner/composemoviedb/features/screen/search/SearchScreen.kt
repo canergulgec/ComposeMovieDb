@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -20,6 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.features.component.*
@@ -27,8 +30,12 @@ import com.caner.composemoviedb.features.navigation.NavActions
 import com.caner.composemoviedb.features.screen.search.state.TextEvent
 import com.caner.composemoviedb.features.ui.theme.Dimens
 import com.caner.composemoviedb.features.screen.search.state.SearchUiState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+@ExperimentalLifecycleComposeApi
+@ExperimentalComposeUiApi
+@ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
 fun SearchScreen(
@@ -41,7 +48,7 @@ fun SearchScreen(
             .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val uiState by viewModel.uiState.collectAsState()
+        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
         SearchBarComponent(
             text = uiState.searchTitle,
             isHintVisible = uiState.isHintVisible,

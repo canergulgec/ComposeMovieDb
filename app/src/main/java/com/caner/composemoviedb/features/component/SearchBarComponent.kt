@@ -20,6 +20,7 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusManager
@@ -40,6 +41,7 @@ import com.caner.composemoviedb.R
 import com.caner.composemoviedb.features.ui.theme.ComposeMovieDbTheme
 import com.caner.composemoviedb.features.ui.theme.DIRTY_WHITE
 
+@ExperimentalComposeUiApi
 @Composable
 fun SearchBarComponent(
     modifier: Modifier = Modifier,
@@ -198,6 +200,7 @@ fun SearchBarComponent(
     }
 }
 
+@ExperimentalComposeUiApi
 @Preview
 @Composable
 private fun CustomSearchBarPreview() {

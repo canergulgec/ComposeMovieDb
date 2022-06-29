@@ -24,6 +24,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -32,16 +34,20 @@ import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.Movie
 import com.caner.composemoviedb.features.component.*
 import com.caner.composemoviedb.features.navigation.NavActions
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
+@ExperimentalLifecycleComposeApi
 @Composable
 fun MovieScreen(
     navActions: NavActions,
     viewModel: MovieViewModel
 ) {
-    val movieViewState by viewModel.movieUiState.collectAsState()
+    val movieViewState by viewModel.movieUiState.collectAsStateWithLifecycle()
     val moviePagingItems = movieViewState.nowPlayingMovies?.collectAsLazyPagingItems()
 
     fun navigateTo(movieId: Int) {
@@ -130,6 +136,7 @@ fun NowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
     }
 }
 
+@ExperimentalPagerApi
 @Composable
 fun PopularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
     HorizontalPager(
@@ -198,7 +205,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 }
         ) {
             ImageComponent(
-                image = item.poster?.large,
+                image = item.poster?.original,
                 fadeDuration = 300,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -1,8 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: 'dependencies.gradle'
 buildscript {
-    ext.hilt_version = '2.41'
-    ext.compose_version = '1.2.0-rc01'
+    ext.hilt_version = '2.42'
+    ext.compose_version = '1.2.0-rc02'
     ext.kotlin_version = '1.6.21'
     repositories {
         google()
@@ -15,17 +15,6 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
-    }
-}
-
-allprojects {
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-        kotlinOptions {
-            freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-            freeCompilerArgs += "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"
-            freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"
-            freeCompilerArgs += "-Xopt-in=com.google.accompanist.pager.ExperimentalPagerApi"
-        }
     }
 }
 

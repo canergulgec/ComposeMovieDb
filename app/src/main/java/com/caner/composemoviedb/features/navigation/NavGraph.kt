@@ -1,10 +1,12 @@
 package com.caner.composemoviedb.features.navigation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -12,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -25,8 +28,15 @@ import com.caner.composemoviedb.features.screen.movie.MovieScreen
 import com.caner.composemoviedb.features.screen.search.SearchScreen
 import com.caner.composemoviedb.utils.Constants
 import com.caner.composemoviedb.features.screen.main.MainViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
+@ExperimentalPagerApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalCoroutinesApi
+@ExperimentalLifecycleComposeApi
 @FlowPreview
 @Composable
 fun NavGraph(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
@@ -118,6 +128,11 @@ fun BottomNavigationBar(
     }
 }
 
+@ExperimentalPagerApi
+@ExperimentalComposeUiApi
+@ExperimentalFoundationApi
+@ExperimentalCoroutinesApi
+@ExperimentalLifecycleComposeApi
 @FlowPreview
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier) {

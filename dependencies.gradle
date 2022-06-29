@@ -4,26 +4,27 @@ ext {
     targetSdk = 30
 
     // AndroidX
-    appcompat = "1.4.1"
-    core_ktx = "1.7.0"
+    appcompat = "1.4.2"
+    core_ktx = "1.8.0"
     dataStore = "1.0.0"
-    lifecycle_runtime = "2.4.1"
-    lifecycle_viewmodel = "2.4.1"
-    splashScreen = "1.0.0-beta01"
+    lifecycle_runtime = "2.6.0-alpha01"
+    lifecycle_viewmodel = "2.6.0-alpha01"
+    splashScreen = "1.0.0-rc01"
 
     // Google
-    materialDesign = "1.5.0"
+    materialDesign = "1.6.1"
 
     // Compose
-    constraintlayout = "1.0.0"
-    navigation = "2.4.2"
-    paging = "1.0.0-alpha14"
-    activity_compose = "1.4.0"
+    compose_constraintlayout = "1.0.1"
+    compose_navigation = "2.5.0"
+    compose_activity = "1.4.0"
+    compose_material = "1.2.0-rc02"
+    compose_paging = "1.0.0-alpha15"
 
     // Accompanist
-    flowlayout = "0.23.0"
-    ui_controller = "0.23.1"
-    pager = "0.23.1"
+    flowlayout = "0.24.12-rc"
+    ui_controller = "0.24.12-rc"
+    pager = "0.24.12-rc"
 
     // Ktor
     ktor = "1.6.7"

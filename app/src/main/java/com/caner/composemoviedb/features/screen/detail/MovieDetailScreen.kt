@@ -8,7 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
@@ -28,12 +29,13 @@ import com.caner.composemoviedb.features.ui.theme.BLACK_TRANSPARENT_60
 import com.caner.composemoviedb.features.ui.theme.Dimens
 import com.google.accompanist.flowlayout.FlowRow
 
+@ExperimentalLifecycleComposeApi
 @Composable
 fun MovieDetailScreen(
     navActions: NavActions,
     viewModel: MovieDetailViewModel
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val movieModel = uiState.movieDetailModel
 
     ViewContent(
