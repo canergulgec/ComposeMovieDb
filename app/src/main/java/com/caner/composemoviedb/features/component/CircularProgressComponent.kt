@@ -24,7 +24,7 @@ import com.caner.composemoviedb.features.ui.theme.ComposeMovieDbTheme
 
 @Composable
 fun CircularProgressComponent(
-    percentage: Float,
+    voteAverage: Double,
     total: Int,
     fontSize: TextUnit = 12.sp,
     radius: Dp = 20.dp,
@@ -36,6 +36,7 @@ fun CircularProgressComponent(
     var animPlayed by remember {
         mutableStateOf(false)
     }
+    val percentage = (voteAverage / 10).toFloat()
 
     val curPercentage = animateFloatAsState(
         targetValue = if (animPlayed) percentage else 0f,
@@ -45,7 +46,7 @@ fun CircularProgressComponent(
         )
     )
 
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(key1 = voteAverage) {
         animPlayed = true
     }
 
@@ -75,6 +76,6 @@ fun CircularProgressComponent(
 @Composable
 fun CircularProgressComponentPreview() {
     ComposeMovieDbTheme {
-        CircularProgressComponent(percentage = 40f, total = 100)
+        CircularProgressComponent(voteAverage = 5.0, total = 100)
     }
 }

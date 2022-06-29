@@ -147,7 +147,7 @@ fun SearchItem(
                 modifier = Modifier.wrapContentSize()
             )
             Spacer(modifier = Modifier.height(12.dp))
-            CircularProgressComponent(percentage = ((item.voteAverage) / 10).toFloat(), total = 100)
+            CircularProgressComponent(voteAverage = item.voteAverage, total = 100)
         }
     }
 }
