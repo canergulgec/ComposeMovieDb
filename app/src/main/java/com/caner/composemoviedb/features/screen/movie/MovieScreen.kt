@@ -32,8 +32,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.Movie
-import com.caner.composemoviedb.features.component.*
+import com.caner.composemoviedb.features.composables.*
 import com.caner.composemoviedb.features.navigation.NavActions
+import com.caner.composemoviedb.features.screen.movie.vm.MovieViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
@@ -48,13 +49,13 @@ fun MovieScreen(
     viewModel: MovieViewModel
 ) {
     val movieViewState by viewModel.movieUiState.collectAsStateWithLifecycle()
-    val moviePagingItems = movieViewState.nowPlayingMovies?.collectAsLazyPagingItems()
+    val movieLazyItems = movieViewState.nowPlayingMovies?.collectAsLazyPagingItems()
 
     fun navigateTo(movieId: Int) {
         navActions.gotoDetail.invoke(movieId)
     }
     ViewContent(
-        isLoading = movieViewState.isFetchingMovies,
+        isLoading = movieViewState.isFetchingMovies && movieLazyItems?.loadState?.refresh is LoadState.Loading,
         loadingContent = { FullScreenLoading() },
         content = {
             CompositionLocalProvider(
@@ -64,9 +65,9 @@ fun MovieScreen(
                     contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    moviePagingItems?.let { movies ->
+                    movieLazyItems?.let { movies ->
                         item {
-                            MovieContentUI(
+                            MainContainer(
                                 title = R.string.now_playing,
                                 content = {
                                     NowPlayingMovies(data = movies, onClicked = { navigateTo(it) })
@@ -75,7 +76,7 @@ fun MovieScreen(
                         }
                     }
                     item {
-                        MovieContentUI(
+                        MainContainer(
                             title = R.string.popular,
                             content = {
                                 PopularMovies(
@@ -92,7 +93,7 @@ fun MovieScreen(
 }
 
 @Composable
-fun MovieContentUI(
+fun MainContainer(
     modifier: Modifier = Modifier,
     @StringRes title: Int,
     content: @Composable () -> Unit
@@ -127,8 +128,7 @@ fun NowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
             if (append is LoadState.Loading) {
                 item {
                     CircularProgressIndicator(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
+                        modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
             }
@@ -140,9 +140,9 @@ fun NowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
 @Composable
 fun PopularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
     HorizontalPager(
+        modifier = Modifier.fillMaxSize(),
         count = data.size,
-        contentPadding = PaddingValues(horizontal = 32.dp),
-        modifier = Modifier.fillMaxSize()
+        contentPadding = PaddingValues(horizontal = 32.dp)
     ) { page ->
         val movie = data[page]
         Card(
@@ -205,18 +205,18 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 }
         ) {
             ImageComponent(
-                image = item.poster?.original,
-                fadeDuration = 300,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(200.dp),
+                image = item.poster?.original,
+                fadeDuration = 300,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = item.title,
                 modifier = Modifier
                     .align(CenterHorizontally)
                     .padding(horizontal = 8.dp),
+                text = item.title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colors.onSecondary,
@@ -237,16 +237,16 @@ fun PopularMovieItem(modifier: Modifier, movie: Movie) {
             .clip(MaterialTheme.shapes.small)
     ) {
         ImageComponent(
+            modifier = Modifier.fillMaxSize(),
             image = movie.backdrop?.original,
-            fadeDuration = 300,
-            modifier = Modifier.fillMaxSize()
+            fadeDuration = 300
         )
         Text(
+            modifier = modifier.align(BottomStart),
             text = movie.title,
             color = Color.White,
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp,
-            modifier = modifier.align(BottomStart)
+            fontSize = 14.sp
         )
     }
 }

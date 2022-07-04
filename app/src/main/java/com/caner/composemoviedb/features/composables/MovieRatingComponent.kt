@@ -1,5 +1,6 @@
-package com.caner.composemoviedb.features.component
+package com.caner.composemoviedb.features.composables
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -40,7 +41,8 @@ fun MovieRatingComponent(voteAverage: Double, size: Dp) {
     }
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MovieRatingComponentPreview() {
     ComposeMovieDbTheme {

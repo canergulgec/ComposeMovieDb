@@ -27,7 +27,7 @@ import com.caner.composemoviedb.features.screen.detail.MovieDetailScreen
 import com.caner.composemoviedb.features.screen.movie.MovieScreen
 import com.caner.composemoviedb.features.screen.search.SearchScreen
 import com.caner.composemoviedb.utils.Constants
-import com.caner.composemoviedb.features.screen.main.MainViewModel
+import com.caner.composemoviedb.features.screen.main.vm.MainViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

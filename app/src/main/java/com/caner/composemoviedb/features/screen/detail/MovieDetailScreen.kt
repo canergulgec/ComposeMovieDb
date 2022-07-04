@@ -1,5 +1,7 @@
 package com.caner.composemoviedb.features.screen.detail
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,6 +17,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
@@ -22,10 +26,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.caner.composemoviedb.R
 import com.caner.composemoviedb.data.model.MovieDetailModel
 import com.caner.composemoviedb.data.model.remote.MovieGenre
-import com.caner.composemoviedb.features.component.*
+import com.caner.composemoviedb.data.provider.MovieDetailDataProvider
+import com.caner.composemoviedb.features.composables.*
 import com.caner.composemoviedb.features.navigation.NavActions
+import com.caner.composemoviedb.features.screen.detail.vm.MovieDetailViewModel
 import com.caner.composemoviedb.features.ui.theme.BLACK_TRANSPARENT
 import com.caner.composemoviedb.features.ui.theme.BLACK_TRANSPARENT_60
+import com.caner.composemoviedb.features.ui.theme.ComposeMovieDbTheme
 import com.caner.composemoviedb.features.ui.theme.Dimens
 import com.google.accompanist.flowlayout.FlowRow
 
@@ -64,7 +71,7 @@ fun MovieDetailUi(
     onBackPressed: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
-        MovieBackdrop(
+        MovieBackdropComponent(
             poster = movieModel.backdrop?.original,
             onBackPressed = { onBackPressed() })
 
@@ -76,10 +83,11 @@ fun MovieDetailUi(
             shape = MaterialTheme.shapes.large
         ) {
             Column(modifier = Modifier.padding(horizontal = Dimens.MediumPadding.size)) {
-                Spacer(modifier = Modifier.height(16.dp))
-                MovieContent(movie = movieModel)
-                Spacer(modifier = Modifier.height(16.dp))
-                ChipSection(genres = movieModel.genres)
+                MovieTitleComponent(
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    movie = movieModel
+                )
+                MovieGenreComponent(genres = movieModel.genres)
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     style = MaterialTheme.typography.body2,
@@ -93,16 +101,16 @@ fun MovieDetailUi(
 }
 
 @Composable
-fun MovieBackdrop(poster: String?, onBackPressed: () -> Unit) {
+fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(0.55f)
     ) {
         ImageComponent(
+            modifier = Modifier.fillMaxSize(),
             image = poster,
-            fadeDuration = 300,
-            modifier = Modifier.fillMaxSize()
+            fadeDuration = 300
         )
         Box(
             modifier = Modifier
@@ -117,22 +125,22 @@ fun MovieBackdrop(poster: String?, onBackPressed: () -> Unit) {
                 )
         )
         Icon(
-            imageVector = Icons.Default.ArrowBack,
-            tint = Color.White,
-            contentDescription = null,
             modifier = Modifier
                 .padding(Dimens.MediumPadding.size)
                 .align(Alignment.TopStart)
                 .clickable {
                     onBackPressed()
-                }
+                },
+            imageVector = Icons.Default.ArrowBack,
+            tint = Color.White,
+            contentDescription = null
         )
     }
 }
 
 @Composable
-fun MovieContent(movie: MovieDetailModel) {
-    Column {
+fun MovieTitleComponent(modifier: Modifier = Modifier, movie: MovieDetailModel) {
+    Column(modifier = modifier) {
         Text(
             text = movie.title,
             style = MaterialTheme.typography.subtitle1,
@@ -159,7 +167,7 @@ fun MovieContent(movie: MovieDetailModel) {
 }
 
 @Composable
-fun ChipSection(genres: List<MovieGenre>) {
+fun MovieGenreComponent(genres: List<MovieGenre>) {
     FlowRow {
         repeat(genres.size) { pos ->
             Box(
@@ -181,5 +189,16 @@ fun ChipSection(genres: List<MovieGenre>) {
                 )
             }
         }
+    }
+}
+
+@Preview(uiMode = UI_MODE_NIGHT_NO)
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Composable
+private fun MovieDetailUiPreview(
+    @PreviewParameter(MovieDetailDataProvider::class) movie: MovieDetailModel
+) {
+    ComposeMovieDbTheme {
+        MovieDetailUi(movieModel = movie, onBackPressed = {})
     }
 }

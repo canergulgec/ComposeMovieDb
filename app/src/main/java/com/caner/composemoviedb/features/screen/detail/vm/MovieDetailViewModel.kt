@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.features.screen.detail
+package com.caner.composemoviedb.features.screen.detail.vm
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

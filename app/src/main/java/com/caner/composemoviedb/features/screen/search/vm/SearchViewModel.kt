@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.features.screen.search
+package com.caner.composemoviedb.features.screen.search.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

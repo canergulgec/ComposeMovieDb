@@ -17,6 +17,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.lifecycleScope
 import com.caner.composemoviedb.features.navigation.NavGraph
+import com.caner.composemoviedb.features.screen.main.vm.MainViewModel
 import com.caner.composemoviedb.features.ui.theme.ComposeMovieDbTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

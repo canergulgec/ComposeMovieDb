@@ -44,6 +44,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11
+        freeCompilerArgs = ['-Xjvm-default=enable']
     }
     buildFeatures {
         compose true
@@ -63,8 +64,8 @@ dependencies {
     // AndroidX
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.appcompat:appcompat:$appcompat"
-    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_runtime"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_viewmodel"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel"
     implementation "androidx.datastore:datastore-preferences:$dataStore"
     implementation "androidx.core:core-splashscreen:$splashScreen"
 
@@ -77,15 +78,15 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation"
 
     // Compose
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-util:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.compiler:compiler:$compose_version"
+    implementation "androidx.compose.ui:ui-util:$compose_util"
+    implementation "androidx.compose.ui:ui:$compose_ui"
+    implementation "androidx.compose.ui:ui-tooling:$compose_tooling"
     implementation "androidx.compose.material:material:$compose_material"
     implementation "androidx.activity:activity-compose:$compose_activity"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_viewmodel"
     implementation "androidx.paging:paging-compose:$compose_paging"
     implementation "androidx.navigation:navigation-compose:$compose_navigation"
-    implementation "androidx.constraintlayout:constraintlayout-compose:$compose_constraintlayout"
 
     // Accompanist
     implementation "com.google.accompanist:accompanist-flowlayout:$flowlayout"

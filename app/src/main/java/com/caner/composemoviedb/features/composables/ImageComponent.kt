@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.features.component
+package com.caner.composemoviedb.features.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,20 +11,20 @@ import com.caner.composemoviedb.R
 
 @Composable
 fun ImageComponent(
-    image: String?,
     modifier: Modifier = Modifier,
+    image: String?,
     description: String = "",
     fadeDuration: Int = 0
 ) {
     AsyncImage(
+        modifier = modifier,
         model = ImageRequest.Builder(LocalContext.current)
             .data(image)
             .crossfade(fadeDuration)
             .build(),
-       //placeholder = painterResource(R.drawable.bg_image_placeholder),
+        //placeholder = painterResource(R.drawable.bg_image_placeholder),
         error = painterResource(R.drawable.bg_image_placeholder),
         contentDescription = description,
-        contentScale = ContentScale.Crop,
-        modifier = modifier
+        contentScale = ContentScale.Crop
     )
 }

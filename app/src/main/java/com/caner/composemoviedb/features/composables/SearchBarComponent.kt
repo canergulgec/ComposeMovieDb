@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.features.component
+package com.caner.composemoviedb.features.composables
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
