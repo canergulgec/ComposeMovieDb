@@ -83,7 +83,6 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_ui"
     implementation "androidx.compose.ui:ui-tooling:$compose_tooling"
     implementation "androidx.compose.material:material:$compose_material"
-    implementation "androidx.activity:activity-compose:$compose_activity"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_viewmodel"
     implementation "androidx.paging:paging-compose:$compose_paging"
     implementation "androidx.navigation:navigation-compose:$compose_navigation"
