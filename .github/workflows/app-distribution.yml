@@ -13,7 +13,10 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
         
-      - name: Build debug
+      - name: Build with Gradle
+        run: ./gradlew build
+        
+      - name: Build Debug APK
         run: ./gradlew clean assembleDebug
         
       - name: Upload artifact to Firebase App Distribution
