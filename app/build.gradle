@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -11,7 +13,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.movieitemcompose"
+        applicationId "com.caner.composemoviedb"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -109,6 +111,11 @@ dependencies {
 
     // Lottie
     implementation "com.airbnb.android:lottie-compose:4.2.2"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Testing
     testImplementation "junit:junit:$junit"

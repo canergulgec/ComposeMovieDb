@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1055130255801",
+    "project_id": "compose-moviedb",
+    "storage_bucket": "compose-moviedb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055130255801:android:8d469168b9d09dbfad3668",
+        "android_client_info": {
+          "package_name": "com.caner.composemoviedb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055130255801-o2t8bie890a24ev1k8fg51r0ukpg1jl3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.caner.composemoviedb",
+            "certificate_hash": "a088f5cc2d556876514859d8ea104b360d77a827"
+          }
+        },
+        {
+          "client_id": "1055130255801-14sgnbm72us659vntvgukbe9sba5tui7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo-7Hjj3irxUQIwqFrb-LdGQNafW42TL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055130255801-14sgnbm72us659vntvgukbe9sba5tui7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
