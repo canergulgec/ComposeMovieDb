@@ -28,10 +28,11 @@ android {
         if (file("../secure.properties").exists()) {
             file("../secure.properties")?.withInputStream { secureProps.load(it) }
         }
+        def apiKey = secureProps.getProperty("MOVIE_API_KEY")
 
         buildConfigField("Integer", "TIMEOUT", "60")
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField("String", "API_KEY", (secureProps.getProperty("MOVIE_API_KEY") ?: ""))
+        buildConfigField("String", "API_KEY", apiKey)
     }
 
     buildTypes {
