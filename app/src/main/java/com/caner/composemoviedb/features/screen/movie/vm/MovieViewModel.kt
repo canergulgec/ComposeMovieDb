@@ -9,6 +9,7 @@ import com.caner.composemoviedb.features.screen.movie.state.MovieUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,8 +40,7 @@ class MovieViewModel @Inject constructor(
                         }
                     }
                     is Resource.Loading -> _movieUiState.update { it.copy(isFetchingMovies = resource.status) }
-                    is Resource.Error -> {
-                    }
+                    is Resource.Error -> Timber.e(resource.error)
                 }
             }
         }

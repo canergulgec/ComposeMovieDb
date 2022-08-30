@@ -25,14 +25,11 @@ android {
         }
 
         def secureProps = new Properties()
-        if (file("../secure.properties").exists()) {
-            file("../secure.properties")?.withInputStream { secureProps.load(it) }
-        }
-        def apiKey = secureProps.getProperty("MOVIE_API_KEY")
+        secureProps.load(file('../secure.properties').newDataInputStream())
 
         buildConfigField("Integer", "TIMEOUT", "60")
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField("String", "API_KEY", apiKey)
+        buildConfigField("String", "API_KEY", secureProps.getProperty("MOVIE_API_KEY"))
     }
 
     buildTypes {
@@ -98,11 +95,6 @@ dependencies {
     // Image Loading
     implementation "io.coil-kt:coil-compose:$coil"
 
-    // App Debugging
-    debugImplementation "com.facebook.flipper:flipper:$flipper"
-    debugImplementation "com.facebook.soloader:soloader:$soloader"
-    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper"
-
     // Ktor
     implementation "io.ktor:ktor-client-android:$ktor"
     implementation "io.ktor:ktor-client-core:$ktor"
@@ -111,10 +103,13 @@ dependencies {
     implementation "io.ktor:ktor-client-okhttp:$ktor"
 
     // Lottie
-    implementation "com.airbnb.android:lottie-compose:4.2.2"
+    implementation "com.airbnb.android:lottie-compose:$lottie"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber"
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 

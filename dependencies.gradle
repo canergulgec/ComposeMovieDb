@@ -33,9 +33,14 @@ ext {
     // Hilt
     hilt_navigation = "1.0.0"
 
-    // App Debugger
-    flipper = "0.80.0"
-    soloader = "0.10.1"
+    // Timber
+    timber = "5.0.1"
+
+    // Lottie
+    lottie = "4.2.2"
+
+    // Firebase BOM
+    firebase_version = "30.3.2"
 
     // Image Loading
     coil = "2.0.0"

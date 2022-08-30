@@ -11,6 +11,7 @@ import com.caner.composemoviedb.features.screen.detail.state.MovieDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,6 +47,7 @@ class MovieDetailViewModel @Inject constructor(
                                 errorMessage = UserMessage(resource.error.message)
                             )
                         }
+                        Timber.e(resource.error)
                     }
                     is Resource.Loading -> {
                         _uiState.update {

@@ -5,9 +5,6 @@ import android.util.Log
 import com.caner.composemoviedb.BuildConfig
 import com.caner.composemoviedb.utils.network.HttpParams
 import com.caner.composemoviedb.utils.network.HttpRoutes
-import com.facebook.flipper.android.AndroidFlipperClient
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +18,7 @@ import io.ktor.client.features.logging.*
 import io.ktor.client.features.observer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -41,14 +39,14 @@ object NetworkModule {
         Logging {
             logger = object : Logger {
                 override fun log(message: String) {
-                    Log.v("Logger Ktor =>", message)
+                    Timber.v("Logger Ktor =>", message)
                 }
             }
             level = LogLevel.ALL
         }
 
         ResponseObserver { response ->
-            Log.d("HTTP status:", "${response.status.value}")
+            Timber.d("HTTP status:", "${response.status.value}")
         }
 
         install(JsonFeature) {
@@ -61,14 +59,6 @@ object NetworkModule {
         install(HttpTimeout) {
             connectTimeoutMillis = HttpParams.TIME_OUT
             socketTimeoutMillis = HttpParams.TIME_OUT
-        }
-
-        engine {
-            addNetworkInterceptor(
-                FlipperOkhttpInterceptor(
-                    AndroidFlipperClient.getInstance(context).getPlugin(NetworkFlipperPlugin.ID)
-                )
-            )
         }
     }
 }

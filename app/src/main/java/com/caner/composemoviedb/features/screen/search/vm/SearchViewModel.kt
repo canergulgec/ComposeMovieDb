@@ -11,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -66,9 +67,7 @@ class SearchViewModel @Inject constructor(
                         is Resource.Loading -> {
                             viewModelState.update { it.copy(isLoading = resource.status) }
                         }
-                        is Resource.Error -> {
-                            // Handle error state
-                        }
+                        is Resource.Error -> Timber.e(resource.error)
                     }
                 }
         }
