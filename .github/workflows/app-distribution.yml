@@ -12,7 +12,12 @@ jobs:
           
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        
+
+      - name: Access MOVIE_API_KEY
+        env:
+          MOVIE_API_KEY: ${{ secrets.MOVIE_API_KEY }}
+        run: echo MOVIE_API_KEY=\"MOVIE_API_KEY\" > ./local.properties
+
       - name: Build with Gradle
         run: ./gradlew build
         

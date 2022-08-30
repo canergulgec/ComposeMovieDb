@@ -24,12 +24,9 @@ android {
             useSupportLibrary true
         }
 
-        def secureProps = new Properties()
-        secureProps.load(file('../secure.properties').newDataInputStream())
-
         buildConfigField("Integer", "TIMEOUT", "60")
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField("String", "API_KEY", secureProps.getProperty("MOVIE_API_KEY"))
+        buildConfigField("String", "API_KEY", getApiKey())
     }
 
     buildTypes {
@@ -118,4 +115,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+}
+
+String getApiKey() {
+    def propFile = rootProject.file("./local.properties")
+    def properties = new Properties()
+    properties.load(new FileInputStream(propFile))
+    return properties['MOVIE_API_KEY']
 }
