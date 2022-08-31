@@ -18,6 +18,13 @@ jobs:
           MOVIE_API_KEY: ${{ secrets.MOVIE_API_KEY }}
         run: echo MOVIE_API_KEY=\"MOVIE_API_KEY\" > ./local.properties
 
+      - name: Bump version
+        uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: app/build.gradle
+          versionCode: ${{github.run_number}}
+          #versionName: 1.0.0
+
       - name: Build with Gradle
         run: ./gradlew build
         
