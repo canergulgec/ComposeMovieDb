@@ -1,10 +1,10 @@
 ext {
-    compileSdk = 30
+    compileSdk = 32
     minSdk = 23
-    targetSdk = 30
+    targetSdk = 32
 
     // AndroidX
-    appcompat = "1.4.2"
+    appcompat = "1.5.1"
     core_ktx = "1.8.0"
     dataStore = "1.0.0"
     lifecycle_runtime = "2.6.0-alpha01"
@@ -15,17 +15,17 @@ ext {
     materialDesign = "1.6.1"
 
     // Compose
-    compose_ui = "1.2.0"
-    compose_tooling = "1.2.0"
+    compose_ui = "1.2.1"
+    compose_tooling = "1.2.1"
     compose_util = "1.2.0"
-    compose_material = "1.2.0"
-    compose_navigation = "2.5.1"
+    compose_material = "1.2.1"
+    compose_navigation = "2.5.2"
     compose_paging = "1.0.0-alpha15"
 
     // Accompanist
-    flowlayout = "0.25.0"
+    flowlayout = "0.25.1"
     ui_controller = "0.25.0"
-    pager = "0.25.0"
+    pager = "0.25.1"
 
     // Ktor
     ktor = "1.6.7"

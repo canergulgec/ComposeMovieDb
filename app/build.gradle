@@ -10,7 +10,6 @@ plugins {
 
 android {
     compileSdk 32
-    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.caner.composemoviedb"
@@ -23,10 +22,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
-        buildConfigField("Integer", "TIMEOUT", "60")
-        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField("String", "API_KEY", getApiKey())
     }
 
     buildTypes {
@@ -57,13 +52,19 @@ kapt {
 }
 
 dependencies {
+    implementation project(":navigation")
+    implementation project(":feature-home")
+    implementation project(":feature-detail")
+    implementation project(":feature-search")
+    implementation project(":core-common")
+    implementation project(":core-ui")
+    implementation project(":core-data")
 
     // AndroidX
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel"
-    implementation "androidx.datastore:datastore-preferences:$dataStore"
     implementation "androidx.core:core-splashscreen:$splashScreen"
 
     // Google
@@ -75,7 +76,7 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation"
 
     // Compose
-    implementation "androidx.compose.compiler:compiler:$compose_version"
+    implementation "androidx.compose.compiler:compiler:1.3.1"
     implementation "androidx.compose.ui:ui-util:$compose_util"
     implementation "androidx.compose.ui:ui:$compose_ui"
     implementation "androidx.compose.ui:ui-tooling:$compose_tooling"
@@ -115,11 +116,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-}
-
-String getApiKey() {
-    def propFile = rootProject.file("./local.properties")
-    def properties = new Properties()
-    properties.load(new FileInputStream(propFile))
-    return properties['MOVIE_API_KEY']
 }

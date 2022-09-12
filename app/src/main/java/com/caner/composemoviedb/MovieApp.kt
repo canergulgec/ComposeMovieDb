@@ -1,7 +1,7 @@
 package com.caner.composemoviedb
 
 import android.app.Application
-import com.caner.composemoviedb.utils.log.ReleaseTree
+import com.caner.composemoviedb.utils.ReleaseTree
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
