@@ -37,7 +37,8 @@ import com.google.accompanist.flowlayout.FlowRow
 @ExperimentalLifecycleComposeApi
 @Composable
 fun MovieDetailScreen(
-    viewModel: MovieDetailViewModel
+    viewModel: MovieDetailViewModel,
+    onBackPressed: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val movieModel = uiState.movieDetailModel
@@ -54,9 +55,7 @@ fun MovieDetailScreen(
         },
         content = {
             movieModel?.let {
-                MovieDetailUi(movieModel = it, onBackPressed = {
-                   //TODO:  navActions.upPress()
-                })
+                MovieDetailUi(movieModel = it, onBackPressed = onBackPressed)
             }
         }
     )

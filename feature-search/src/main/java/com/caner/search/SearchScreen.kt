@@ -46,12 +46,13 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel
+    viewModel: SearchViewModel,
+    onMovieClicked: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     SearchScreenUi(
         uiState = uiState,
-        //navActions = navActions,
+        onMovieClicked = onMovieClicked,
         onValueChange = {
             viewModel.onEvent(TextEvent.OnValueChange(it))
         },
@@ -66,7 +67,7 @@ fun SearchScreen(
 @Composable
 fun SearchScreenUi(
     uiState: SearchUiState,
-   // navActions: NavActions,
+    onMovieClicked: (Int) -> Unit,
     onValueChange: (String) -> Unit,
     onFocusChange: (Boolean) -> Unit
 ) {
@@ -92,14 +93,15 @@ fun SearchScreenUi(
                 vertical = Dimens.MediumPadding.size
             )
         )
-        SearchList(uiState)
+        SearchList(uiState = uiState, onMovieClicked = onMovieClicked)
     }
 }
 
 @FlowPreview
 @Composable
 fun SearchList(
-    uiState: SearchUiState
+    uiState: SearchUiState,
+    onMovieClicked: (Int) -> Unit
 ) {
     when (uiState) {
         is SearchUiState.NoMovies -> {
@@ -117,9 +119,7 @@ fun SearchList(
                         items(uiState.movies) { item ->
                             MovieItemComposable(
                                 item = item,
-                                itemClicked = { movieId ->
-                                    //TODO: navActions.gotoDetail(movieId)
-                                }
+                                itemClicked = onMovieClicked
                             )
                             Divider(
                                 modifier = Modifier.padding(top = 16.dp),
@@ -229,6 +229,7 @@ private fun SearchScreenPreview(
     ComposeMovieDbTheme {
         SearchScreenUi(
             uiState = searchUiState,
+            onMovieClicked = {},
             onValueChange = {},
             onFocusChange = {})
     }

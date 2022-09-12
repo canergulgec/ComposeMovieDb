@@ -46,14 +46,12 @@ import kotlin.math.absoluteValue
 @ExperimentalLifecycleComposeApi
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    onMovieClicked: (Int) -> Unit
 ) {
     val movieViewState by viewModel.movieUiState.collectAsStateWithLifecycle()
     val movieLazyItems = movieViewState.nowPlayingMovies?.collectAsLazyPagingItems()
 
-    fun navigateTo(movieId: Int) {
-       //Todo:  navActions.gotoDetail.invoke(movieId)
-    }
     ViewContent(
         isLoading = movieViewState.isFetchingMovies && movieLazyItems?.loadState?.refresh is LoadState.Loading,
         loadingContent = { FullScreenLoading() },
@@ -70,7 +68,7 @@ fun HomeScreen(
                             MainContainer(
                                 title = R.string.now_playing,
                                 content = {
-                                    NowPlayingMovies(data = movies, onClicked = { navigateTo(it) })
+                                    NowPlayingMovies(data = movies, onClicked = onMovieClicked)
                                 }
                             )
                         }
@@ -81,7 +79,7 @@ fun HomeScreen(
                             content = {
                                 PopularMovies(
                                     data = movieViewState.popularMovies,
-                                    onClicked = { navigateTo(it) }
+                                    onClicked = onMovieClicked
                                 )
                             }
                         )

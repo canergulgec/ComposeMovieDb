@@ -1,13 +1,13 @@
 package com.caner.navigation
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import androidx.navigation.NavController
 
-class NavigationManager {
-    private val _commands = MutableStateFlow<NavigationCommand?>(null)
-    val commands = _commands.asStateFlow()
+class NavigationManager(navController: NavController) {
+    val upPress: () -> Unit = {
+        navController.navigateUp()
+    }
 
-    fun navigate(route: String) {
-        _commands.value = NavigationCommand(route)
+    val gotoDetail: (Int) -> Unit = { movieId ->
+        navController.navigate(NavigationDirections.Detail.createRoute(movieId))
     }
 }

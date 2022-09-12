@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.navigation
+package com.caner.composemoviedb.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -27,7 +27,8 @@ import com.caner.composemoviedb.ui.screen.MainViewModel
 import com.caner.detail.MovieDetailScreen
 import com.caner.home.HomeScreen
 import com.caner.navigation.BottomNavItem
-import com.caner.navigation.Routes
+import com.caner.navigation.NavigationDirections
+import com.caner.navigation.NavigationManager
 import com.caner.search.SearchScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -70,7 +71,7 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
     }
 
     when (currentRoute(navController = navController)) {
-        Routes.Detail.route -> viewModel.changeBottomBarVisibility(false)
+        NavigationDirections.Detail.route -> viewModel.changeBottomBarVisibility(false)
         else -> viewModel.changeBottomBarVisibility(true)
     }
 }
@@ -137,22 +138,37 @@ fun BottomNavigationBar(
 @FlowPreview
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier) {
-    NavHost(navController, startDestination = Routes.Home.route, modifier = modifier) {
-        composable(Routes.Home.route) {
-            HomeScreen(hiltViewModel())
+    val navManager = remember(navController) { NavigationManager(navController) }
+
+    NavHost(navController, startDestination = NavigationDirections.Home.route, modifier = modifier) {
+        composable(NavigationDirections.Home.route) {
+            HomeScreen(
+                viewModel = hiltViewModel(),
+                onMovieClicked = { movieID ->
+                    navManager.gotoDetail(movieID)
+                }
+            )
         }
-        composable(Routes.Search.route) {
-            SearchScreen(hiltViewModel())
+        composable(NavigationDirections.Search.route) {
+            SearchScreen(
+                viewModel = hiltViewModel(),
+                onMovieClicked = { movieID ->
+                    navManager.gotoDetail(movieID)
+                }
+            )
         }
 
         composable(
-            route = Routes.Detail.route,
+            route = NavigationDirections.Detail.route,
             arguments = listOf(navArgument(Constants.MOVIE_ID) {
                 type = NavType.IntType
                 defaultValue = -1
             })
         ) {
-            MovieDetailScreen(hiltViewModel())
+            MovieDetailScreen(
+                viewModel = hiltViewModel(),
+                onBackPressed = navManager.upPress
+            )
         }
     }
 }
