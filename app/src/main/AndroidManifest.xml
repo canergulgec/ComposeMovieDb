@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComposeMovieDb">
         <activity
-            android:name=".features.screen.main.MainActivity"
+            android:name=".ui.screen.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
