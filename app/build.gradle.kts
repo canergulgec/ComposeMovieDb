@@ -56,7 +56,6 @@ dependencies {
     implementation(project(Modules.feature_detail))
     implementation(project(Modules.feature_search))
     implementation(project(Modules.core_common))
-    implementation(project(Modules.core_ui))
     implementation(project(Modules.core_data))
 
     // AndroidX
