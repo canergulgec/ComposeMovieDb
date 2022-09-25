@@ -13,15 +13,6 @@ android {
         targetSdk = ConfigData.targetSdkVersion
         testInstrumentationRunner = ConfigData.androidInstrumentationRunner
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
-        }
-    }
 }
 
 dependencies {
