@@ -1,27 +1,23 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id(ConfigData.androidLibrary)
+    id(ConfigData.kotlinAndroid)
+    id(ConfigData.kotlinKapt)
+    id(ConfigData.daggerHilt)
 }
 
 android {
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = Versions.App.compileSdkVersion
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdkVersion
-        testInstrumentationRunner = ConfigData.androidInstrumentationRunner
+        minSdk = Versions.App.minSdkVersion
+        targetSdk = Versions.App.targetSdkVersion
+        testInstrumentationRunner = ConfigData.testRunner
     }
 }
 
 dependencies {
     implementation(project(Modules.core_common))
     implementation(project(Modules.core_data))
-
-    // AndroidX
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.appCompat)
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.daggerHilt)
@@ -31,6 +27,4 @@ dependencies {
     implementation(Dependencies.Compose.composePaging)
 
     testImplementation(Dependencies.Test.jUnit)
-    androidTestImplementation(Dependencies.Test.jUnitExt)
-    androidTestImplementation(Dependencies.Test.espresso)
 }

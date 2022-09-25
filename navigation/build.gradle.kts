@@ -1,29 +1,23 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(ConfigData.androidLibrary)
+    id(ConfigData.kotlinAndroid)
 }
 
 android {
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = Versions.App.compileSdkVersion
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdkVersion
-        testInstrumentationRunner = ConfigData.androidInstrumentationRunner
+        minSdk = Versions.App.minSdkVersion
+        targetSdk = Versions.App.targetSdkVersion
+        testInstrumentationRunner = ConfigData.testRunner
     }
 }
 
 dependencies {
     implementation(project(Modules.core_common))
 
-    // AndroidX
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.appCompat)
-
-    // Compose
+    // Compose Navigation
     implementation(Dependencies.Compose.composeNavigation)
 
     testImplementation(Dependencies.Test.jUnit)
-    androidTestImplementation(Dependencies.Test.jUnitExt)
-    androidTestImplementation(Dependencies.Test.espresso)
 }

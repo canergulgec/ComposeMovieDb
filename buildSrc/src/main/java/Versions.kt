@@ -1,5 +1,13 @@
 object Versions {
 
+    object App {
+        const val minSdkVersion = 24
+        const val targetSdkVersion = 32
+        const val compileSdkVersion = 32
+        const val versionCode = 1
+        const val versionName = "1.0.0"
+    }
+
     object AndroidX {
         const val appCompatVersion = "1.5.1"
         const val coreKtxVersion = "1.8.0"

@@ -1,23 +1,23 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    id("kotlin-parcelize")
+    id(ConfigData.androidApplication)
+    id(ConfigData.kotlinAndroid)
+    id(ConfigData.kotlinKapt)
+    id(ConfigData.daggerHilt)
+    id(ConfigData.kotlinParcelize)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
 
 android {
-    compileSdk = ConfigData.compileSdkVersion
+    compileSdk = Versions.App.compileSdkVersion
 
     defaultConfig {
         applicationId = ConfigData.applicationID
-        minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdkVersion
-        versionCode = ConfigData.versionCode
-        versionName = ConfigData.versionName
-        testInstrumentationRunner = ConfigData.androidInstrumentationRunner
+        minSdk = Versions.App.minSdkVersion
+        targetSdk = Versions.App.targetSdkVersion
+        versionCode = Versions.App.versionCode
+        versionName = Versions.App.versionName
+        testInstrumentationRunner = ConfigData.testRunner
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -56,6 +56,7 @@ dependencies {
     implementation(project(Modules.feature_detail))
     implementation(project(Modules.feature_search))
     implementation(project(Modules.core_common))
+    implementation(project(Modules.core_ui))
     implementation(project(Modules.core_data))
 
     // AndroidX
