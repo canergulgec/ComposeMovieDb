@@ -31,7 +31,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.data.model.Movie
+import com.caner.composemoviedb.domain.model.Movie
 import com.caner.composemoviedb.features.composables.*
 import com.caner.composemoviedb.features.navigation.NavActions
 import com.caner.composemoviedb.features.screen.movie.vm.MovieViewModel

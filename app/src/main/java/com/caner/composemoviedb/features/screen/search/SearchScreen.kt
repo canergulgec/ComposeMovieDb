@@ -28,7 +28,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.data.model.Movie
+import com.caner.composemoviedb.domain.model.Movie
 import com.caner.composemoviedb.data.provider.SearchScreenDataProvider
 import com.caner.composemoviedb.features.composables.*
 import com.caner.composemoviedb.features.navigation.NavActions

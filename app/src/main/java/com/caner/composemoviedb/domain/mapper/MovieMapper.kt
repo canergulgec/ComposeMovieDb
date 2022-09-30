@@ -1,10 +1,10 @@
 package com.caner.composemoviedb.domain.mapper
 
-import com.caner.composemoviedb.data.model.MovieImage
-import com.caner.composemoviedb.data.model.MovieModel
-import com.caner.composemoviedb.data.model.Movie
-import com.caner.composemoviedb.data.model.remote.MovieResponseItem
-import com.caner.composemoviedb.data.model.remote.MoviesResponse
+import com.caner.composemoviedb.domain.model.MovieImage
+import com.caner.composemoviedb.domain.model.MovieModel
+import com.caner.composemoviedb.domain.model.Movie
+import com.caner.composemoviedb.domain.model.remote.MovieResponseItem
+import com.caner.composemoviedb.domain.model.remote.MoviesResponse
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject

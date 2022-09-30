@@ -1,6 +1,6 @@
 package com.caner.composemoviedb.features.screen.detail.state
 
-import com.caner.composemoviedb.data.model.MovieDetailModel
+import com.caner.composemoviedb.domain.model.MovieDetailModel
 import com.caner.composemoviedb.utils.network.UserMessage
 
 data class MovieDetailUiState(

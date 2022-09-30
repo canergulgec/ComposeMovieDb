@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.caner.composemoviedb.R
-import com.caner.composemoviedb.data.model.MovieDetailModel
-import com.caner.composemoviedb.data.model.remote.MovieGenre
+import com.caner.composemoviedb.domain.model.MovieDetailModel
+import com.caner.composemoviedb.domain.model.remote.MovieGenre
 import com.caner.composemoviedb.data.provider.MovieDetailDataProvider
 import com.caner.composemoviedb.features.composables.*
 import com.caner.composemoviedb.features.navigation.NavActions

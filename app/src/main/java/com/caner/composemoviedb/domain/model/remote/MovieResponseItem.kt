@@ -1,4 +1,4 @@
-package com.caner.composemoviedb.data.model.remote
+package com.caner.composemoviedb.domain.model.remote
 
 import com.google.gson.annotations.SerializedName
 

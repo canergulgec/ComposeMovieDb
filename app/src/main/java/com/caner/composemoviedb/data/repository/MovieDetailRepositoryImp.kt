@@ -1,6 +1,7 @@
 package com.caner.composemoviedb.data.repository
 
-import com.caner.composemoviedb.data.model.remote.MovieDetailResponse
+import com.caner.composemoviedb.domain.model.remote.MovieDetailResponse
+import com.caner.composemoviedb.domain.repository.MovieDetailRepository
 import com.caner.composemoviedb.utils.network.HttpRoutes
 import io.ktor.client.*
 import io.ktor.client.request.*

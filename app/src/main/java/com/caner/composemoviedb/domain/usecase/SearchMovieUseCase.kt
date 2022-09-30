@@ -1,7 +1,7 @@
 package com.caner.composemoviedb.domain.usecase
 
 import com.caner.composemoviedb.domain.mapper.MovieMapper
-import com.caner.composemoviedb.data.repository.SearchRepository
+import com.caner.composemoviedb.domain.repository.SearchRepository
 import com.caner.composemoviedb.utils.extension.buildNetworkRequest
 import com.caner.composemoviedb.utils.extension.mapTo
 import com.caner.composemoviedb.utils.extension.onProgress

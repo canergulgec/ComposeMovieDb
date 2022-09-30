@@ -1,8 +1,8 @@
-package com.caner.composemoviedb.data.repository
+package com.caner.composemoviedb.domain.repository
 
 import androidx.paging.PagingData
-import com.caner.composemoviedb.data.model.remote.MovieResponseItem
-import com.caner.composemoviedb.data.model.remote.MoviesResponse
+import com.caner.composemoviedb.domain.model.remote.MovieResponseItem
+import com.caner.composemoviedb.domain.model.remote.MoviesResponse
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {

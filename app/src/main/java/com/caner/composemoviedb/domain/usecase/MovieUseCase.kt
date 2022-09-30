@@ -2,9 +2,9 @@ package com.caner.composemoviedb.domain.usecase
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.caner.composemoviedb.data.model.Movie
+import com.caner.composemoviedb.domain.model.Movie
 import com.caner.composemoviedb.domain.mapper.MovieMapper
-import com.caner.composemoviedb.data.repository.MovieRepository
+import com.caner.composemoviedb.domain.repository.MovieRepository
 import com.caner.composemoviedb.utils.extension.buildNetworkRequest
 import com.caner.composemoviedb.utils.extension.mapTo
 import com.caner.composemoviedb.utils.extension.onProgress

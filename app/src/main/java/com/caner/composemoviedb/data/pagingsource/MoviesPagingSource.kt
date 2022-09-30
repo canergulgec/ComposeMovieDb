@@ -1,10 +1,10 @@
-package com.caner.composemoviedb.data.repository
+package com.caner.composemoviedb.data.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.caner.composemoviedb.data.model.remote.MovieResponseItem
+import com.caner.composemoviedb.domain.model.remote.MovieResponseItem
 import com.caner.composemoviedb.utils.Constants
-import com.caner.composemoviedb.data.model.remote.MoviesResponse
+import com.caner.composemoviedb.domain.model.remote.MoviesResponse
 import com.caner.composemoviedb.utils.network.HttpParams
 import com.caner.composemoviedb.utils.network.HttpRoutes
 import io.ktor.client.*

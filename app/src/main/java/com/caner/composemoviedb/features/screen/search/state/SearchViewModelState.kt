@@ -1,6 +1,6 @@
 package com.caner.composemoviedb.features.screen.search.state
 
-import com.caner.composemoviedb.data.model.Movie
+import com.caner.composemoviedb.domain.model.Movie
 
 data class SearchViewModelState(
     val movies: List<Movie> = emptyList(),
