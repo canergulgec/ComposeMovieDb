@@ -17,11 +17,12 @@ android {
 
 dependencies {
     implementation(project(Modules.core_common))
-    implementation(project(Modules.core_data))
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.daggerHilt)
     kapt(Dependencies.Dagger.daggerHiltCompiler)
+
+    implementation(Dependencies.Network.ktorGson)
 
     // Compose
     implementation(Dependencies.Compose.composePaging)

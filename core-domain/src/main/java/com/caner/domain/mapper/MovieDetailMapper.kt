@@ -1,9 +1,9 @@
 package com.caner.domain.mapper
 
 import com.caner.common.utils.Mapper
-import com.caner.data.model.MovieDetailModel
-import com.caner.data.model.MovieImage
-import com.caner.data.model.remote.MovieDetailResponse
+import com.caner.domain.model.MovieDetailModel
+import com.caner.domain.model.MovieImage
+import com.caner.domain.model.remote.MovieDetailResponse
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject

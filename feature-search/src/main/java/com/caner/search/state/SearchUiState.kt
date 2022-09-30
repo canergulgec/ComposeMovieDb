@@ -1,6 +1,6 @@
 package com.caner.search.state
 
-import com.caner.data.model.Movie
+import com.caner.domain.model.Movie
 
 sealed interface SearchUiState {
     val searchTitle: String

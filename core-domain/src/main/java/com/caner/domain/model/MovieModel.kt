@@ -1,4 +1,4 @@
-package com.caner.data.model
+package com.caner.domain.model
 
 data class MovieModel(
     val total: Int = 0,

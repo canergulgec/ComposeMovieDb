@@ -30,7 +30,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.caner.data.model.Movie
+import com.caner.domain.model.Movie
 import com.caner.home.vm.HomeViewModel
 import com.caner.ui.composables.FullScreenLoading
 import com.caner.ui.composables.ImageComponent

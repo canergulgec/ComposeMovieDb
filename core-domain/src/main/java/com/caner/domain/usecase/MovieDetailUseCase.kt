@@ -3,8 +3,8 @@ package com.caner.domain.usecase
 import com.caner.common.extension.buildNetworkRequest
 import com.caner.common.extension.mapTo
 import com.caner.common.extension.onProgress
-import com.caner.data.repository.MovieDetailRepository
 import com.caner.domain.mapper.MovieDetailMapper
+import com.caner.domain.repository.MovieDetailRepository
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

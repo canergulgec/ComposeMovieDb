@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.caner.data.model.Movie
+import com.caner.domain.model.Movie
 import com.caner.data.provider.SearchScreenDataProvider
 import com.caner.search.composables.SearchBarComponent
 import com.caner.search.state.SearchUiState

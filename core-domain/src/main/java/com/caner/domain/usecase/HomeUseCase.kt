@@ -5,9 +5,9 @@ import androidx.paging.map
 import com.caner.common.extension.buildNetworkRequest
 import com.caner.common.extension.mapTo
 import com.caner.common.extension.onProgress
-import com.caner.data.model.Movie
-import com.caner.data.repository.MovieRepository
 import com.caner.domain.mapper.MovieMapper
+import com.caner.domain.model.Movie
+import com.caner.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
 package com.caner.detail.di
 
 import com.caner.common.utils.Mapper
-import com.caner.data.model.MovieDetailModel
-import com.caner.data.model.remote.MovieDetailResponse
+import com.caner.domain.model.MovieDetailModel
+import com.caner.domain.model.remote.MovieDetailResponse
 import com.caner.domain.mapper.MovieDetailMapper
 import dagger.Binds
 import dagger.Module

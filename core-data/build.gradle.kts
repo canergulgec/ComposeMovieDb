@@ -24,6 +24,7 @@ android {
 
 dependencies {
     implementation(project(Modules.core_common))
+    implementation(project(Modules.core_domain))
 
     // DataStore
     implementation(Dependencies.AndroidX.dataStore)

@@ -1,12 +1,12 @@
-package com.caner.data.repository
+package com.caner.data.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.caner.common.Constants
 import com.caner.common.utils.HttpParams
 import com.caner.common.utils.HttpRoutes
-import com.caner.data.model.remote.MovieResponseItem
-import com.caner.data.model.remote.MoviesResponse
+import com.caner.domain.model.remote.MovieResponseItem
+import com.caner.domain.model.remote.MoviesResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
 import javax.inject.Inject

@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.caner.data.model.MovieDetailModel
-import com.caner.data.model.remote.MovieGenre
+import com.caner.domain.model.MovieDetailModel
+import com.caner.domain.model.remote.MovieGenre
 import com.caner.data.provider.MovieDetailDataProvider
 import com.caner.detail.vm.MovieDetailViewModel
 import com.caner.ui.composables.*

@@ -1,7 +1,7 @@
 package com.caner.home.state
 
 import androidx.paging.PagingData
-import com.caner.data.model.Movie
+import com.caner.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 
 data class HomeUiState(

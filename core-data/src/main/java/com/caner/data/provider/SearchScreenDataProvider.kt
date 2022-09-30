@@ -1,8 +1,8 @@
 package com.caner.data.provider
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.caner.data.model.Movie
-import com.caner.data.model.MovieImage
+import com.caner.domain.model.Movie
+import com.caner.domain.model.MovieImage
 
 class SearchScreenDataProvider : PreviewParameterProvider<List<Movie>> {
     override val values: Sequence<List<Movie>>
