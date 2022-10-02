@@ -18,6 +18,4 @@ dependencies {
 
     // Compose Navigation
     implementation(Dependencies.Compose.composeNavigation)
-
-    testImplementation(Dependencies.Test.jUnit)
 }
