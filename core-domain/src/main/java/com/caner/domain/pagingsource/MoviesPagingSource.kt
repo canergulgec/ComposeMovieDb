@@ -1,29 +1,21 @@
-package com.caner.data.pagingsource
+package com.caner.domain.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.caner.common.Constants
-import com.caner.common.utils.HttpParams
-import com.caner.common.utils.HttpRoutes
 import com.caner.domain.model.remote.MovieResponseItem
-import com.caner.domain.model.remote.MoviesResponse
-import io.ktor.client.*
-import io.ktor.client.request.*
+import com.caner.domain.repository.MovieRepository
 import javax.inject.Inject
 
 class MoviesPagingSource @Inject constructor(
-    private val client: HttpClient
+    private val repository: MovieRepository
 ) : PagingSource<Int, MovieResponseItem>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResponseItem> {
         val page = params.key ?: Constants.MOVIE_STARTING_PAGE_INDEX
 
         return try {
-            val response: MoviesResponse = client.get {
-                url(HttpRoutes.NOW_PLAYING_MOVIES)
-                parameter(HttpParams.PAGE, page)
-            }
-            response.run {
+            repository.getNowPlayingMovies(page).run {
                 LoadResult.Page(
                     data = this.results,
                     prevKey = if (page == Constants.MOVIE_STARTING_PAGE_INDEX) null else page - 1,
