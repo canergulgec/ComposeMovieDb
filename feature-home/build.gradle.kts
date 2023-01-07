@@ -48,6 +48,9 @@ dependencies {
     // Accompanist
     implementation(Dependencies.Accompanist.pager)
 
+    // Image Loading
+    implementation(Dependencies.ImageLoader.coil)
+
     // Timber
     implementation(Dependencies.Logger.timber)
 

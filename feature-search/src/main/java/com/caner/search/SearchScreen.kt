@@ -17,6 +17,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,6 +29,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import coil.transform.RoundedCornersTransformation
 import com.caner.domain.model.Movie
 import com.caner.data.provider.SearchScreenDataProvider
 import com.caner.search.composables.SearchBarComponent
@@ -33,7 +39,6 @@ import com.caner.search.state.SearchUiState
 import com.caner.search.state.TextEvent
 import com.caner.search.vm.SearchViewModel
 import com.caner.ui.composables.CircularProgressComponent
-import com.caner.ui.composables.ImageComponent
 import com.caner.ui.composables.ViewContent
 import com.caner.ui.theme.ComposeMovieDbTheme
 import com.caner.ui.theme.Dimens
@@ -148,16 +153,20 @@ fun MovieItemComposable(
                 itemClicked(item.movieId)
             }
     ) {
-        ImageComponent(
+        AsyncImage(
             modifier = Modifier
                 .width(100.dp)
                 .height(150.dp)
-                .clip(MaterialTheme.shapes.medium)
                 .background(color = Color.DarkGray),
-            image = item.poster?.medium,
-            fadeDuration = 300
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(item.poster?.medium)
+                .crossfade(300)
+                .transformations(RoundedCornersTransformation(radius = 8f))
+                .build(),
+            error = painterResource(R.drawable.bg_image_placeholder),
+            contentDescription = "",
+            contentScale = ContentScale.Crop
         )
-
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
             Text(
                 modifier = Modifier.fillMaxWidth(),

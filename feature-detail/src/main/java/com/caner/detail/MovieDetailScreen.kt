@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.caner.domain.model.MovieDetailModel
 import com.caner.domain.model.remote.MovieGenre
 import com.caner.data.provider.MovieDetailDataProvider
@@ -103,10 +106,12 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
             .fillMaxWidth()
             .fillMaxHeight(0.55f)
     ) {
-        ImageComponent(
+        AsyncImage(
             modifier = Modifier.fillMaxSize(),
-            image = poster,
-            fadeDuration = 300
+            model = poster,
+            error = painterResource(R.drawable.bg_image_placeholder),
+            contentDescription = "",
+            contentScale = ContentScale.Crop
         )
         Box(
             modifier = Modifier

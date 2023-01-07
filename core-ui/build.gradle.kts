@@ -33,9 +33,6 @@ dependencies {
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.composeTooling)
 
-    // Image Loading
-    implementation(Dependencies.ImageLoader.coil)
-
     // Lottie
     implementation(Dependencies.Animation.lottie)
 

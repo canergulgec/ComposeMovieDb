@@ -44,6 +44,9 @@ dependencies {
     implementation(Dependencies.Compose.composeLifecycle)
     implementation(Dependencies.Compose.composeTooling)
 
+    // Image Loading
+    implementation(Dependencies.ImageLoader.coil)
+
     // Accompanist
     implementation(Dependencies.Accompanist.flowLayout)
 

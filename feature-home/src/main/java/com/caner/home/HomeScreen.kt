@@ -15,9 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,10 +32,12 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import coil.transform.RoundedCornersTransformation
 import com.caner.domain.model.Movie
 import com.caner.home.vm.HomeViewModel
 import com.caner.ui.composables.FullScreenLoading
-import com.caner.ui.composables.ImageComponent
 import com.caner.ui.composables.MovieRatingComponent
 import com.caner.ui.composables.ViewContent
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -202,12 +206,17 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                     onClicked(item.movieId)
                 }
         ) {
-            ImageComponent(
+            AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
-                image = item.poster?.original,
-                fadeDuration = 300,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(item.poster?.original)
+                    .crossfade(300)
+                    .build(),
+                error = painterResource(R.drawable.bg_image_placeholder),
+                contentDescription = "",
+                contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -230,14 +239,20 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
 @Composable
 fun PopularMovieItem(modifier: Modifier, movie: Movie) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .clip(MaterialTheme.shapes.small)
+        modifier = Modifier.fillMaxSize()
     ) {
-        ImageComponent(
-            modifier = Modifier.fillMaxSize(),
-            image = movie.backdrop?.original,
-            fadeDuration = 300
+        AsyncImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp),
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(movie.backdrop?.original)
+                .crossfade(300)
+                .transformations(RoundedCornersTransformation(radius = 8f))
+                .build(),
+            error = painterResource(R.drawable.bg_image_placeholder),
+            contentDescription = "",
+            contentScale = ContentScale.Crop
         )
         Text(
             modifier = modifier.align(BottomStart),
