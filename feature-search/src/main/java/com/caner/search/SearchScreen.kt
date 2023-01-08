@@ -232,7 +232,6 @@ private fun SearchScreenPreview(
         movies = movies,
         isFetchingMovies = false,
         searchTitle = "Minions",
-        searchHint = "Search..",
         isHintVisible = false
     )
     ComposeMovieDbTheme {

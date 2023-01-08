@@ -22,15 +22,13 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
-    private val viewModelState = MutableStateFlow(SearchViewModelState())
-
-    // UI state exposed to the UI
-    val uiState = viewModelState
+    private val _uiState = MutableStateFlow(SearchViewModelState())
+    val uiState = _uiState
         .map { it.toUiState() }
         .stateIn(
             viewModelScope,
             SharingStarted.Eagerly,
-            viewModelState.value.toUiState()
+            _uiState.value.toUiState()
         )
 
     init {
@@ -40,11 +38,11 @@ class SearchViewModel @Inject constructor(
     fun onEvent(event: TextEvent) {
         when (event) {
             is TextEvent.OnFocusChange -> {
-                viewModelState.update { it.copy(isHintVisible = event.isHintVisible) }
+                _uiState.update { it.copy(isHintVisible = event.isHintVisible) }
             }
 
             is TextEvent.OnValueChange -> {
-                viewModelState.update { it.copy(title = event.text) }
+                _uiState.update { it.copy(title = event.text) }
                 searchQuery.value = event.text
             }
         }
@@ -62,10 +60,10 @@ class SearchViewModel @Inject constructor(
                 .collect { resource ->
                     when (resource) {
                         is Resource.Success -> {
-                            viewModelState.update { it.copy(movies = resource.data.movies) }
+                            _uiState.update { it.copy(movies = resource.data.movies) }
                         }
                         is Resource.Loading -> {
-                            viewModelState.update { it.copy(isLoading = resource.status) }
+                            _uiState.update { it.copy(isLoading = resource.status) }
                         }
                         is Resource.Error -> Timber.e(resource.error)
                     }
