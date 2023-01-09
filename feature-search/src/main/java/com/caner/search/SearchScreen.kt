@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -38,7 +39,7 @@ import com.caner.search.composables.SearchBarComponent
 import com.caner.search.state.SearchUiState
 import com.caner.search.state.TextEvent
 import com.caner.search.vm.SearchViewModel
-import com.caner.ui.composables.CircularProgressComponent
+import com.caner.ui.composables.MovieRatingComponent
 import com.caner.ui.composables.ViewContent
 import com.caner.ui.theme.ComposeMovieDbTheme
 import com.caner.ui.theme.Dimens
@@ -118,8 +119,8 @@ fun SearchList(
                 loadingContent = { CircularProgressIndicator() },
                 content = {
                     LazyColumn(
-                        contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                        contentPadding = PaddingValues(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         items(uiState.movies) { item ->
                             MovieItemComposable(
@@ -127,7 +128,7 @@ fun SearchList(
                                 itemClicked = onMovieClicked
                             )
                             Divider(
-                                modifier = Modifier.padding(top = 16.dp),
+                                modifier = Modifier.padding(top = 8.dp),
                                 color = Color.LightGray,
                                 thickness = 0.5.dp
                             )
@@ -148,16 +149,14 @@ fun MovieItemComposable(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .clickable {
                 itemClicked(item.movieId)
             }
     ) {
         AsyncImage(
             modifier = Modifier
-                .width(100.dp)
-                .height(150.dp)
-                .background(color = Color.DarkGray),
+                .width(60.dp)
+                .height(90.dp),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(item.poster?.medium)
                 .crossfade(300)
@@ -171,21 +170,24 @@ fun MovieItemComposable(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = item.title,
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.body1,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colors.onSecondary,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                modifier = Modifier.wrapContentSize(),
-                text = item.releaseDate ?: "",
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.secondary,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            CircularProgressComponent(voteAverage = item.voteAverage, total = 100)
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                MovieRatingComponent(voteAverage = item.voteAverage, size = 16.dp)
+                Text(text = "|", style = MaterialTheme.typography.caption)
+                Text(
+                    modifier = Modifier.wrapContentSize(),
+                    text = item.releaseDate ?: "",
+                    style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colors.secondary,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }

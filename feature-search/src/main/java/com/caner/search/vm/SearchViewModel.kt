@@ -27,7 +27,7 @@ class SearchViewModel @Inject constructor(
         .map { it.toUiState() }
         .stateIn(
             viewModelScope,
-            SharingStarted.Eagerly,
+            SharingStarted.WhileSubscribed(),
             _uiState.value.toUiState()
         )
 
