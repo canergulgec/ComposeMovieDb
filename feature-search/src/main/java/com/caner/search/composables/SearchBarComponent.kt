@@ -37,7 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.caner.ui.theme.Dimens
-import com.caner.search.R
+import com.caner.common.R
 import com.caner.ui.theme.ComposeMovieDbTheme
 import com.caner.ui.theme.DIRTY_WHITE
 

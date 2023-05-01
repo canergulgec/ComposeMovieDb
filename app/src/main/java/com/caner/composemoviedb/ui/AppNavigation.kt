@@ -21,7 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
-import com.caner.composemoviedb.R
+import com.caner.common.R
 import com.caner.common.Constants
 import com.caner.composemoviedb.ui.screen.MainViewModel
 import com.caner.detail.MovieDetailScreen
@@ -29,7 +29,7 @@ import com.caner.home.HomeScreen
 import com.caner.navigation.BottomNavItem
 import com.caner.navigation.NavigationDirections
 import com.caner.navigation.NavigationManager
-import com.caner.search.SearchScreen
+import com.caner.search.composables.SearchScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

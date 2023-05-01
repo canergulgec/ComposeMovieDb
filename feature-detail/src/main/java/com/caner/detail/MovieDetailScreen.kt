@@ -30,6 +30,7 @@ import com.caner.domain.model.MovieDetailModel
 import com.caner.domain.model.remote.MovieGenre
 import com.caner.data.provider.MovieDetailDataProvider
 import com.caner.detail.vm.MovieDetailViewModel
+import com.caner.common.R
 import com.caner.ui.composables.*
 import com.caner.ui.theme.BLACK_TRANSPARENT
 import com.caner.ui.theme.BLACK_TRANSPARENT_60

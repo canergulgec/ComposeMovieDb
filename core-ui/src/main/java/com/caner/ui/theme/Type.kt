@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.caner.ui.R
+import com.caner.common.R
 
 val CustomFont = FontFamily(
     Font(R.font.roboto_regular, weight = FontWeight.Normal),

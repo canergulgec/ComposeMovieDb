@@ -9,6 +9,7 @@ plugins {
 }
 
 android {
+    namespace = Namespaces.app
     compileSdk = Versions.App.compileSdkVersion
 
     defaultConfig {
@@ -39,6 +40,7 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {

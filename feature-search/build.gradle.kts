@@ -6,15 +6,16 @@ plugins {
 }
 
 android {
+    namespace = Namespaces.feature_search
     compileSdk = Versions.App.compileSdkVersion
 
     defaultConfig {
         minSdk = Versions.App.minSdkVersion
-        targetSdk = Versions.App.targetSdkVersion
         testInstrumentationRunner = ConfigData.testRunner
     }
 
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {

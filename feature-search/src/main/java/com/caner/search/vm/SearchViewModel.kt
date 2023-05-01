@@ -32,7 +32,7 @@ class SearchViewModel @Inject constructor(
         )
 
     init {
-        initSearch()
+        initMovieSearch()
     }
 
     fun onEvent(event: TextEvent) {
@@ -48,7 +48,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    private fun initSearch() {
+    private fun initMovieSearch() {
         viewModelScope.launch {
             searchQuery.debounce(400)
                 .filter { query ->

@@ -9,16 +9,24 @@ plugins {
 }
 
 android {
+    namespace = Namespaces.core_data
     compileSdk = Versions.App.compileSdkVersion
 
     defaultConfig {
         minSdk = Versions.App.minSdkVersion
-        targetSdk = Versions.App.targetSdkVersion
         testInstrumentationRunner = ConfigData.testRunner
 
         buildConfigField("Integer", "TIMEOUT", "60")
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
         buildConfigField("String", "API_KEY", getApiKey())
+    }
+
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0"
     }
 }
 

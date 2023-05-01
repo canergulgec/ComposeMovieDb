@@ -33,6 +33,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
+import com.caner.common.R
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import com.caner.domain.model.Movie

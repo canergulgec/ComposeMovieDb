@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
+    namespace = Namespaces.core_common
     compileSdk = Versions.App.compileSdkVersion
 
     defaultConfig {
         minSdk = Versions.App.minSdkVersion
-        targetSdk = Versions.App.targetSdkVersion
         testInstrumentationRunner = ConfigData.testRunner
     }
 }

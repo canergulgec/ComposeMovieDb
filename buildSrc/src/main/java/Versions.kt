@@ -77,7 +77,7 @@ object Versions {
     }
 
     object ClassPath {
-        const val gradleVersion = "7.2.2"
+        const val gradleVersion = "8.0.0"
         const val kotlinVersion = "1.7.0"
         const val googleServices = "4.3.13"
         const val crashlytics = "2.9.1"
