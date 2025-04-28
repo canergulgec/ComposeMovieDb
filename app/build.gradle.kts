@@ -49,7 +49,6 @@ kapt {
 }
 
 dependencies {
-    implementation(project(Modules.navigation))
     implementation(project(Modules.feature_home))
     implementation(project(Modules.feature_detail))
     implementation(project(Modules.feature_search))

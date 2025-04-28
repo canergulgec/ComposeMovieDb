@@ -6,12 +6,11 @@
     }
 }*/
 rootProject.name = "ComposeMovieDb"
-include("app")
-include(":feature-search")
-include(":feature-detail")
-include(":feature-home")
-include(":core-data")
-include(":core-ui")
-include(":core-common")
-include(":core-domain")
-include(":navigation")
+include(":app")
+include(":feature:search")
+include(":feature:detail")
+include(":feature:home")
+include(":core:data")
+include(":core:ui")
+include(":core:common")
+include(":core:domain")

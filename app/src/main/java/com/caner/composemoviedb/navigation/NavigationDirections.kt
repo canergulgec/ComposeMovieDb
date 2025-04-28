@@ -1,4 +1,4 @@
-package com.caner.navigation
+package com.caner.composemoviedb.navigation
 
 sealed class NavigationDirections(var route: String) {
     object Home : NavigationDirections(route = "movie")

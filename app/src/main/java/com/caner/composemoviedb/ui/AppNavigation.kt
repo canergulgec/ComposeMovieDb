@@ -26,9 +26,9 @@ import com.caner.common.Constants
 import com.caner.composemoviedb.ui.screen.MainViewModel
 import com.caner.detail.MovieDetailScreen
 import com.caner.home.HomeScreen
-import com.caner.navigation.BottomNavItem
-import com.caner.navigation.NavigationDirections
-import com.caner.navigation.NavigationManager
+import com.caner.composemoviedb.navigation.BottomNavItem
+import com.caner.composemoviedb.navigation.NavigationDirections
+import com.caner.composemoviedb.navigation.NavigationManager
 import com.caner.search.composables.SearchScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -112,7 +112,7 @@ fun BottomNavigationBar(
         elevation = 8.dp,
         modifier = modifier
     ) {
-        BottomNavItem.values().forEach { screen ->
+        BottomNavItem.entries.forEach { screen ->
             BottomNavigationItem(
                 icon = {
                     Icon(

@@ -1,4 +1,4 @@
-package com.caner.navigation
+package com.caner.composemoviedb.navigation
 
 import androidx.annotation.StringRes
 import com.caner.common.R
