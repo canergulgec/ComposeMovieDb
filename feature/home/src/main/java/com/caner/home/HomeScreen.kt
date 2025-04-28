@@ -245,9 +245,7 @@ fun PopularMovieItem(modifier: Modifier, movie: Movie) {
         modifier = Modifier.fillMaxSize()
     ) {
         AsyncImage(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp),
+            modifier = Modifier.fillMaxSize(),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(movie.backdrop?.original)
                 .crossfade(300)
