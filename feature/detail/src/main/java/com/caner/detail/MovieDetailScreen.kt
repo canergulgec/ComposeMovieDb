@@ -6,9 +6,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -87,8 +90,8 @@ fun MovieDetailUi(
                 MovieGenreComponent(genres = movieModel.genres)
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    style = MaterialTheme.typography.body2,
-                    color = MaterialTheme.colors.secondary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.secondary,
                     lineHeight = 20.sp,
                     text = movieModel.overview,
                 )
@@ -142,8 +145,8 @@ fun MovieTitleComponent(modifier: Modifier = Modifier, movie: MovieDetailModel) 
     Column(modifier = modifier) {
         Text(
             text = movie.title,
-            style = MaterialTheme.typography.subtitle1,
-            color = MaterialTheme.colors.onPrimary
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onPrimary
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -158,8 +161,8 @@ fun MovieTitleComponent(modifier: Modifier = Modifier, movie: MovieDetailModel) 
             )
             Text(
                 text = "${movie.runtime} ${stringResource(id = R.string.minutes)}",
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.secondary
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
     }
@@ -183,8 +186,8 @@ fun MovieGenreComponent(genres: List<MovieGenre>) {
             ) {
                 Text(
                     text = genres[pos].name,
-                    color = MaterialTheme.colors.onPrimary,
-                    style = MaterialTheme.typography.caption
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }

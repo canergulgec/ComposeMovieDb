@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +25,7 @@ fun SearchList(
         is SearchUiState.NoMovies -> {
             EmptyListComponent()
         }
+
         is SearchUiState.HasMovies -> {
             ViewContent(
                 isLoading = uiState.isFetchingMovies,
@@ -39,7 +40,7 @@ fun SearchList(
                                 item = item,
                                 itemClicked = onMovieClicked
                             )
-                            Divider(
+                            HorizontalDivider(
                                 modifier = Modifier.padding(top = 8.dp),
                                 color = Color.LightGray,
                                 thickness = 0.5.dp

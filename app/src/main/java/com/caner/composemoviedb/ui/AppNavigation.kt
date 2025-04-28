@@ -1,10 +1,10 @@
 package com.caner.composemoviedb.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -33,7 +33,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
 @ExperimentalComposeUiApi
-@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
@@ -42,19 +41,42 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
     Scaffold(
         bottomBar = {
             AnimatedVisibility(visible = viewModel.bottomBarVisibility.value) {
-                BottomNavigationBar(
-                    controller = navController,
-                    onNavigationSelected = { screen ->
-                        navController.navigate(screen.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
+                NavigationBar(
+                    modifier = Modifier.fillMaxWidth(),
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    tonalElevation = 8.dp
+                ) {
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination
+                    BottomNavItem.entries.forEach { screen ->
+                        NavigationBarItem(
+                            icon = {
+                                Icon(
+                                    painterResource(id = screen.icon),
+                                    contentDescription = stringResource(id = screen.title)
+                                )
+                            },
+                            label = { Text(text = stringResource(id = screen.title)) },
+                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = colorResource(id = R.color.purple_200),
+                                selectedTextColor = colorResource(id = R.color.purple_200),
+                                unselectedIconColor = Color.LightGray,
+                                unselectedTextColor = Color.LightGray,
+                                indicatorColor = MaterialTheme.colorScheme.surface
+                            ),
+                            onClick = {
+                                navController.navigate(screen.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
                             }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                        )
+                    }
+                }
             }
         },
         floatingActionButton = {
@@ -62,8 +84,8 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
                 changeTheme()
             }
         }
-    ) {
-        Navigation(navController = navController, modifier = Modifier.padding(it))
+    ) { paddingValues ->
+        Navigation(navController = navController, modifier = Modifier.padding(paddingValues))
     }
 
     when (currentRoute(navController = navController)) {
@@ -74,60 +96,27 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
 
 @Composable
 fun FloatingButton(
-    isLightTheme: Boolean = MaterialTheme.colors.isLight,
     changeTheme: () -> Unit
 ) {
     FloatingActionButton(
         onClick = {
             changeTheme()
         },
-        backgroundColor = colorResource(id = R.color.purple_200)
+        containerColor = colorResource(id = R.color.purple_200),
+        contentColor = Color.White
     ) {
-        Icon(
+        val isLightTheme = !isSystemInDarkTheme()
+         Icon(
             painter = when (isLightTheme) {
                 true -> painterResource(id = R.drawable.ic_dark)
                 false -> painterResource(id = R.drawable.ic_day)
-            },
-            contentDescription = null,
-            tint = Color.White
+             },
+            contentDescription = "Change Theme"
         )
     }
 }
 
-@Composable
-fun BottomNavigationBar(
-    controller: NavHostController,
-    onNavigationSelected: (BottomNavItem) -> Unit,
-    modifier: Modifier
-) {
-    val navBackStackEntry by controller.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-
-    BottomNavigation(
-        backgroundColor = MaterialTheme.colors.surface,
-        elevation = 8.dp,
-        modifier = modifier
-    ) {
-        BottomNavItem.entries.forEach { screen ->
-            BottomNavigationItem(
-                icon = {
-                    Icon(
-                        painterResource(id = screen.icon),
-                        contentDescription = stringResource(id = screen.title)
-                    )
-                },
-                label = { Text(text = stringResource(id = screen.title)) },
-                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                selectedContentColor = colorResource(id = R.color.purple_200),
-                unselectedContentColor = Color.LightGray,
-                onClick = { onNavigationSelected(screen) },
-            )
-        }
-    }
-}
-
 @ExperimentalComposeUiApi
-@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable

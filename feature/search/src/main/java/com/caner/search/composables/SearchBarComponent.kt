@@ -10,14 +10,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -101,7 +101,7 @@ fun SearchBarComponent(
                 Icon(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = stringResource(id = R.string.search_icon),
-                    tint = MaterialTheme.colors.onSurface,
+                    tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(Dimens.MediumPadding.size)
                         .rotate(searchAndOptionsAngle)
@@ -118,9 +118,9 @@ fun SearchBarComponent(
                         .padding(4.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Rounded.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                         contentDescription = stringResource(id = R.string.back_icon),
-                        tint = MaterialTheme.colors.onSurface,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.rotate(angle)
                     )
                 }
@@ -140,9 +140,8 @@ fun SearchBarComponent(
                 if (!isTyping) {
                     Text(
                         text = hint,
-                        color = MaterialTheme.colors.onSurface
-                            .copy(alpha = hintAlpha),
-                        style = MaterialTheme.typography.subtitle1
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = hintAlpha),
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
                 BasicTextField(
@@ -152,10 +151,9 @@ fun SearchBarComponent(
                         isTyping = text.isNotBlank()
                     },
                     maxLines = 1,
-                    cursorBrush = SolidColor(MaterialTheme.colors.primary),
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.subtitle1
-                        .copy(color = MaterialTheme.colors.onSurface),
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Words,
                         imeAction = ImeAction.Search
@@ -169,7 +167,6 @@ fun SearchBarComponent(
                         }
                     ),
                     modifier = Modifier
-                        // .fillMaxWidth()
                         .onFocusChanged {
                             onFocusChange(!it.isFocused)
                         }
@@ -192,7 +189,7 @@ fun SearchBarComponent(
                         Icon(
                             imageVector = Icons.Rounded.Close,
                             contentDescription = stringResource(id = R.string.clear_icon),
-                            tint = MaterialTheme.colors.onSurface,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.rotate(angle)
                         )
                     }

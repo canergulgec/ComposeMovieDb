@@ -5,7 +5,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.caner.domain.model.Movie
 import com.caner.data.provider.SearchScreenDataProvider
@@ -16,7 +15,6 @@ import com.caner.ui.theme.ComposeMovieDbTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-@ExperimentalLifecycleComposeApi
 @ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
 @FlowPreview

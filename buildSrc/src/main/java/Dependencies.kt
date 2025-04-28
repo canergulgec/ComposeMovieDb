@@ -20,15 +20,16 @@ object Dependencies {
     }
 
     object Compose {
+        const val composeBom = "androidx.compose:compose-bom:2025.04.01"
         const val composeCompiler = "androidx.compose.compiler:compiler:${Versions.Compose.compilerVersion}"
-        const val composeUi = "androidx.compose.ui:ui:${Versions.Compose.uiVersion}"
-        const val composeUtil = "androidx.compose.ui:ui-util:${Versions.Compose.utilVersion}"
-        const val composeMaterial = "androidx.compose.material:material:${Versions.Compose.materialVersion}"
-        const val composeLifecycle = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.Compose.lifecycleVersion}"
-        const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.Compose.toolingVersion}"
+        const val composeUi = "androidx.compose.ui:ui"
+        const val composeUtil = "androidx.compose.ui:ui-util"
+        const val composeMaterial3 = "androidx.compose.material3:material3"
+        const val composeLifecycle = "androidx.lifecycle:lifecycle-runtime-compose"
+        const val composeTooling = "androidx.compose.ui:ui-tooling-preview"
+        const val composeFoundation = "androidx.compose.foundation:foundation"
         const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.Compose.composeNavigation}"
         const val composePaging = "androidx.paging:paging-compose:${Versions.Compose.pagingVersion}"
-        const val composeFoundation = "androidx.compose.foundation:foundation:${Versions.Compose.foundationVersion}"
     }
 
     object Network {

@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -33,7 +33,7 @@ fun LottieAnimationComponent(anim: Int, message: String) {
             contentScale = ContentScale.Crop
         )
         Text(
-            text = message, style = MaterialTheme.typography.button
+            text = message, style = MaterialTheme.typography.bodyMedium
         )
     }
 }

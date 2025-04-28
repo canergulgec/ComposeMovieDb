@@ -43,11 +43,13 @@ dependencies {
     kapt(Dependencies.Dagger.daggerHiltCompiler)
 
     // Compose
+    implementation(platform(Dependencies.Compose.composeBom))
     implementation(Dependencies.Compose.composeCompiler)
     implementation(Dependencies.Compose.composeUi)
-    implementation(Dependencies.Compose.composeMaterial)
+    implementation(Dependencies.Compose.composeMaterial3)
     implementation(Dependencies.Compose.composeLifecycle)
     implementation(Dependencies.Compose.composeTooling)
+    debugImplementation(Dependencies.Compose.composeTooling)
 
     // Image Loading
     implementation(Dependencies.ImageLoader.coil)

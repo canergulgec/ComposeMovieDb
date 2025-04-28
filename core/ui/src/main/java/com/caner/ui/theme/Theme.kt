@@ -1,16 +1,14 @@
 package com.caner.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Typography
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
+private val DarkColorPalette = darkColorScheme(
     primary = Purple200,
-    primaryVariant = Purple700,
     secondary = DARK_WHITE,
     background = Black1,
     surface = Black2, // cards toolbar
@@ -20,9 +18,8 @@ private val DarkColorPalette = darkColors(
     onSurface = Color.DarkGray
 )
 
-private val LightColorPalette = lightColors(
+private val LightColorPalette = lightColorScheme(
     primary = Purple200,
-    primaryVariant = Purple700,
     secondary = Black2,
     background = DIRTY_WHITE,
     surface = DARK_WHITE,
@@ -37,16 +34,15 @@ fun ComposeMovieDbTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
+    val colorScheme = if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
     }
 
-    val typography = Typography(defaultFontFamily = CustomFont)
     MaterialTheme(
-        colors = colors,
-        typography = typography,
+        colorScheme = colorScheme,
+        typography = AppTypography,
         shapes = Shapes,
         content = content
     )

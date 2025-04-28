@@ -8,10 +8,11 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomStart
@@ -44,7 +45,6 @@ import com.caner.ui.composables.MovieRatingComponent
 import com.caner.ui.composables.ViewContent
 import kotlin.math.absoluteValue
 
-@ExperimentalFoundationApi
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
@@ -101,7 +101,7 @@ fun MainContainer(
         Text(
             modifier = Modifier.padding(horizontal = 16.dp),
             text = stringResource(title),
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.headlineMedium
         )
         content()
     }
@@ -190,9 +190,9 @@ fun PopularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
 @Composable
 fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
     Card(
-        elevation = 8.dp,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         shape = MaterialTheme.shapes.small,
-        contentColor = Color.LightGray,
+        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
             horizontalAlignment = CenterHorizontally,
@@ -222,8 +222,8 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 text = item.title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colors.onSecondary,
-                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colorScheme.onSecondary,
+                style = MaterialTheme.typography.bodySmall,
             )
             Spacer(modifier = Modifier.height(8.dp))
             MovieRatingComponent(voteAverage = item.voteAverage, size = 20.dp)

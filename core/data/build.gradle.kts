@@ -43,6 +43,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.daggerHilt)
+    implementation("androidx.compose.ui:ui-tooling-preview-android:1.8.0")
     kapt(Dependencies.Dagger.daggerHiltCompiler)
 
     // Compose
