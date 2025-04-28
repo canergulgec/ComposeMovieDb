@@ -81,7 +81,7 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
             }
         },
         floatingActionButton = {
-            FloatingButton {
+            SetThemeFloatingButton {
                 changeTheme()
             }
         }
@@ -97,7 +97,7 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
 }
 
 @Composable
-fun FloatingButton(
+fun SetThemeFloatingButton(
     changeTheme: () -> Unit
 ) {
     FloatingActionButton(
