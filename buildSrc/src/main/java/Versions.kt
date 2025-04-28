@@ -2,8 +2,8 @@ object Versions {
 
     object App {
         const val minSdkVersion = 24
-        const val targetSdkVersion = 32
-        const val compileSdkVersion = 32
+        const val targetSdkVersion = 34
+        const val compileSdkVersion = 34
         const val versionCode = 1
         const val versionName = "1.0.0"
     }
@@ -17,7 +17,7 @@ object Versions {
     }
 
     object Compose {
-        const val compilerVersion = "1.3.1"
+        const val compilerVersion = "1.5.8"
         const val uiVersion = "1.2.1"
         const val toolingVersion = "1.2.1"
         const val lifecycleVersion = "2.6.0-alpha01"
@@ -38,7 +38,7 @@ object Versions {
     }
 
     object Dagger {
-        const val daggerHiltVersion = "2.43"
+        const val daggerHiltVersion = "2.51.1"
         const val navigation = "1.0.0"
     }
 
@@ -77,8 +77,8 @@ object Versions {
     }
 
     object ClassPath {
-        const val gradleVersion = "8.0.0"
-        const val kotlinVersion = "1.7.0"
+        const val gradleVersion = "8.5.0"
+        const val kotlinVersion = "1.9.22"
         const val googleServices = "4.3.13"
         const val crashlytics = "2.9.1"
     }

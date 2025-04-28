@@ -11,6 +11,11 @@ android {
         minSdk = Versions.App.minSdkVersion
         testInstrumentationRunner = ConfigData.testRunner
     }
+
+    // Add JVM Toolchain for consistency
+    kotlin {
+        jvmToolchain(17)
+    }
 }
 
 dependencies {

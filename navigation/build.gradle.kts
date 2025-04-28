@@ -11,6 +11,10 @@ android {
         minSdk = Versions.App.minSdkVersion
         testInstrumentationRunner = ConfigData.testRunner
     }
+
+    kotlin {
+        jvmToolchain(17)
+    }
 }
 
 dependencies {

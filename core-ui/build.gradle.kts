@@ -17,7 +17,11 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = Versions.Compose.compilerVersion
+    }
+
+    kotlin {
+        jvmToolchain(17)
     }
 }
 
