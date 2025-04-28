@@ -63,7 +63,7 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
                                 selectedTextColor = colorResource(id = R.color.purple_200),
                                 unselectedIconColor = Color.LightGray,
                                 unselectedTextColor = Color.LightGray,
-                                indicatorColor = MaterialTheme.colorScheme.surface
+                                indicatorColor = Color.Transparent
                             ),
                             onClick = {
                                 navController.navigate(screen.route) {
