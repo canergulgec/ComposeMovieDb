@@ -49,9 +49,7 @@ dependencies {
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.composeLifecycle)
     implementation(Dependencies.Compose.composePaging)
-
-    // Accompanist
-    implementation(Dependencies.Accompanist.pager)
+    implementation(Dependencies.Compose.composeFoundation)
 
     // Image Loading
     implementation(Dependencies.ImageLoader.coil)

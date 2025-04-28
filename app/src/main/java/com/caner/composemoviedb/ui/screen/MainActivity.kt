@@ -4,31 +4,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.lifecycleScope
 import com.caner.composemoviedb.ui.AppNavigation
 import com.caner.ui.theme.ComposeMovieDbTheme
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
-@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
-@ExperimentalLifecycleComposeApi
 @FlowPreview
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,6 +32,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
+        enableEdgeToEdge()
         setContent {
             val darkMode by viewModel.themeManager.uiModeFlow.collectAsState(initial = isSystemInDarkTheme())
             val toggleTheme: () -> Unit = {
@@ -44,7 +40,6 @@ class MainActivity : ComponentActivity() {
             }
 
             ComposeMovieDbTheme(darkTheme = darkMode) {
-                SetStatusBarColor()
                 AppNavigation(toggleTheme)
             }
         }
@@ -52,27 +47,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun observeThemeMode() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.themeManager.uiModeFlow.collect {
-                val mode = when (it) {
-                    true -> AppCompatDelegate.MODE_NIGHT_YES
-                    false -> AppCompatDelegate.MODE_NIGHT_NO
-                }
-                AppCompatDelegate.setDefaultNightMode(mode)
+        viewModel.themeManager.uiModeFlow.onEach {
+            val mode = when (it) {
+                true -> AppCompatDelegate.MODE_NIGHT_YES
+                false -> AppCompatDelegate.MODE_NIGHT_NO
             }
-        }
-    }
-}
-
-@Composable
-fun SetStatusBarColor() {
-    val systemUiController = rememberSystemUiController()
-    val color = MaterialTheme.colors.surface
-
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = color,
-            darkIcons = true
-        )
+            AppCompatDelegate.setDefaultNightMode(mode)
+        }.launchIn(lifecycleScope)
     }
 }

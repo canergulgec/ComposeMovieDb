@@ -48,12 +48,10 @@ dependencies {
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.composeLifecycle)
     implementation(Dependencies.Compose.composeTooling)
+    implementation(Dependencies.Compose.composeFoundation)
 
     // Image Loading
     implementation(Dependencies.ImageLoader.coil)
-
-    // Accompanist
-    implementation(Dependencies.Accompanist.flowLayout)
 
     // Timber
     implementation(Dependencies.Logger.timber)

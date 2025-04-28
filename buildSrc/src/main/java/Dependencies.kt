@@ -6,6 +6,7 @@ object Dependencies {
         const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycleVersion}"
         const val splashScreen = "androidx.core:core-splashscreen:${Versions.AndroidX.splashScreenVersion}"
         const val dataStore = "androidx.datastore:datastore-preferences:${Versions.AndroidX.dataStoreVersion}"
+        const val activityCompose = "androidx.activity:activity-compose:${Versions.AndroidX.activityComposeVersion}"
     }
 
     object Google {
@@ -27,12 +28,7 @@ object Dependencies {
         const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.Compose.toolingVersion}"
         const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.Compose.composeNavigation}"
         const val composePaging = "androidx.paging:paging-compose:${Versions.Compose.pagingVersion}"
-    }
-
-    object Accompanist {
-        const val flowLayout = "com.google.accompanist:accompanist-flowlayout:${Versions.Accompanist.flowLayoutVersion}"
-        const val controller = "com.google.accompanist:accompanist-systemuicontroller:${Versions.Accompanist.uiControllerVersion}"
-        const val pager = "com.google.accompanist:accompanist-pager:${Versions.Accompanist.pagerVersion}"
+        const val composeFoundation = "androidx.compose.foundation:foundation:${Versions.Compose.foundationVersion}"
     }
 
     object Network {

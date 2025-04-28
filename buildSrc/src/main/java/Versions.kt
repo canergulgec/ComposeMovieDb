@@ -2,8 +2,8 @@ object Versions {
 
     object App {
         const val minSdkVersion = 24
-        const val targetSdkVersion = 34
-        const val compileSdkVersion = 34
+        const val targetSdkVersion = 35
+        const val compileSdkVersion = 35
         const val versionCode = 1
         const val versionName = "1.0.0"
     }
@@ -14,6 +14,7 @@ object Versions {
         const val lifecycleVersion = "2.6.0-alpha01"
         const val dataStoreVersion = "1.0.0"
         const val splashScreenVersion = "1.0.0"
+        const val activityComposeVersion = "1.10.1"
     }
 
     object Compose {
@@ -25,12 +26,7 @@ object Versions {
         const val materialVersion = "1.2.1"
         const val composeNavigation = "2.5.2"
         const val pagingVersion = "1.0.0-alpha15"
-    }
-
-    object Accompanist {
-        const val flowLayoutVersion = "0.25.1"
-        const val uiControllerVersion = "0.25.1"
-        const val pagerVersion = "0.25.1"
+        const val foundationVersion = "1.8.0"
     }
 
     object Google {

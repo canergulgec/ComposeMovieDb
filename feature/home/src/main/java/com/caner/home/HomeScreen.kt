@@ -5,6 +5,8 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
@@ -26,7 +28,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -41,14 +42,9 @@ import com.caner.home.vm.HomeViewModel
 import com.caner.ui.composables.FullScreenLoading
 import com.caner.ui.composables.MovieRatingComponent
 import com.caner.ui.composables.ViewContent
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import kotlin.math.absoluteValue
 
-@ExperimentalPagerApi
 @ExperimentalFoundationApi
-@ExperimentalLifecycleComposeApi
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
@@ -61,36 +57,33 @@ fun HomeScreen(
         isLoading = movieViewState.isFetchingMovies && movieLazyItems?.loadState?.refresh is LoadState.Loading,
         loadingContent = { FullScreenLoading() },
         content = {
-            CompositionLocalProvider(
-                LocalOverscrollConfiguration provides null
+            LazyColumn(
+                contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                LazyColumn(
-                    contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    movieLazyItems?.let { movies ->
-                        item {
-                            MainContainer(
-                                title = R.string.now_playing,
-                                content = {
-                                    NowPlayingMovies(data = movies, onClicked = onMovieClicked)
-                                }
-                            )
-                        }
-                    }
+                movieLazyItems?.let { movies ->
                     item {
                         MainContainer(
-                            title = R.string.popular,
+                            title = R.string.now_playing,
                             content = {
-                                PopularMovies(
-                                    data = movieViewState.popularMovies,
-                                    onClicked = onMovieClicked
-                                )
+                                NowPlayingMovies(data = movies, onClicked = onMovieClicked)
                             }
                         )
                     }
                 }
+                item {
+                    MainContainer(
+                        title = R.string.popular,
+                        content = {
+                            PopularMovies(
+                                data = movieViewState.popularMovies,
+                                onClicked = onMovieClicked
+                            )
+                        }
+                    )
+                }
             }
+
         }
     )
 }
@@ -139,24 +132,25 @@ fun NowPlayingMovies(data: LazyPagingItems<Movie>, onClicked: (Int) -> Unit) {
     }
 }
 
-@ExperimentalPagerApi
 @Composable
 fun PopularMovies(data: List<Movie>, onClicked: (Int) -> Unit) {
+    val pagerState = rememberPagerState(pageCount = { data.size })
+
     HorizontalPager(
+        state = pagerState,
         modifier = Modifier.fillMaxSize(),
-        count = data.size,
-        contentPadding = PaddingValues(horizontal = 32.dp)
+        contentPadding = PaddingValues(horizontal = 32.dp),
+        key = { data[it].movieId }
     ) { page ->
         val movie = data[page]
+        val pageOffset = (pagerState.currentPage - page + pagerState.currentPageOffsetFraction).absoluteValue
+
         Card(
             Modifier
                 .graphicsLayer {
                     // Calculate the absolute offset for the current page from the
                     // scroll position. We use the absolute value which allows us to mirror
                     // any effects for both directions
-                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-
-                    // We animate the scaleX + scaleY, between 85% and 100%
                     lerp(
                         start = 0.90f,
                         stop = 1f,
@@ -200,7 +194,8 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
         shape = MaterialTheme.shapes.small,
         contentColor = Color.LightGray,
     ) {
-        Column(horizontalAlignment = CenterHorizontally,
+        Column(
+            horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .width(140.dp)
                 .clickable {

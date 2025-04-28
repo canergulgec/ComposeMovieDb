@@ -14,7 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -30,15 +29,12 @@ import com.caner.composemoviedb.navigation.BottomNavItem
 import com.caner.composemoviedb.navigation.NavigationDirections
 import com.caner.composemoviedb.navigation.NavigationManager
 import com.caner.search.composables.SearchScreen
-import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
-@ExperimentalLifecycleComposeApi
 @FlowPreview
 @Composable
 fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewModel()) {
@@ -130,11 +126,9 @@ fun BottomNavigationBar(
     }
 }
 
-@ExperimentalPagerApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
-@ExperimentalLifecycleComposeApi
 @FlowPreview
 @Composable
 fun Navigation(navController: NavHostController, modifier: Modifier) {

@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.caner.domain.model.MovieDetailModel
@@ -36,9 +35,7 @@ import com.caner.ui.theme.BLACK_TRANSPARENT
 import com.caner.ui.theme.BLACK_TRANSPARENT_60
 import com.caner.ui.theme.ComposeMovieDbTheme
 import com.caner.ui.theme.Dimens
-import com.google.accompanist.flowlayout.FlowRow
 
-@ExperimentalLifecycleComposeApi
 @Composable
 fun MovieDetailScreen(
     viewModel: MovieDetailViewModel,

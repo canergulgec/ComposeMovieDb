@@ -60,6 +60,7 @@ dependencies {
     implementation(Dependencies.AndroidX.coreKtx)
     implementation(Dependencies.AndroidX.appCompat)
     implementation(Dependencies.AndroidX.splashScreen)
+    implementation(Dependencies.AndroidX.activityCompose)
 
     // Google
     implementation(Dependencies.Google.material)
@@ -75,10 +76,6 @@ dependencies {
     implementation(Dependencies.Compose.composeMaterial)
     implementation(Dependencies.Compose.composeLifecycle)
     implementation(Dependencies.Compose.composeNavigation)
-
-    // Accompanist
-    implementation(Dependencies.Accompanist.controller)
-    implementation(Dependencies.Accompanist.pager)
 
     // Timber
     implementation(Dependencies.Logger.timber)
