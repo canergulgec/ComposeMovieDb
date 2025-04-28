@@ -68,7 +68,7 @@ dependencies {
     // Dagger Hilt
     implementation(Dependencies.Dagger.daggerHilt)
     kapt(Dependencies.Dagger.daggerHiltCompiler)
-    implementation(Dependencies.Dagger.daggerNavigation)
+    implementation(Dependencies.Dagger.hiltNavigation)
 
     // Compose
     implementation(platform(Dependencies.Compose.composeBom))

@@ -44,10 +44,11 @@ import com.caner.ui.composables.FullScreenLoading
 import com.caner.ui.composables.MovieRatingComponent
 import com.caner.ui.composables.ViewContent
 import kotlin.math.absoluteValue
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
+    viewModel: HomeViewModel = hiltViewModel(),
     onMovieClicked: (Int) -> Unit
 ) {
     val movieViewState by viewModel.movieUiState.collectAsStateWithLifecycle()

@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.caner.domain.model.Movie
 import com.caner.data.provider.SearchScreenDataProvider
@@ -20,7 +21,7 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel,
+    viewModel: SearchViewModel = hiltViewModel(),
     onMovieClicked: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

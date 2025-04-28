@@ -16,7 +16,7 @@ object Dependencies {
     object Dagger {
         const val daggerHilt = "com.google.dagger:hilt-android:${Versions.Dagger.daggerHiltVersion}"
         const val daggerHiltCompiler = "com.google.dagger:hilt-compiler:${Versions.Dagger.daggerHiltVersion}"
-        const val daggerNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.Dagger.navigation}"
+        const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.Dagger.navigation}"
     }
 
     object Compose {

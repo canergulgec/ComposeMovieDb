@@ -62,10 +62,6 @@ object Versions {
         const val firebaseVersion = "30.3.2"
     }
 
-    object Plugins {
-        const val updateDependenciesVersion = "0.39.0"
-    }
-
     object Test {
         const val junit4Version = "4.13.2"
         const val junitExt = "1.1.3"

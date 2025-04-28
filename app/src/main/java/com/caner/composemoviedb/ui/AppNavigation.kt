@@ -106,11 +106,11 @@ fun FloatingButton(
         contentColor = Color.White
     ) {
         val isLightTheme = !isSystemInDarkTheme()
-         Icon(
+        Icon(
             painter = when (isLightTheme) {
                 true -> painterResource(id = R.drawable.ic_dark)
                 false -> painterResource(id = R.drawable.ic_day)
-             },
+            },
             contentDescription = "Change Theme"
         )
     }
@@ -125,20 +125,10 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
 
     NavHost(navController, startDestination = NavigationDirections.Home.route, modifier = modifier) {
         composable(NavigationDirections.Home.route) {
-            HomeScreen(
-                viewModel = hiltViewModel(),
-                onMovieClicked = { movieID ->
-                    navManager.gotoDetail(movieID)
-                }
-            )
+            HomeScreen(onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })
         }
         composable(NavigationDirections.Search.route) {
-            SearchScreen(
-                viewModel = hiltViewModel(),
-                onMovieClicked = { movieID ->
-                    navManager.gotoDetail(movieID)
-                }
-            )
+            SearchScreen(onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })
         }
 
         composable(
@@ -148,10 +138,7 @@ fun Navigation(navController: NavHostController, modifier: Modifier) {
                 defaultValue = -1
             })
         ) {
-            MovieDetailScreen(
-                viewModel = hiltViewModel(),
-                onBackPressed = navManager.upPress
-            )
+            MovieDetailScreen(onBackPressed = navManager.upPress)
         }
     }
 }
