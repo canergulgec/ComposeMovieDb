@@ -1,9 +1,9 @@
 object Modules {
-    const val core_common = ":core:common"
-    const val core_data = ":core:data"
-    const val core_domain = ":core:domain"
-    const val core_ui = ":core:ui"
-    const val feature_detail = ":feature:detail"
-    const val feature_home = ":feature:home"
-    const val feature_search = ":feature:search"
+    const val CORE_COMMON = ":core:common"
+    const val CORE_DATA = ":core:data"
+    const val CORE_DOMAIN = ":core:domain"
+    const val CORE_UI = ":core:ui"
+    const val FEATURE_DETAIL = ":feature:detail"
+    const val FEATURE_HOME = ":feature:home"
+    const val FEATURE_SEARCH = ":feature:search"
 }

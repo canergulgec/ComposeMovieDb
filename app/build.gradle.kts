@@ -1,24 +1,24 @@
 plugins {
-    id(ConfigData.androidApplication)
-    id(ConfigData.kotlinAndroid)
-    id(ConfigData.kotlinKapt)
-    id(ConfigData.daggerHilt)
-    id(ConfigData.kotlinParcelize)
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    id(ConfigData.ANDROID_APPLICATION)
+    id(ConfigData.KOTLIN_ANDROID)
+    id(ConfigData.KOTLIN_KAPT)
+    id(ConfigData.HILT_ANDROID)
+    id(ConfigData.KOTLIN_PARCELIZE)
+    id(ConfigData.GOOGLE_SERVICES)
+    id(ConfigData.FIREBASE_CRASHLYTICS)
 }
 
 android {
-    namespace = Namespaces.app
-    compileSdk = Versions.App.compileSdkVersion
+    namespace = Namespaces.APP_PACKAGE
+    compileSdk = Versions.App.COMPILER_SDK
 
     defaultConfig {
-        applicationId = ConfigData.applicationID
-        minSdk = Versions.App.minSdkVersion
-        targetSdk = Versions.App.targetSdkVersion
-        versionCode = Versions.App.versionCode
-        versionName = Versions.App.versionName
-        testInstrumentationRunner = ConfigData.testRunner
+        applicationId = ConfigData.APPLICATION_ID
+        minSdk = Versions.App.MIN_SDK
+        targetSdk = Versions.App.TARGET_SDK
+        versionCode = Versions.App.VERSION_CODE
+        versionName = Versions.App.VERSION_NAME
+        testInstrumentationRunner = ConfigData.TEST_RUNNER
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -37,7 +37,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.compilerVersion
+        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
     }
     kotlin {
         jvmToolchain(17)
@@ -49,43 +49,43 @@ kapt {
 }
 
 dependencies {
-    implementation(project(Modules.feature_home))
-    implementation(project(Modules.feature_detail))
-    implementation(project(Modules.feature_search))
-    implementation(project(Modules.core_common))
-    implementation(project(Modules.core_ui))
-    implementation(project(Modules.core_data))
+    implementation(project(Modules.FEATURE_HOME))
+    implementation(project(Modules.FEATURE_DETAIL))
+    implementation(project(Modules.FEATURE_SEARCH))
+    implementation(project(Modules.CORE_COMMON))
+    implementation(project(Modules.CORE_UI))
+    implementation(project(Modules.CORE_DATA))
 
     // AndroidX
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.appCompat)
-    implementation(Dependencies.AndroidX.splashScreen)
-    implementation(Dependencies.AndroidX.activityCompose)
-
-    // Google
-    implementation(Dependencies.Google.material)
+    implementation(Dependencies.AndroidX.CORE_KTX)
+    implementation(Dependencies.AndroidX.APPCOMPAT)
+    implementation(Dependencies.AndroidX.SPLASH_SCREEN)
+    implementation(Dependencies.AndroidX.ACTIVITY_COMPOSE)
 
     // Dagger Hilt
-    implementation(Dependencies.Dagger.daggerHilt)
-    kapt(Dependencies.Dagger.daggerHiltCompiler)
-    implementation(Dependencies.Dagger.hiltNavigation)
+    implementation(Dependencies.Dagger.DAGGER_HILT)
+    kapt(Dependencies.Dagger.HILT_COMPILER)
+    implementation(Dependencies.Dagger.HILT_NAVIGATION)
 
     // Compose
-    implementation(platform(Dependencies.Compose.composeBom))
-    implementation(Dependencies.Compose.composeCompiler)
-    implementation(Dependencies.Compose.composeMaterial3)
-    implementation(Dependencies.Compose.composeNavigation)
+    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
+    implementation(Dependencies.Compose.COMPOSE_COMPILER)
+    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
+    implementation(Dependencies.Compose.COMPOSE_NAVIGATION)
+
+    // Google
+    implementation(Dependencies.Google.MATERIAL)
 
     // Timber
-    implementation(Dependencies.Logger.timber)
+    implementation(Dependencies.Logger.TIMBER)
 
     // Firebase
-    implementation(platform(Dependencies.Firebase.firebaseBom))
-    implementation(Dependencies.Firebase.crashlytics)
-    implementation(Dependencies.Firebase.analytics)
+    implementation(platform(Dependencies.Firebase.FIREBASE_BOM))
+    implementation(Dependencies.Firebase.FIREBASE_CRASHLYTICS)
+    implementation(Dependencies.Firebase.FIREBASE_ANALYTICS)
 
     // Testing
-    testImplementation(Dependencies.Test.jUnit)
-    androidTestImplementation(Dependencies.Test.jUnitExt)
-    androidTestImplementation(Dependencies.Test.espresso)
+    testImplementation(Dependencies.Test.JUNIT)
+    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
+    androidTestImplementation(Dependencies.Test.ESPRESSO)
 }

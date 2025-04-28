@@ -5,14 +5,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(ClassPaths.gradle)
-        classpath(ClassPaths.kotlinGradlePlugin)
+        classpath(ClassPaths.GRADLE_PATH)
+        classpath(ClassPaths.KOTLIN_PATH)
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath(ClassPaths.daggerHiltGradlePlugin)
-        classpath(ClassPaths.googleServices)
-        classpath(ClassPaths.crashlytics)
+        classpath(ClassPaths.HILT_PATH)
+        classpath(ClassPaths.GOOGLE_SERVICES_PATH)
+        classpath(ClassPaths.CRASHLYTICS_PATH)
     }
 }
 

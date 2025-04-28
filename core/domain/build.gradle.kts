@@ -1,17 +1,17 @@
 plugins {
-    id(ConfigData.androidLibrary)
-    id(ConfigData.kotlinAndroid)
-    id(ConfigData.kotlinKapt)
-    id(ConfigData.daggerHilt)
+    id(ConfigData.ANDROID_LIBRARY)
+    id(ConfigData.KOTLIN_ANDROID)
+    id(ConfigData.KOTLIN_KAPT)
+    id(ConfigData.HILT_ANDROID)
 }
 
 android {
-    namespace = Namespaces.core_domain
-    compileSdk = Versions.App.compileSdkVersion
+    namespace = Namespaces.CORE_DOMAIN_PACKAGE
+    compileSdk = Versions.App.COMPILER_SDK
 
     defaultConfig {
-        minSdk = Versions.App.minSdkVersion
-        testInstrumentationRunner = ConfigData.testRunner
+        minSdk = Versions.App.MIN_SDK
+        testInstrumentationRunner = ConfigData.TEST_RUNNER
     }
 
     kotlin {
@@ -20,16 +20,16 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core_common))
+    implementation(project(Modules.CORE_COMMON))
 
     // Dagger Hilt
-    implementation(Dependencies.Dagger.daggerHilt)
-    kapt(Dependencies.Dagger.daggerHiltCompiler)
+    implementation(Dependencies.Dagger.DAGGER_HILT)
+    kapt(Dependencies.Dagger.HILT_COMPILER)
 
-    implementation(Dependencies.Network.ktorGson)
+    implementation(Dependencies.Network.KTOR_GSON)
 
     // Compose
-    implementation(Dependencies.Compose.composePaging)
+    implementation(Dependencies.Compose.COMPOSE_PAGING)
 
-    testImplementation(Dependencies.Test.jUnit)
+    testImplementation(Dependencies.Test.JUNIT)
 }

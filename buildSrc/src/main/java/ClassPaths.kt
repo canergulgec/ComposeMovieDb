@@ -1,7 +1,7 @@
 object ClassPaths {
-    const val gradle = "com.android.tools.build:gradle:${Versions.ClassPath.gradleVersion}"
-    const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.ClassPath.kotlinVersion}"
-    const val daggerHiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.Dagger.daggerHiltVersion}"
-    const val googleServices = "com.google.gms:google-services:${Versions.ClassPath.googleServices}"
-    const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:${Versions.ClassPath.crashlytics}"
+    const val GRADLE_PATH = "com.android.tools.build:gradle:${Versions.ClassPath.GRADLE}"
+    const val KOTLIN_PATH = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.ClassPath.KOTLIN}"
+    const val HILT_PATH = "com.google.dagger:hilt-android-gradle-plugin:${Versions.Dagger.HILT}"
+    const val GOOGLE_SERVICES_PATH = "com.google.gms:google-services:${Versions.ClassPath.GOOGLE_SERVICES}"
+    const val CRASHLYTICS_PATH = "com.google.firebase:firebase-crashlytics-gradle:${Versions.ClassPath.CRASHLYTICS}"
 }

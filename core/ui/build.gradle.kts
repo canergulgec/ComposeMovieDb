@@ -1,15 +1,15 @@
 plugins {
-    id(ConfigData.androidLibrary)
-    id(ConfigData.kotlinAndroid)
+    id(ConfigData.ANDROID_LIBRARY)
+    id(ConfigData.KOTLIN_ANDROID)
 }
 
 android {
-    namespace = Namespaces.core_ui
-    compileSdk = Versions.App.compileSdkVersion
+    namespace = Namespaces.CORE_UI_PACKAGE
+    compileSdk = Versions.App.COMPILER_SDK
 
     defaultConfig {
-        minSdk = Versions.App.minSdkVersion
-        testInstrumentationRunner = ConfigData.testRunner
+        minSdk = Versions.App.MIN_SDK
+        testInstrumentationRunner = ConfigData.TEST_RUNNER
     }
 
     buildFeatures {
@@ -17,7 +17,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.compilerVersion
+        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
     }
 
     kotlin {
@@ -26,23 +26,23 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core_common))
+    implementation(project(Modules.CORE_COMMON))
 
     // AndroidX
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.appCompat)
+    implementation(Dependencies.AndroidX.CORE_KTX)
+    implementation(Dependencies.AndroidX.APPCOMPAT)
 
     // Compose
-    implementation(platform(Dependencies.Compose.composeBom))
-    implementation(Dependencies.Compose.composeCompiler)
-    implementation(Dependencies.Compose.composeUi)
-    implementation(Dependencies.Compose.composeMaterial3)
-    implementation(Dependencies.Compose.composeTooling)
+    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
+    implementation(Dependencies.Compose.COMPOSE_COMPILER)
+    implementation(Dependencies.Compose.COMPOSE_UI)
+    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
+    implementation(Dependencies.Compose.COMPOSE_TOOLING_PREVIEW)
 
     // Lottie
-    implementation(Dependencies.Animation.lottie)
+    implementation(Dependencies.Animation.LOTTIE_ANIMATION)
 
-    testImplementation(Dependencies.Test.jUnit)
-    androidTestImplementation(Dependencies.Test.jUnitExt)
-    androidTestImplementation(Dependencies.Test.espresso)
+    testImplementation(Dependencies.Test.JUNIT)
+    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
+    androidTestImplementation(Dependencies.Test.ESPRESSO)
 }

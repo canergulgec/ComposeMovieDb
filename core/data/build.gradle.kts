@@ -2,19 +2,19 @@ import java.util.Properties
 import java.io.FileInputStream
 
 plugins {
-    id(ConfigData.androidLibrary)
-    id(ConfigData.kotlinAndroid)
-    id(ConfigData.kotlinKapt)
-    id(ConfigData.daggerHilt)
+    id(ConfigData.ANDROID_LIBRARY)
+    id(ConfigData.KOTLIN_ANDROID)
+    id(ConfigData.KOTLIN_KAPT)
+    id(ConfigData.HILT_ANDROID)
 }
 
 android {
-    namespace = Namespaces.core_data
-    compileSdk = Versions.App.compileSdkVersion
+    namespace = Namespaces.CORE_DATA_PACKAGE
+    compileSdk = Versions.App.COMPILER_SDK
 
     defaultConfig {
-        minSdk = Versions.App.minSdkVersion
-        testInstrumentationRunner = ConfigData.testRunner
+        minSdk = Versions.App.MIN_SDK
+        testInstrumentationRunner = ConfigData.TEST_RUNNER
 
         buildConfigField("Integer", "TIMEOUT", "60")
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
@@ -26,7 +26,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.compilerVersion
+        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
     }
 
     kotlin {
@@ -35,32 +35,32 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core_common))
-    implementation(project(Modules.core_domain))
+    implementation(project(Modules.CORE_COMMON))
+    implementation(project(Modules.CORE_DOMAIN))
 
     // DataStore
-    implementation(Dependencies.AndroidX.dataStore)
+    implementation(Dependencies.AndroidX.DATASTORE)
 
     // Dagger Hilt
-    implementation(Dependencies.Dagger.daggerHilt)
+    implementation(Dependencies.Dagger.DAGGER_HILT)
     implementation("androidx.compose.ui:ui-tooling-preview-android:1.8.0")
-    kapt(Dependencies.Dagger.daggerHiltCompiler)
+    kapt(Dependencies.Dagger.HILT_COMPILER)
 
     // Compose
-    implementation(Dependencies.Compose.composePaging)
-    implementation(Dependencies.Compose.composeTooling)
+    implementation(Dependencies.Compose.COMPOSE_PAGING)
+    implementation(Dependencies.Compose.COMPOSE_TOOLING_PREVIEW)
 
     // Ktor
-    implementation(Dependencies.Network.ktorAndroid)
-    implementation(Dependencies.Network.ktorCore)
-    implementation(Dependencies.Network.ktorGson)
-    implementation(Dependencies.Network.ktorLogging)
-    implementation(Dependencies.Network.ktorOkhttp)
+    implementation(Dependencies.Network.KTOR_CLIENT)
+    implementation(Dependencies.Network.KTOR_CORE)
+    implementation(Dependencies.Network.KTOR_GSON)
+    implementation(Dependencies.Network.KTOR_LOGGING)
+    implementation(Dependencies.Network.KTOR_OKHTTP)
 
     // Timber
-    implementation(Dependencies.Logger.timber)
+    implementation(Dependencies.Logger.TIMBER)
 
-    testImplementation(Dependencies.Test.jUnit)
+    testImplementation(Dependencies.Test.JUNIT)
 }
 
 fun getApiKey(): String {

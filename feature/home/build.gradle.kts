@@ -1,17 +1,17 @@
 plugins {
-    id(ConfigData.androidLibrary)
-    id(ConfigData.kotlinAndroid)
-    id(ConfigData.kotlinKapt)
-    id(ConfigData.daggerHilt)
+    id(ConfigData.ANDROID_LIBRARY)
+    id(ConfigData.KOTLIN_ANDROID)
+    id(ConfigData.KOTLIN_KAPT)
+    id(ConfigData.HILT_ANDROID)
 }
 
 android {
-    namespace = Namespaces.feature_home
-    compileSdk = Versions.App.compileSdkVersion
+    namespace = Namespaces.FEATURE_HOME_PACKAGE
+    compileSdk = Versions.App.COMPILER_SDK
 
     defaultConfig {
-        minSdk = Versions.App.minSdkVersion
-        testInstrumentationRunner = ConfigData.testRunner
+        minSdk = Versions.App.MIN_SDK
+        testInstrumentationRunner = ConfigData.TEST_RUNNER
     }
 
     buildFeatures {
@@ -19,7 +19,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.compilerVersion
+        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
     }
 
     kotlin {
@@ -28,38 +28,38 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core_common))
-    implementation(project(Modules.core_ui))
-    implementation(project(Modules.core_data))
-    implementation(project(Modules.core_domain))
+    implementation(project(Modules.CORE_COMMON))
+    implementation(project(Modules.CORE_UI))
+    implementation(project(Modules.CORE_DATA))
+    implementation(project(Modules.CORE_DOMAIN))
 
     // AndroidX
-    implementation(Dependencies.AndroidX.coreKtx)
-    implementation(Dependencies.AndroidX.appCompat)
-    implementation(Dependencies.AndroidX.lifecycleViewModel)
+    implementation(Dependencies.AndroidX.CORE_KTX)
+    implementation(Dependencies.AndroidX.APPCOMPAT)
+    implementation(Dependencies.AndroidX.LIFECYCLE_VIEWMODEL)
 
     // Dagger Hilt
-    implementation(Dependencies.Dagger.daggerHilt)
-    kapt(Dependencies.Dagger.daggerHiltCompiler)
-    implementation(Dependencies.Dagger.hiltNavigation)
+    implementation(Dependencies.Dagger.DAGGER_HILT)
+    kapt(Dependencies.Dagger.HILT_COMPILER)
+    implementation(Dependencies.Dagger.HILT_NAVIGATION)
 
     // Compose
-    implementation(platform(Dependencies.Compose.composeBom))
-    implementation(Dependencies.Compose.composeCompiler)
-    implementation(Dependencies.Compose.composeUtil)
-    implementation(Dependencies.Compose.composeUi)
-    implementation(Dependencies.Compose.composeMaterial3)
-    implementation(Dependencies.Compose.composeLifecycle)
-    implementation(Dependencies.Compose.composePaging)
-    implementation(Dependencies.Compose.composeFoundation)
+    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
+    implementation(Dependencies.Compose.COMPOSE_COMPILER)
+    implementation(Dependencies.Compose.COMPOSE_UI_UTIL)
+    implementation(Dependencies.Compose.COMPOSE_UI)
+    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
+    implementation(Dependencies.Compose.COMPOSE_LIFECYCLE)
+    implementation(Dependencies.Compose.COMPOSE_PAGING)
+    implementation(Dependencies.Compose.COMPOSE_FOUNDATION)
 
     // Image Loading
-    implementation(Dependencies.ImageLoader.coil)
+    implementation(Dependencies.ImageLoader.COIL)
 
     // Timber
-    implementation(Dependencies.Logger.timber)
+    implementation(Dependencies.Logger.TIMBER)
 
-    testImplementation(Dependencies.Test.jUnit)
-    androidTestImplementation(Dependencies.Test.jUnitExt)
-    androidTestImplementation(Dependencies.Test.espresso)
+    testImplementation(Dependencies.Test.JUNIT)
+    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
+    androidTestImplementation(Dependencies.Test.ESPRESSO)
 }

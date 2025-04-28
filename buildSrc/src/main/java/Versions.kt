@@ -1,77 +1,72 @@
 object Versions {
 
     object App {
-        const val minSdkVersion = 24
-        const val targetSdkVersion = 35
-        const val compileSdkVersion = 35
-        const val versionCode = 1
-        const val versionName = "1.0.0"
+        const val MIN_SDK = 24
+        const val TARGET_SDK = 35
+        const val COMPILER_SDK = 35
+        const val VERSION_CODE = 1
+        const val VERSION_NAME = "1.0.0"
     }
 
     object AndroidX {
-        const val appCompatVersion = "1.5.1"
-        const val coreKtxVersion = "1.8.0"
-        const val lifecycleVersion = "2.6.0-alpha01"
-        const val dataStoreVersion = "1.0.0"
-        const val splashScreenVersion = "1.0.0"
-        const val activityComposeVersion = "1.10.1"
+        const val APP_COMPAT = "1.5.1"
+        const val CORE_KTX = "1.8.0"
+        const val LIFECYCLE = "2.6.0-alpha01"
+        const val DATASTORE = "1.0.0"
+        const val SPLASH = "1.0.0"
+        const val ACTIVITY_COMPOSE = "1.10.1"
     }
 
     object Compose {
-        const val compilerVersion = "1.5.8"
-        const val uiVersion = "1.2.1"
-        const val toolingVersion = "1.2.1"
-        const val lifecycleVersion = "2.6.0-alpha01"
-        const val utilVersion = "1.2.1"
-        const val materialVersion = "1.2.1"
-        const val composeNavigation = "2.5.2"
-        const val pagingVersion = "1.0.0-alpha15"
-        const val foundationVersion = "1.8.0"
+        const val BOM = "2025.04.01"
+        const val COMPILER = "1.5.8"
+        const val NAVIGATION = "2.5.2"
+        const val PAGING = "1.0.0-alpha15"
     }
 
     object Google {
-        const val materialVersion = "1.6.1"
+        const val MATERIAL = "1.6.1"
     }
 
     object Dagger {
-        const val daggerHiltVersion = "2.51.1"
-        const val navigation = "1.0.0"
+        const val HILT = "2.51.1"
+        const val NAVIGATION = "1.0.0"
     }
 
     object Network {
-        const val ktorVersion = "1.6.7"
+        const val KTOR = "1.6.7"
     }
 
     object Coroutines {
-        const val coroutinesVersion = "1.6.3"
+        const val COROUTINES = "1.6.3"
     }
 
     object ImageLoader {
-        const val coilVersion = "2.0.0"
+        const val COIL = "2.0.0"
     }
 
     object Logger {
-        const val timberVersion = "5.0.1"
+        const val TIMBER = "5.0.1"
     }
 
     object Animation {
-        const val lottieVersion = "4.2.2"
+        const val LOTTIE = "4.2.2"
     }
 
     object Firebase {
-        const val firebaseVersion = "30.3.2"
+        const val BOM = "30.3.2"
     }
 
     object Test {
-        const val junit4Version = "4.13.2"
-        const val junitExt = "1.1.3"
-        const val espressoVersion = "3.3.0"
+        const val JUNIT_4 = "4.13.2"
+        const val JUNIT_EXT = "1.1.3"
+        const val ESPRESSO = "3.3.0"
     }
 
     object ClassPath {
-        const val gradleVersion = "8.5.0"
-        const val kotlinVersion = "1.9.22"
-        const val googleServices = "4.3.13"
-        const val crashlytics = "2.9.1"
+        const val GRADLE = "8.5.0"
+        const val KOTLIN = "1.9.22"
+        const val GOOGLE_SERVICES = "4.3.13"
+        const val CRASHLYTICS = "2.9.1"
     }
 }
