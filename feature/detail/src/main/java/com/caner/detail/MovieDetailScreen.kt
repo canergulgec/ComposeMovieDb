@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -39,6 +40,10 @@ import com.caner.ui.theme.BLACK_TRANSPARENT
 import com.caner.ui.theme.BLACK_TRANSPARENT_60
 import com.caner.ui.theme.ComposeMovieDbTheme
 import com.caner.ui.theme.Dimens
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 
 @Composable
 fun MovieDetailScreen(
@@ -71,7 +76,11 @@ fun MovieDetailUi(
     movieModel: MovieDetailModel,
     onBackPressed: () -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+    ) {
         MovieBackdropComponent(
             poster = movieModel.backdrop?.original,
             onBackPressed = { onBackPressed() })
@@ -103,13 +112,11 @@ fun MovieDetailUi(
 
 @Composable
 fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.55f)
-    ) {
+    Box(modifier = Modifier.fillMaxWidth()) {
         AsyncImage(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.55f),
             model = poster,
             error = painterResource(R.drawable.bg_image_placeholder),
             contentDescription = "",
@@ -129,6 +136,7 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
         )
         Icon(
             modifier = Modifier
+                .statusBarsPadding()
                 .padding(Dimens.MediumPadding.size)
                 .align(Alignment.TopStart)
                 .clickable {

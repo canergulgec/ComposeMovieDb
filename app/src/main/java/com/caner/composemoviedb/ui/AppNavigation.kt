@@ -31,6 +31,7 @@ import com.caner.composemoviedb.navigation.NavigationManager
 import com.caner.search.composables.SearchScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import timber.log.Timber
 
 @ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
@@ -85,7 +86,8 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
             }
         }
     ) { paddingValues ->
-        Navigation(navController = navController, modifier = Modifier.padding(paddingValues))
+        Timber.v("padding values: $paddingValues")
+        NavHostComponent(navController = navController)
     }
 
     when (currentRoute(navController = navController)) {
@@ -120,10 +122,13 @@ fun FloatingButton(
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun Navigation(navController: NavHostController, modifier: Modifier) {
+fun NavHostComponent(navController: NavHostController) {
     val navManager = remember(navController) { NavigationManager(navController) }
 
-    NavHost(navController, startDestination = NavigationDirections.Home.route, modifier = modifier) {
+    NavHost(
+        navController = navController,
+        startDestination = NavigationDirections.Home.route
+    ) {
         composable(NavigationDirections.Home.route) {
             HomeScreen(onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })
         }

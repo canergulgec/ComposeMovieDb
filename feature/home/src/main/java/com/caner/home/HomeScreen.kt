@@ -45,6 +45,9 @@ import com.caner.ui.composables.MovieRatingComponent
 import com.caner.ui.composables.ViewContent
 import kotlin.math.absoluteValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 
 @Composable
 fun HomeScreen(
@@ -59,6 +62,9 @@ fun HomeScreen(
         loadingContent = { FullScreenLoading() },
         content = {
             LazyColumn(
+                modifier = Modifier
+                    .statusBarsPadding()
+                    .navigationBarsPadding(),
                 contentPadding = PaddingValues(top = 24.dp, bottom = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
