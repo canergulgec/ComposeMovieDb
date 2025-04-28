@@ -199,15 +199,15 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         shape = MaterialTheme.shapes.small,
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
-            horizontalAlignment = CenterHorizontally,
             modifier = Modifier
                 .width(140.dp)
                 .clickable {
                     onClicked(item.movieId)
-                }
+                },
+            horizontalAlignment = CenterHorizontally,
         ) {
             AsyncImage(
                 modifier = Modifier
