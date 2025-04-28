@@ -46,7 +46,6 @@ import com.caner.ui.theme.DIRTY_WHITE
 fun SearchBarComponent(
     modifier: Modifier = Modifier,
     text: String = "",
-    hint: String = stringResource(id = R.string.search_hint),
     isHintVisible: Boolean = true,
     onValueChange: (String) -> Unit = {},
     onDismissClicked: () -> Unit = {},
@@ -139,7 +138,7 @@ fun SearchBarComponent(
             ) {
                 if (!isTyping) {
                     Text(
-                        text = hint,
+                        text = stringResource(id = R.string.search_hint),
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = hintAlpha),
                         style = MaterialTheme.typography.bodyMedium
                     )
