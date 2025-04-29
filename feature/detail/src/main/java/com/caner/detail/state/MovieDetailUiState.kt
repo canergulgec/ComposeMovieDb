@@ -1,7 +1,7 @@
 package com.caner.detail.state
 
 import com.caner.common.network.UserMessage
-import com.caner.domain.model.MovieDetailModel
+import com.caner.model.MovieDetailModel
 
 data class MovieDetailUiState(
     val movieDetailModel: MovieDetailModel? = null,

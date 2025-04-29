@@ -1,6 +1,6 @@
 package com.caner.home.state
 
-import com.caner.domain.model.Movie
+import com.caner.model.Movie
 
 data class HomeUiState(
     val isFetchingMovies: Boolean = false,

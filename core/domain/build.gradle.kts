@@ -21,6 +21,8 @@ android {
 
 dependencies {
     implementation(project(Modules.CORE_COMMON))
+    implementation(project(Modules.CORE_DATA))
+    implementation(project(Modules.CORE_MODEL))
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.DAGGER_HILT)

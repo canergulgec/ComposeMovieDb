@@ -1,6 +1,6 @@
 package com.caner.search.state
 
-import com.caner.domain.model.Movie
+import com.caner.model.Movie
 
 data class SearchViewModelState(
     val movies: List<Movie> = emptyList(),

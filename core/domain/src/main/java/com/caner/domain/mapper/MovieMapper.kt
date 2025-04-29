@@ -1,11 +1,10 @@
 package com.caner.domain.mapper
 
 import com.caner.common.utils.Mapper
-import com.caner.domain.model.Movie
-import com.caner.domain.model.MovieImage
-import com.caner.domain.model.MovieModel
-import com.caner.domain.model.remote.MovieResponseItem
-import com.caner.domain.model.remote.MoviesResponse
+import com.caner.model.Movie
+import com.caner.model.MovieImage
+import com.caner.model.MovieModel
+import com.caner.model.remote.MoviesResponse
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject

@@ -1,9 +1,9 @@
 package com.caner.domain.mapper
 
 import com.caner.common.utils.Mapper
-import com.caner.domain.model.MovieDetailModel
-import com.caner.domain.model.MovieImage
-import com.caner.domain.model.remote.MovieDetailResponse
+import com.caner.model.MovieDetailModel
+import com.caner.model.MovieImage
+import com.caner.model.remote.MovieDetailResponse
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -28,9 +28,7 @@ class MovieDetailMapper @Inject constructor() : Mapper<MovieDetailResponse, Movi
                 vote_count ?: 0,
                 release_date?.let { date ->
                     if (date.isNotEmpty()) {
-                        SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(
-                            date
-                        )
+                        SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(date)
                     } else {
                         null
                     }

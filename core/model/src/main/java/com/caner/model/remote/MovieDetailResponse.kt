@@ -1,4 +1,4 @@
-package com.caner.domain.model.remote
+package com.caner.model.remote
 
 import com.google.gson.annotations.SerializedName
 

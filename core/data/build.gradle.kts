@@ -36,7 +36,7 @@ android {
 
 dependencies {
     implementation(project(Modules.CORE_COMMON))
-    implementation(project(Modules.CORE_DOMAIN))
+    implementation(project(Modules.CORE_MODEL))
 
     // DataStore
     implementation(Dependencies.AndroidX.DATASTORE)

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = Namespaces.CORE_UI_PACKAGE
+    namespace = Namespaces.CORE_MODEL_PACKAGE
     compileSdk = Versions.App.COMPILER_SDK
 
     defaultConfig {
@@ -26,22 +26,10 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.CORE_COMMON))
-    implementation(project(Modules.CORE_MODEL))
-
-    // AndroidX
-    implementation(Dependencies.AndroidX.CORE_KTX)
-    implementation(Dependencies.AndroidX.APPCOMPAT)
-
-    // Compose
     implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_COMPILER)
     implementation(Dependencies.Compose.COMPOSE_UI)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
-    implementation(Dependencies.Compose.COMPOSE_TOOLING_PREVIEW)
-
-    // Lottie
-    implementation(Dependencies.Animation.LOTTIE_ANIMATION)
+    implementation(Dependencies.Network.KTOR_GSON)
 
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.JUNIT_EXT)

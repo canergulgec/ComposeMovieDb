@@ -4,7 +4,7 @@ import com.caner.common.extension.buildNetworkRequest
 import com.caner.common.extension.mapTo
 import com.caner.common.extension.onProgress
 import com.caner.domain.mapper.MovieMapper
-import com.caner.domain.repository.SearchRepository
+import com.caner.data.repository.SearchRepository
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

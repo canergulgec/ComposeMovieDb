@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.caner.domain.model.MovieDetailModel
-import com.caner.domain.model.remote.MovieGenre
-import com.caner.data.provider.MovieDetailDataProvider
+import com.caner.model.MovieDetailModel
+import com.caner.model.remote.MovieGenre
+import com.caner.ui.preview.MovieDetailDataProvider
 import com.caner.detail.vm.MovieDetailViewModel
 import com.caner.common.R
 import com.caner.ui.composables.*

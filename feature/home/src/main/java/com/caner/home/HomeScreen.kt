@@ -18,7 +18,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.caner.common.R
 import coil.request.ImageRequest
-import com.caner.domain.model.Movie
 import com.caner.home.vm.HomeViewModel
 import com.caner.ui.composables.FullScreenLoading
 import com.caner.ui.composables.MovieRatingComponent
@@ -32,6 +31,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.ui.unit.Dp
 import androidx.compose.foundation.layout.padding
+import com.caner.model.Movie
 
 @Composable
 fun HomeScreen(

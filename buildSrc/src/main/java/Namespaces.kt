@@ -4,6 +4,7 @@ object Namespaces {
     const val CORE_DATA_PACKAGE = "com.caner.data"
     const val CORE_DOMAIN_PACKAGE = "com.caner.domain"
     const val CORE_UI_PACKAGE = "com.caner.ui"
+    const val CORE_MODEL_PACKAGE = "com.caner.model"
     const val FEATURE_DETAIL_PACKAGE = "com.caner.detail"
     const val FEATURE_HOME_PACKAGE = "com.caner.home"
     const val FEATURE_SEARCH_PACKAGE = "com.caner.search"

@@ -18,8 +18,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.caner.domain.model.Movie
-import com.caner.data.provider.SearchScreenDataProvider
+import com.caner.model.Movie
+import com.caner.ui.preview.SearchScreenDataProvider
 import com.caner.search.state.SearchUiState
 import com.caner.search.state.TextEvent
 import com.caner.search.vm.SearchViewModel

@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
-import com.caner.domain.model.Movie
+import com.caner.model.Movie
 import com.caner.common.R
 import com.caner.ui.composables.MovieRatingComponent
 

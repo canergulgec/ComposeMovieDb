@@ -1,9 +1,9 @@
-package com.caner.data.repository
+package com.caner.data.repository.impl
 
 import com.caner.common.utils.HttpParams
 import com.caner.common.utils.HttpRoutes
-import com.caner.domain.model.remote.MoviesResponse
-import com.caner.domain.repository.SearchRepository
+import com.caner.data.repository.SearchRepository
+import com.caner.model.remote.MoviesResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
 import javax.inject.Inject

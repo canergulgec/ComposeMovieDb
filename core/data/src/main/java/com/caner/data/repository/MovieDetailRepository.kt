@@ -1,7 +1,8 @@
-package com.caner.domain.repository
+package com.caner.data.repository
 
-import com.caner.domain.model.remote.MovieDetailResponse
+import com.caner.model.remote.MovieDetailResponse
 
 interface MovieDetailRepository {
+
     suspend fun getMovieDetail(movieId: Int?): MovieDetailResponse
 }

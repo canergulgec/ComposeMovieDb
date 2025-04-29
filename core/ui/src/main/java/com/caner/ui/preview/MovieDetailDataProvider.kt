@@ -1,9 +1,9 @@
-package com.caner.data.provider
+package com.caner.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.caner.domain.model.MovieDetailModel
-import com.caner.domain.model.MovieImage
-import com.caner.domain.model.remote.MovieGenre
+import com.caner.model.MovieDetailModel
+import com.caner.model.MovieImage
+import com.caner.model.remote.MovieGenre
 
 class MovieDetailDataProvider : PreviewParameterProvider<MovieDetailModel> {
     override val values: Sequence<MovieDetailModel>
