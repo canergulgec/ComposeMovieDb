@@ -2,6 +2,7 @@ package com.caner.composemoviedb.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -30,7 +31,6 @@ import com.caner.composemoviedb.navigation.NavigationManager
 import com.caner.search.composables.SearchScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import timber.log.Timber
 
 @ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
@@ -85,8 +85,7 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
             }
         }
     ) { paddingValues ->
-        Timber.v("padding values: $paddingValues")
-        NavHostComponent(navController = navController)
+        NavHostComponent(navController = navController, paddingValues = paddingValues)
     }
 
     when (currentRoute(navController = navController)) {
@@ -96,9 +95,7 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
 }
 
 @Composable
-fun SetThemeFloatingButton(
-    changeTheme: () -> Unit
-) {
+fun SetThemeFloatingButton(changeTheme: () -> Unit) {
     FloatingActionButton(
         onClick = {
             changeTheme()
@@ -121,15 +118,18 @@ fun SetThemeFloatingButton(
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun NavHostComponent(navController: NavHostController) {
+fun NavHostComponent(navController: NavHostController, paddingValues: PaddingValues) {
     val navManager = remember(navController) { NavigationManager(navController) }
 
     NavHost(
+        modifier = Modifier.fillMaxWidth(),
         navController = navController,
         startDestination = NavigationDirections.Home.route
     ) {
         composable(NavigationDirections.Home.route) {
-            HomeScreen(onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })
+            HomeScreen(
+                bottomPadding = paddingValues.calculateBottomPadding(),
+                onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })
         }
         composable(NavigationDirections.Search.route) {
             SearchScreen(onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })

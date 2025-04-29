@@ -2,7 +2,6 @@ package com.caner.home.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.caner.common.network.Resource
 import com.caner.domain.usecase.HomeUseCase
 import com.caner.home.state.HomeUiState
@@ -25,12 +24,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         getPopularMovies()
-        getNowPlayingMovies()
-    }
-
-    private fun getNowPlayingMovies() {
-        val moviesPagingFlow = useCase.getNowPlayingMovies().cachedIn(scope = viewModelScope)
-        _movieUiState.update { it.copy(nowPlayingMovies = moviesPagingFlow) }
     }
 
     private fun getPopularMovies() {
@@ -42,6 +35,7 @@ class HomeViewModel @Inject constructor(
                             it.copy(popularMovies = resource.data.movies)
                         }
                     }
+
                     is Resource.Loading -> _movieUiState.update { it.copy(isFetchingMovies = resource.status) }
                     is Resource.Error -> Timber.e(resource.error)
                 }
