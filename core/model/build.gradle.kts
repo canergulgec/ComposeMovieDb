@@ -14,10 +14,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
     }
 
     kotlin {
@@ -26,9 +22,6 @@ android {
 }
 
 dependencies {
-    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_UI)
-    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
     implementation(Dependencies.Network.KTOR_GSON)
 
     testImplementation(Dependencies.Test.JUNIT)
