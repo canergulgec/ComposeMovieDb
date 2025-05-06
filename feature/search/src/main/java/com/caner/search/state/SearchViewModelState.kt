@@ -13,7 +13,7 @@ data class SearchViewModelState(
         if (movies.isNotEmpty() || isLoading) {
             SearchUiState.HasMovies(
                 movies = movies,
-                isFetchingMovies = isLoading,
+                isLoading = isLoading,
                 searchTitle = title,
                 isHintVisible = isHintVisible
             )

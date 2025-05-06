@@ -4,15 +4,19 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -23,6 +27,7 @@ import com.caner.ui.preview.SearchScreenDataProvider
 import com.caner.search.state.SearchUiState
 import com.caner.search.state.TextEvent
 import com.caner.search.vm.SearchViewModel
+import com.caner.ui.composables.ViewContent
 import com.caner.ui.theme.ComposeMovieDbTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -33,12 +38,17 @@ import kotlinx.coroutines.FlowPreview
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
+    innerPadding: PaddingValues,
     onMovieClicked: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SearchScreenUi(
         uiState = uiState,
+        innerPadding = PaddingValues(
+            top = innerPadding.calculateTopPadding() + 16.dp,
+            bottom = innerPadding.calculateBottomPadding() + 16.dp,
+        ),
         onMovieClicked = onMovieClicked,
         onValueChange = {
             viewModel.onEvent(TextEvent.OnValueChange(it))
@@ -54,6 +64,7 @@ fun SearchScreen(
 @Composable
 fun SearchScreenUi(
     uiState: SearchUiState,
+    innerPadding: PaddingValues,
     onMovieClicked: (Int) -> Unit,
     onValueChange: (String) -> Unit,
     onFocusChange: (Boolean) -> Unit
@@ -61,14 +72,11 @@ fun SearchScreenUi(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
-            .padding(top = 16.dp)
-            .navigationBarsPadding()
             .background(MaterialTheme.colorScheme.background),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SearchBarComponent(
+            modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
             text = uiState.searchTitle,
             isHintVisible = uiState.isHintVisible,
             onValueChange = {
@@ -82,7 +90,55 @@ fun SearchScreenUi(
             }
         )
 
-        SearchList(uiState = uiState, onMovieClicked = onMovieClicked)
+        SearchList(
+            uiState = uiState,
+            innerPadding = innerPadding,
+            onMovieClicked = onMovieClicked
+        )
+    }
+}
+
+@FlowPreview
+@Composable
+fun SearchList(
+    uiState: SearchUiState,
+    innerPadding: PaddingValues,
+    onMovieClicked: (Int) -> Unit
+) {
+    when (uiState) {
+        is SearchUiState.NoMovies -> {
+            EmptyListComponent()
+        }
+
+        is SearchUiState.HasMovies -> {
+            ViewContent(
+                isLoading = uiState.isLoading,
+                loadingContent = { CircularProgressIndicator() },
+                content = {
+                    LazyColumn(
+                        contentPadding = PaddingValues(
+                            start = 16.dp,
+                            end = 16.dp,
+                            top = 24.dp,
+                            bottom = innerPadding.calculateBottomPadding()
+                        ),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(uiState.movies) { item ->
+                            MovieComponent(
+                                item = item,
+                                itemClicked = onMovieClicked
+                            )
+                            HorizontalDivider(
+                                modifier = Modifier.padding(top = 8.dp),
+                                color = Color.LightGray,
+                                thickness = 0.5.dp
+                            )
+                        }
+                    }
+                }
+            )
+        }
     }
 }
 
@@ -96,13 +152,14 @@ private fun SearchScreenPreview(
 ) {
     val searchUiState = SearchUiState.HasMovies(
         movies = movies,
-        isFetchingMovies = false,
+        isLoading = false,
         searchTitle = "Minions",
         isHintVisible = false
     )
     ComposeMovieDbTheme {
         SearchScreenUi(
             uiState = searchUiState,
+            innerPadding = PaddingValues(),
             onMovieClicked = {},
             onValueChange = {},
             onFocusChange = {})

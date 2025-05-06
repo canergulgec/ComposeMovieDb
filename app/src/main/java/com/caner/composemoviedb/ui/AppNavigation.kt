@@ -128,11 +128,14 @@ fun NavHostComponent(navController: NavHostController, paddingValues: PaddingVal
     ) {
         composable(NavigationDirections.Home.route) {
             HomeScreen(
-                bottomPadding = paddingValues.calculateBottomPadding(),
+                innerPadding = paddingValues,
                 onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })
         }
         composable(NavigationDirections.Search.route) {
-            SearchScreen(onMovieClicked = { movieID -> navManager.gotoDetail(movieID) })
+            SearchScreen(
+                innerPadding = paddingValues,
+                onMovieClicked = { movieID -> navManager.gotoDetail(movieID) }
+            )
         }
 
         composable(

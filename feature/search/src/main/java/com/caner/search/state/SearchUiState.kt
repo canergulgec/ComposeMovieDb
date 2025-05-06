@@ -13,7 +13,7 @@ sealed interface SearchUiState {
 
     data class HasMovies(
         val movies: List<Movie>,
-        val isFetchingMovies: Boolean,
+        val isLoading: Boolean,
         override val searchTitle: String,
         override val isHintVisible: Boolean
     ) : SearchUiState

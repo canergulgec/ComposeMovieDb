@@ -24,34 +24,32 @@ import com.caner.ui.composables.MovieRatingComponent
 import com.caner.ui.composables.ViewContent
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.ui.unit.Dp
 import androidx.compose.foundation.layout.padding
 import com.caner.model.Movie
 
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    bottomPadding: Dp,
+    innerPadding: PaddingValues,
     onMovieClicked: (Int) -> Unit
 ) {
     val movieViewState by viewModel.movieUiState.collectAsStateWithLifecycle()
 
     ViewContent(
-        isLoading = movieViewState.isFetchingMovies,
+        isLoading = movieViewState.isLoading,
         loadingContent = { FullScreenLoading() },
         content = {
             if (movieViewState.popularMovies.isNotEmpty()) {
                 MoviesGridComponent(
-                    modifier = Modifier
-                        .statusBarsPadding()
-                        .navigationBarsPadding(),
+                    modifier = Modifier.padding(horizontal = 16.dp),
                     movies = movieViewState.popularMovies,
-                    bottomPadding = bottomPadding,
+                    innerPadding = PaddingValues(
+                        top = innerPadding.calculateTopPadding() + 16.dp,
+                        bottom = innerPadding.calculateBottomPadding() + 16.dp,
+                    ),
                     onMovieClicked = onMovieClicked
                 )
             }
@@ -63,13 +61,13 @@ fun HomeScreen(
 fun MoviesGridComponent(
     modifier: Modifier,
     movies: List<Movie>,
-    bottomPadding: Dp,
+    innerPadding: PaddingValues,
     onMovieClicked: (Int) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = modifier.fillMaxSize(),
         columns = GridCells.Adaptive(140.dp),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 16.dp, bottom = bottomPadding),
+        contentPadding = innerPadding,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {

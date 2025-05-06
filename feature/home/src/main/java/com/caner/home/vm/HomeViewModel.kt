@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     private val useCase: HomeUseCase
 ) : ViewModel() {
 
-    private val _movieUiState = MutableStateFlow(HomeUiState(isFetchingMovies = true))
+    private val _movieUiState = MutableStateFlow(HomeUiState(isLoading = true))
     val movieUiState: StateFlow<HomeUiState> = _movieUiState.asStateFlow()
 
     init {
@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
                         }
                     }
 
-                    is Resource.Loading -> _movieUiState.update { it.copy(isFetchingMovies = resource.status) }
+                    is Resource.Loading -> _movieUiState.update { it.copy(isLoading = resource.status) }
                     is Resource.Error -> Timber.e(resource.error)
                 }
             }
