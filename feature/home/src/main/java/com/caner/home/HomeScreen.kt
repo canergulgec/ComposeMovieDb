@@ -117,7 +117,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSecondary,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(modifier = Modifier.height(8.dp))
             MovieRatingComponent(voteAverage = item.voteAverage, size = 20.dp)

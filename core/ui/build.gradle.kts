@@ -39,6 +39,7 @@ dependencies {
     implementation(Dependencies.Compose.COMPOSE_UI)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
     implementation(Dependencies.Compose.COMPOSE_UI_TOOLING_PREVIEW)
+    debugImplementation(Dependencies.Compose.COMPOSE_UI_TOOLING)
 
     // Lottie
     implementation(Dependencies.Animation.LOTTIE_ANIMATION)

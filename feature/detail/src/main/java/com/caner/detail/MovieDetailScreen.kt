@@ -44,6 +44,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.togetherWith
 
 @Composable
 fun MovieDetailScreen(
@@ -51,24 +56,32 @@ fun MovieDetailScreen(
     onBackPressed: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val movie = uiState.movieDetailModel
 
-    ViewContent(
-        isLoading = uiState.isFetchingMovieDetail,
-        hasError = uiState.hasError,
-        loadingContent = { FullScreenLoading() },
-        errorContent = {
-            LottieAnimationComponent(
-                anim = R.raw.error_anim,
-                message = stringResource(id = R.string.default_error_message)
-            )
+    AnimatedContent(
+        targetState = uiState,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(700)) togetherWith
+                fadeOut(animationSpec = tween(300))
         },
-        content = {
-            movie?.let {
-                MovieDetailUi(movie = it, onBackPressed = onBackPressed)
+        label = "DetailScreenAnimation"
+    ) { targetState ->
+        when {
+            targetState.isFetchingMovieDetail -> {
+                FullScreenLoading()
+            }
+
+            targetState.hasError -> {
+                LottieAnimationComponent(
+                    anim = R.raw.error_anim,
+                    message = stringResource(id = R.string.default_error_message)
+                )
+            }
+
+            targetState.movieDetailModel != null -> {
+                MovieDetailUi(movie = targetState.movieDetailModel, onBackPressed = onBackPressed)
             }
         }
-    )
+    }
 }
 
 @Composable
@@ -119,6 +132,7 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
                 .fillMaxWidth()
                 .fillMaxHeight(0.55f),
             model = poster,
+            placeholder = painterResource(R.drawable.bg_image_placeholder),
             error = painterResource(R.drawable.bg_image_placeholder),
             contentDescription = "",
             contentScale = ContentScale.Crop
@@ -181,7 +195,7 @@ fun MovieTitleComponent(modifier: Modifier = Modifier, movie: MovieDetailModel) 
 @Composable
 fun MovieGenreComponent(genres: List<MovieGenre>) {
     FlowRow {
-        repeat(genres.size) { pos ->
+        genres.forEach { genre ->
             Box(
                 modifier = Modifier
                     .padding(Dimens.XSmallPadding.size)
@@ -195,7 +209,7 @@ fun MovieGenreComponent(genres: List<MovieGenre>) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = genres[pos].name,
+                    text = genre.name,
                     color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.bodySmall
                 )

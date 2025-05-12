@@ -8,6 +8,7 @@ import com.caner.model.remote.MoviesResponse
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class MovieMapper @Inject constructor() : Mapper<MoviesResponse, MovieModel> {
 
@@ -27,7 +28,7 @@ class MovieMapper @Inject constructor() : Mapper<MoviesResponse, MovieModel> {
                         it.originalLanguage,
                         it.originalTitle,
                         it.title,
-                        it.voteAverage,
+                        (it.voteAverage * 10).roundToInt() / 10.0,
                         it.overview,
                         it.releaseDate?.let { date ->
                             if (date.isNotEmpty()) {

@@ -3,7 +3,6 @@ package com.caner.ui.composables
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -23,7 +22,7 @@ import com.caner.ui.theme.ComposeMovieDbTheme
 @Composable
 fun MovieRatingComponent(voteAverage: Double, size: Dp) {
     Row(
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -34,9 +33,8 @@ fun MovieRatingComponent(voteAverage: Double, size: Dp) {
         )
         Text(
             text = voteAverage.toString(),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.padding(start = 4.dp)
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.secondary
         )
     }
 }
