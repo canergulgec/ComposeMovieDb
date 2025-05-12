@@ -110,6 +110,7 @@ fun MovieDetailUi(
             ) {
                 item {
                     MovieTitleComponent(movie = movie)
+                    Spacer(modifier = Modifier.height(8.dp))
                     MovieGenreComponent(genres = movie.genres)
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
