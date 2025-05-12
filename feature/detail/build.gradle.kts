@@ -50,7 +50,8 @@ dependencies {
     implementation(Dependencies.Compose.COMPOSE_UI)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
     implementation(Dependencies.Compose.COMPOSE_LIFECYCLE)
-    implementation(Dependencies.Compose.COMPOSE_TOOLING_PREVIEW)
+    implementation(Dependencies.Compose.COMPOSE_UI_TOOLING_PREVIEW)
+    debugImplementation(Dependencies.Compose.COMPOSE_UI_TOOLING)
     implementation(Dependencies.Compose.COMPOSE_FOUNDATION)
 
     // Image Loading

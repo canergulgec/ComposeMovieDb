@@ -29,6 +29,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.layout.padding
 import com.caner.model.Movie
+import com.caner.ui.theme.ComposeMovieDbTheme
+import android.content.res.Configuration
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import com.caner.ui.preview.HomeDataProvider
 
 @Composable
 fun HomeScreen(
@@ -98,6 +103,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                     .data(item.poster?.original)
                     .crossfade(300)
                     .build(),
+                placeholder = painterResource(R.drawable.bg_image_placeholder),
                 error = painterResource(R.drawable.bg_image_placeholder),
                 contentDescription = "",
                 contentScale = ContentScale.Crop
@@ -120,3 +126,18 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
     }
 }
 
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Composable
+private fun HomeScreenMoviesGridPreview(
+    @PreviewParameter(HomeDataProvider::class) movies: List<Movie>
+) {
+    ComposeMovieDbTheme {
+        MoviesGridComponent(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            movies = movies,
+            innerPadding = PaddingValues(all = 16.dp),
+            onMovieClicked = {}
+        )
+    }
+}
