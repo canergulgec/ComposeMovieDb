@@ -42,7 +42,7 @@ import com.caner.ui.theme.Dimens
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 
 @Composable
@@ -51,7 +51,7 @@ fun MovieDetailScreen(
     onBackPressed: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val movieModel = uiState.movieDetailModel
+    val movie = uiState.movieDetailModel
 
     ViewContent(
         isLoading = uiState.isFetchingMovieDetail,
@@ -64,8 +64,8 @@ fun MovieDetailScreen(
             )
         },
         content = {
-            movieModel?.let {
-                MovieDetailUi(movieModel = it, onBackPressed = onBackPressed)
+            movie?.let {
+                MovieDetailUi(movie = it, onBackPressed = onBackPressed)
             }
         }
     )
@@ -73,16 +73,12 @@ fun MovieDetailScreen(
 
 @Composable
 fun MovieDetailUi(
-    movieModel: MovieDetailModel,
+    movie: MovieDetailModel,
     onBackPressed: () -> Unit
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
         MovieBackdropComponent(
-            poster = movieModel.backdrop?.original,
+            poster = movie.backdrop?.original,
             onBackPressed = { onBackPressed() })
 
         Surface(
@@ -90,21 +86,26 @@ fun MovieDetailUi(
                 .fillMaxWidth()
                 .fillMaxHeight(0.5f)
                 .align(Alignment.BottomCenter),
-            shape = MaterialTheme.shapes.large
+            shape = MaterialTheme.shapes.large,
+            tonalElevation = 8.dp
         ) {
-            Column(modifier = Modifier.padding(horizontal = Dimens.MediumPadding.size)) {
-                MovieTitleComponent(
-                    modifier = Modifier.padding(vertical = 16.dp),
-                    movie = movieModel
-                )
-                MovieGenreComponent(genres = movieModel.genres)
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.secondary,
-                    lineHeight = 20.sp,
-                    text = movieModel.overview,
-                )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = Dimens.MediumPadding.size),
+                contentPadding = PaddingValues(vertical = 16.dp)
+            ) {
+                item {
+                    MovieTitleComponent(movie = movie)
+                    MovieGenreComponent(genres = movie.genres)
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        lineHeight = 20.sp,
+                        text = movie.overview
+                    )
+                }
             }
         }
     }
@@ -210,6 +211,6 @@ private fun MovieDetailUiPreview(
     @PreviewParameter(MovieDetailDataProvider::class) movie: MovieDetailModel
 ) {
     ComposeMovieDbTheme {
-        MovieDetailUi(movieModel = movie, onBackPressed = {})
+        MovieDetailUi(movie = movie, onBackPressed = {})
     }
 }

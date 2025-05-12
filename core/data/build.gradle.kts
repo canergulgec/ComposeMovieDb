@@ -23,10 +23,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
     }
 
     kotlin {
@@ -43,12 +39,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.DAGGER_HILT)
-    implementation("androidx.compose.ui:ui-tooling-preview-android:1.8.0")
     kapt(Dependencies.Dagger.HILT_COMPILER)
-
-    // Compose
-    implementation(Dependencies.Compose.COMPOSE_PAGING)
-    implementation(Dependencies.Compose.COMPOSE_TOOLING_PREVIEW)
 
     // Ktor
     implementation(Dependencies.Network.KTOR_CLIENT)
