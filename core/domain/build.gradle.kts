@@ -25,13 +25,12 @@ dependencies {
     implementation(project(Modules.CORE_MODEL))
 
     // Dagger Hilt
-    implementation(Dependencies.Dagger.DAGGER_HILT)
-    kapt(Dependencies.Dagger.HILT_COMPILER)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
 
-    implementation(Dependencies.Network.KTOR_GSON)
+    // Network
+    implementation(libs.ktor.client.gson)
 
-    // Compose
-    implementation(Dependencies.Compose.COMPOSE_PAGING)
-
-    testImplementation(Dependencies.Test.JUNIT)
+    // Test
+    testImplementation(libs.junit4)
 }

@@ -20,13 +20,9 @@ android {
 
 dependencies {
     // AndroidX
-    implementation(Dependencies.AndroidX.CORE_KTX)
-    implementation(Dependencies.AndroidX.APPCOMPAT)
-    implementation(Dependencies.AndroidX.SPLASH_SCREEN)
+    implementation(libs.androidx.ktx)
+    implementation(libs.androidx.appcompat)
 
     // Google
-    implementation(Dependencies.Google.MATERIAL)
-
-    // Coroutines
-    implementation(Dependencies.Coroutines.COROUTINES)
+    implementation(libs.google.material)
 }

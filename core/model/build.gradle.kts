@@ -22,9 +22,11 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Network.KTOR_GSON)
+    // Network
+    implementation(libs.ktor.client.gson)
 
-    testImplementation(Dependencies.Test.JUNIT)
-    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
-    androidTestImplementation(Dependencies.Test.ESPRESSO)
+    // Test
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso)
 }

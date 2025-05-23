@@ -35,32 +35,28 @@ dependencies {
     implementation(project(Modules.CORE_MODEL))
 
     // AndroidX
-    implementation(Dependencies.AndroidX.CORE_KTX)
-    implementation(Dependencies.AndroidX.APPCOMPAT)
-    implementation(Dependencies.AndroidX.LIFECYCLE_VIEWMODEL)
+    implementation(libs.androidx.ktx)
+    implementation(libs.androidx.appcompat)
 
     // Dagger Hilt
-    implementation(Dependencies.Dagger.DAGGER_HILT)
-    kapt(Dependencies.Dagger.HILT_COMPILER)
-    implementation(Dependencies.Dagger.HILT_NAVIGATION)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.navigation)
 
     // Compose
-    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_COMPILER)
-    implementation(Dependencies.Compose.COMPOSE_UI)
-    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
-    implementation(Dependencies.Compose.COMPOSE_LIFECYCLE)
-    implementation(Dependencies.Compose.COMPOSE_UI_TOOLING_PREVIEW)
-    debugImplementation(Dependencies.Compose.COMPOSE_UI_TOOLING)
-    implementation(Dependencies.Compose.COMPOSE_FOUNDATION)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 
-    // Image Loading
-    implementation(Dependencies.ImageLoader.COIL)
+    // ImageLoader
+    implementation(libs.coil)
 
-    // Timber
-    implementation(Dependencies.Logger.TIMBER)
+    // Logger
+    implementation(libs.timber)
 
-    testImplementation(Dependencies.Test.JUNIT)
-    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
-    androidTestImplementation(Dependencies.Test.ESPRESSO)
+    // Test
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso)
 }

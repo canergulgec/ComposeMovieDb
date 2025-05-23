@@ -30,21 +30,20 @@ dependencies {
     implementation(project(Modules.CORE_MODEL))
 
     // AndroidX
-    implementation(Dependencies.AndroidX.CORE_KTX)
-    implementation(Dependencies.AndroidX.APPCOMPAT)
+    implementation(libs.androidx.ktx)
+    implementation(libs.androidx.appcompat)
 
     // Compose
-    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_COMPILER)
-    implementation(Dependencies.Compose.COMPOSE_UI)
-    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
-    implementation(Dependencies.Compose.COMPOSE_UI_TOOLING_PREVIEW)
-    debugImplementation(Dependencies.Compose.COMPOSE_UI_TOOLING)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 
-    // Lottie
-    implementation(Dependencies.Animation.LOTTIE_ANIMATION)
+    // Animation
+    implementation(libs.lottie)
 
-    testImplementation(Dependencies.Test.JUNIT)
-    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
-    androidTestImplementation(Dependencies.Test.ESPRESSO)
+    // Test
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso)
 }

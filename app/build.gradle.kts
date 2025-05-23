@@ -57,35 +57,33 @@ dependencies {
     implementation(project(Modules.CORE_DATA))
 
     // AndroidX
-    implementation(Dependencies.AndroidX.CORE_KTX)
-    implementation(Dependencies.AndroidX.APPCOMPAT)
-    implementation(Dependencies.AndroidX.SPLASH_SCREEN)
-    implementation(Dependencies.AndroidX.ACTIVITY_COMPOSE)
+    implementation(libs.androidx.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.splash.screen)
 
     // Dagger Hilt
-    implementation(Dependencies.Dagger.DAGGER_HILT)
-    kapt(Dependencies.Dagger.HILT_COMPILER)
-    implementation(Dependencies.Dagger.HILT_NAVIGATION)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.navigation)
 
     // Compose
-    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_COMPILER)
-    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
-    implementation(Dependencies.Compose.COMPOSE_NAVIGATION)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material3)
+    implementation(libs.compose.navigation)
 
     // Google
-    implementation(Dependencies.Google.MATERIAL)
+    implementation(libs.google.material)
 
-    // Timber
-    implementation(Dependencies.Logger.TIMBER)
+    // Logger
+    implementation(libs.timber)
 
     // Firebase
-    implementation(platform(Dependencies.Firebase.FIREBASE_BOM))
-    implementation(Dependencies.Firebase.FIREBASE_CRASHLYTICS)
-    implementation(Dependencies.Firebase.FIREBASE_ANALYTICS)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
-    // Testing
-    testImplementation(Dependencies.Test.JUNIT)
-    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
-    androidTestImplementation(Dependencies.Test.ESPRESSO)
+    // Test
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso)
 }
