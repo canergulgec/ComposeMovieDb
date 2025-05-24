@@ -17,6 +17,7 @@ hilt-navigation = "1.0.0"
 # Compose
 compose-bom = "2025.04.01"
 compose-navigation = "2.5.2"
+compose-compiler = "1.5.8"
 
 # Network
 ktor = "1.6.7"
@@ -43,8 +44,9 @@ junit4 = "4.13.2"
 junit-ext = "1.1.3"
 espresso = "3.3.0"
 
-[libraries]
 
+
+[libraries]
 # AndroidX
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -91,6 +93,19 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 junit-ext = { group = "androidx.test.ext", name = "junit", version.ref = "junit-ext" }
 espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+
+
+
+[bundles]
+ktor = [
+    "ktor-client-android",
+    "ktor-client-core",
+    "ktor-client-gson",
+    "ktor-client-logging",
+    "ktor-client-okhttp"
+]
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

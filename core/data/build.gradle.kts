@@ -42,11 +42,7 @@ dependencies {
     ksp(libs.dagger.hilt.compiler)
 
     // Network
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.gson)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.ktor.client.okhttp)
+    implementation(libs.bundles.ktor)
 
     // Logger
     implementation(libs.timber)
