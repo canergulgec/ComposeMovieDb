@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id(ConfigData.KOTLIN_KAPT) //TODO: Replace it with ksp
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    id(ConfigData.KOTLIN_PARCELIZE) //TODO: What to do with it
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
 }
@@ -44,10 +43,6 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
     implementation(project(Modules.FEATURE_HOME))
     implementation(project(Modules.FEATURE_DETAIL))
@@ -63,7 +58,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.dagger.hilt)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
     implementation(libs.dagger.hilt.navigation)
 
     // Compose

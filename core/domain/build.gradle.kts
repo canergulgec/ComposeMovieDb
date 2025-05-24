@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id(ConfigData.KOTLIN_KAPT) //TODO: Replace it with ksp
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
@@ -26,7 +26,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.dagger.hilt)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 
     // Network
     implementation(libs.ktor.client.gson)

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id(ConfigData.KOTLIN_KAPT) //TODO
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
@@ -15,7 +15,6 @@ android {
     }
 
     buildFeatures {
-        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -40,7 +39,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.dagger.hilt)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
     implementation(libs.dagger.hilt.navigation)
 
     // Compose

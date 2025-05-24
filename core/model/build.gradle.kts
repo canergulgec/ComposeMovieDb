@@ -12,10 +12,6 @@ android {
         testInstrumentationRunner = ConfigData.TEST_RUNNER
     }
 
-    buildFeatures {
-        buildConfig = true
-    }
-
     kotlin {
         jvmToolchain(17)
     }
