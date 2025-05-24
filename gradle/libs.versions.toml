@@ -1,4 +1,8 @@
 [versions]
+# Android
+agp = "8.5.2"
+kotlin = "1.9.22"
+ksp = "1.9.22-1.0.17"
 
 # AndroidX
 ktx = "1.9.0"
@@ -7,7 +11,7 @@ splash = "1.0.0"
 datastore = "1.0.0"
 
 # Dagger
-hilt = "2.51.1"
+hilt = "2.49"
 hilt-navigation = "1.0.0"
 
 # Compose
@@ -19,6 +23,8 @@ ktor = "1.6.7"
 
 # Google
 google-material = "1.6.1"
+google-services = "4.4.1"
+firebase-crashlytics = "2.9.9"
 
 # ImageLoader
 coil = "2.0.0"
@@ -87,5 +93,10 @@ junit-ext = { group = "androidx.test.ext", name = "junit", version.ref = "junit-
 espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 
 [plugins]
-
-# DON'T FORGET TO IMPLEMENT BUNDLES FOR KTOR
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
