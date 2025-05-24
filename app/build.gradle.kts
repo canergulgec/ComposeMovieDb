@@ -1,11 +1,11 @@
 plugins {
-    id(ConfigData.ANDROID_APPLICATION)
-    id(ConfigData.KOTLIN_ANDROID)
-    id(ConfigData.KOTLIN_KAPT)
-    id(ConfigData.HILT_ANDROID)
-    id(ConfigData.KOTLIN_PARCELIZE)
-    id(ConfigData.GOOGLE_SERVICES)
-    id(ConfigData.FIREBASE_CRASHLYTICS)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    id(ConfigData.KOTLIN_KAPT) //TODO: Replace it with ksp
+    alias(libs.plugins.hilt)
+    id(ConfigData.KOTLIN_PARCELIZE) //TODO: What to do with it
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {

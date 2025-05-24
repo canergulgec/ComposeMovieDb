@@ -2,10 +2,10 @@ import java.util.Properties
 import java.io.FileInputStream
 
 plugins {
-    id(ConfigData.ANDROID_LIBRARY)
-    id(ConfigData.KOTLIN_ANDROID)
-    id(ConfigData.KOTLIN_KAPT)
-    id(ConfigData.HILT_ANDROID)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    id(ConfigData.KOTLIN_KAPT) //todo
+    alias(libs.plugins.hilt)
 }
 
 android {
