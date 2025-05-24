@@ -17,7 +17,6 @@ hilt-navigation = "1.0.0"
 # Compose
 compose-bom = "2025.04.01"
 compose-navigation = "2.5.2"
-compose-compiler = "1.5.8"
 
 # Network
 ktor = "1.6.7"
