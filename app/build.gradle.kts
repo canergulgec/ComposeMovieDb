@@ -1,9 +1,8 @@
 plugins {
     id(ConfigData.ANDROID_APPLICATION)
     id(ConfigData.KOTLIN_ANDROID)
-    id(ConfigData.KOTLIN_KAPT)
     id(ConfigData.HILT_ANDROID)
-    id(ConfigData.KOTLIN_PARCELIZE)
+    id(ConfigData.KSP)
     id(ConfigData.GOOGLE_SERVICES)
     id(ConfigData.FIREBASE_CRASHLYTICS)
 }
@@ -44,10 +43,6 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
     implementation(project(Modules.FEATURE_HOME))
     implementation(project(Modules.FEATURE_DETAIL))
@@ -64,7 +59,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.DAGGER_HILT)
-    kapt(Dependencies.Dagger.HILT_COMPILER)
+    ksp(Dependencies.Dagger.HILT_COMPILER)
     implementation(Dependencies.Dagger.HILT_NAVIGATION)
 
     // Compose

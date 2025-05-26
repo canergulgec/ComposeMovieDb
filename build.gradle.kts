@@ -1,28 +1,8 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(ClassPaths.GRADLE_PATH)
-        classpath(ClassPaths.KOTLIN_PATH)
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-        classpath(ClassPaths.HILT_PATH)
-        classpath(ClassPaths.GOOGLE_SERVICES_PATH)
-        classpath(ClassPaths.CRASHLYTICS_PATH)
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-tasks.register("clean", Delete::class.java) {
-    delete(rootProject.buildDir)
+plugins {
+    id(ConfigData.ANDROID_APPLICATION) version Versions.ClassPath.GRADLE apply false
+    id(ConfigData.KOTLIN_ANDROID) version Versions.ClassPath.KOTLIN apply false
+    id(ConfigData.HILT_ANDROID) version Versions.Dagger.HILT apply false
+    id(ConfigData.KSP) version Versions.ClassPath.KSP apply false
+    id(ConfigData.GOOGLE_SERVICES) version Versions.ClassPath.GOOGLE_SERVICES apply false
+    id(ConfigData.FIREBASE_CRASHLYTICS) version Versions.ClassPath.CRASHLYTICS apply false
 }

@@ -1,7 +1,7 @@
 plugins {
     id(ConfigData.ANDROID_LIBRARY)
     id(ConfigData.KOTLIN_ANDROID)
-    id(ConfigData.KOTLIN_KAPT)
+    id(ConfigData.KSP)
     id(ConfigData.HILT_ANDROID)
 }
 
@@ -39,7 +39,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.DAGGER_HILT)
-    kapt(Dependencies.Dagger.HILT_COMPILER)
+    ksp(Dependencies.Dagger.HILT_COMPILER)
     implementation(Dependencies.Dagger.HILT_NAVIGATION)
 
     // Compose

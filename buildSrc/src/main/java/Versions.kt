@@ -64,6 +64,7 @@ object Versions {
     object ClassPath {
         const val GRADLE = "8.5.0"
         const val KOTLIN = "1.9.22"
+        const val KSP = "1.9.22-1.0.17"
         const val GOOGLE_SERVICES = "4.3.13"
         const val CRASHLYTICS = "2.9.1"
     }
