@@ -37,7 +37,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
+        kotlinCompilerExtensionVersion = Versions.Compose.KOTLIN_COMPILER
     }
     kotlin {
         jvmToolchain(17)
@@ -69,7 +69,6 @@ dependencies {
 
     // Compose
     implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_COMPILER)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
     implementation(Dependencies.Compose.COMPOSE_NAVIGATION)
 

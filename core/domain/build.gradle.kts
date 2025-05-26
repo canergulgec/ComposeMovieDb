@@ -30,8 +30,5 @@ dependencies {
 
     implementation(Dependencies.Network.KTOR_GSON)
 
-    // Compose
-    implementation(Dependencies.Compose.COMPOSE_PAGING)
-
     testImplementation(Dependencies.Test.JUNIT)
 }

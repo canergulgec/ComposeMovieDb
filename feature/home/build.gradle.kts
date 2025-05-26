@@ -15,11 +15,10 @@ android {
     }
 
     buildFeatures {
-        buildConfig = true
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
+        kotlinCompilerExtensionVersion = Versions.Compose.KOTLIN_COMPILER
     }
 
     kotlin {
@@ -37,7 +36,6 @@ dependencies {
     // AndroidX
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
-    implementation(Dependencies.AndroidX.LIFECYCLE_VIEWMODEL)
 
     // Dagger Hilt
     implementation(Dependencies.Dagger.DAGGER_HILT)
@@ -46,15 +44,9 @@ dependencies {
 
     // Compose
     implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_COMPILER)
-    implementation(Dependencies.Compose.COMPOSE_UI_UTIL)
-    implementation(Dependencies.Compose.COMPOSE_UI)
     implementation(Dependencies.Compose.COMPOSE_UI_TOOLING_PREVIEW)
     debugImplementation(Dependencies.Compose.COMPOSE_UI_TOOLING)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
-    implementation(Dependencies.Compose.COMPOSE_LIFECYCLE)
-    implementation(Dependencies.Compose.COMPOSE_PAGING)
-    implementation(Dependencies.Compose.COMPOSE_FOUNDATION)
 
     // Image Loading
     implementation(Dependencies.ImageLoader.COIL)

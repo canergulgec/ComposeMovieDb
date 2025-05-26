@@ -3,7 +3,6 @@ object Dependencies {
     object AndroidX {
         const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.AndroidX.APP_COMPAT}"
         const val CORE_KTX = "androidx.core:core-ktx:${Versions.AndroidX.CORE_KTX}"
-        const val LIFECYCLE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.LIFECYCLE}"
         const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.AndroidX.SPLASH}"
         const val DATASTORE = "androidx.datastore:datastore-preferences:${Versions.AndroidX.DATASTORE}"
         const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${Versions.AndroidX.ACTIVITY_COMPOSE}"
@@ -17,16 +16,10 @@ object Dependencies {
 
     object Compose {
         const val COMPOSE_BOM = "androidx.compose:compose-bom:${Versions.Compose.BOM}"
-        const val COMPOSE_COMPILER = "androidx.compose.compiler:compiler:${Versions.Compose.COMPILER}"
-        const val COMPOSE_UI = "androidx.compose.ui:ui"
-        const val COMPOSE_UI_UTIL = "androidx.compose.ui:ui-util"
         const val COMPOSE_MATERIAL3 = "androidx.compose.material3:material3"
-        const val COMPOSE_LIFECYCLE = "androidx.lifecycle:lifecycle-runtime-compose"
         const val COMPOSE_UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
         const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling"
-        const val COMPOSE_FOUNDATION = "androidx.compose.foundation:foundation"
         const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:${Versions.Compose.NAVIGATION}"
-        const val COMPOSE_PAGING = "androidx.paging:paging-compose:${Versions.Compose.PAGING}"
     }
 
     object Google {

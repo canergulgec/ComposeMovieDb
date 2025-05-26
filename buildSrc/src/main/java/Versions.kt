@@ -11,7 +11,6 @@ object Versions {
     object AndroidX {
         const val APP_COMPAT = "1.5.1"
         const val CORE_KTX = "1.8.0"
-        const val LIFECYCLE = "2.6.0-alpha01"
         const val DATASTORE = "1.0.0"
         const val SPLASH = "1.0.0"
         const val ACTIVITY_COMPOSE = "1.10.1"
@@ -19,9 +18,8 @@ object Versions {
 
     object Compose {
         const val BOM = "2025.04.01"
-        const val COMPILER = "1.5.8"
+        const val KOTLIN_COMPILER = "1.5.8"
         const val NAVIGATION = "2.5.2"
-        const val PAGING = "1.0.0-alpha15"
     }
 
     object Google {

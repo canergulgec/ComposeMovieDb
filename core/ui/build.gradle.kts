@@ -13,11 +13,10 @@ android {
     }
 
     buildFeatures {
-        buildConfig = true
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.Compose.COMPILER
+        kotlinCompilerExtensionVersion = Versions.Compose.KOTLIN_COMPILER
     }
 
     kotlin {
@@ -35,8 +34,6 @@ dependencies {
 
     // Compose
     implementation(platform(Dependencies.Compose.COMPOSE_BOM))
-    implementation(Dependencies.Compose.COMPOSE_COMPILER)
-    implementation(Dependencies.Compose.COMPOSE_UI)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
     implementation(Dependencies.Compose.COMPOSE_UI_TOOLING_PREVIEW)
     debugImplementation(Dependencies.Compose.COMPOSE_UI_TOOLING)
