@@ -6,6 +6,7 @@ object Dependencies {
         const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.AndroidX.SPLASH}"
         const val DATASTORE = "androidx.datastore:datastore-preferences:${Versions.AndroidX.DATASTORE}"
         const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${Versions.AndroidX.ACTIVITY_COMPOSE}"
+        const val LIFECYCLE_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.LIFECYCLE_KTX}"
     }
 
     object Dagger {
@@ -59,6 +60,9 @@ object Dependencies {
     object Test {
         const val JUNIT = "junit:junit:${Versions.Test.JUNIT_4}"
         const val JUNIT_EXT = "androidx.test.ext:junit:${Versions.Test.JUNIT_EXT}"
+        const val MOCKK = "io.mockk:mockk:${Versions.Test.MOCKK}"
+        const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Test.COROUTINES}"
+        const val CORE_TESTING = "androidx.arch.core:core-testing:${Versions.Test.CORE_TESTING}"
         const val ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.Test.ESPRESSO}"
     }
 }

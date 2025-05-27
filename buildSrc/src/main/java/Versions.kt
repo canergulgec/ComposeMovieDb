@@ -14,6 +14,7 @@ object Versions {
         const val DATASTORE = "1.0.0"
         const val SPLASH = "1.0.0"
         const val ACTIVITY_COMPOSE = "1.10.1"
+        const val LIFECYCLE_KTX = "2.7.0"
     }
 
     object Compose {
@@ -58,6 +59,9 @@ object Versions {
     object Test {
         const val JUNIT_4 = "4.13.2"
         const val JUNIT_EXT = "1.1.3"
+        const val MOCKK = "1.13.9"
+        const val COROUTINES = "1.9.0"
+        const val CORE_TESTING = "2.2.0"
         const val ESPRESSO = "3.3.0"
     }
 

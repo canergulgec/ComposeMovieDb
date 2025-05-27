@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +25,7 @@ class HomeViewModel @Inject constructor(
         getPopularMovies()
     }
 
-    private fun getPopularMovies() {
+    fun getPopularMovies() {
         viewModelScope.launch {
             useCase.invoke().collect { resource ->
                 when (resource) {
@@ -37,7 +36,7 @@ class HomeViewModel @Inject constructor(
                     }
 
                     is Resource.Loading -> _movieUiState.update { it.copy(isLoading = resource.status) }
-                    is Resource.Error -> Timber.e(resource.error)
+                    is Resource.Error -> _movieUiState.update { it.copy(error = resource.error.message) }
                 }
             }
         }
