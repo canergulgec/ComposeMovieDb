@@ -1,4 +1,4 @@
-package com.caner.core.testing
+package com.caner.testing
 
 import com.caner.common.network.Resource
 import com.caner.domain.usecase.HomeUseCase
