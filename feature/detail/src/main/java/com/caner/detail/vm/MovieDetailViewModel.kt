@@ -33,13 +33,14 @@ class MovieDetailViewModel @Inject constructor(
 
     private fun getMovieDetail(id: Int?) {
         viewModelScope.launch {
-            useCase.getMovieDetail(movieId = id).collect { resource ->
+            useCase.invoke(movieId = id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _uiState.update {
                             it.copy(movieDetailModel = resource.data)
                         }
                     }
+
                     is Resource.Error -> {
                         _uiState.update { state ->
                             state.copy(
@@ -49,6 +50,7 @@ class MovieDetailViewModel @Inject constructor(
                         }
                         Timber.e(resource.error)
                     }
+
                     is Resource.Loading -> {
                         _uiState.update {
                             it.copy(isFetchingMovieDetail = resource.status)

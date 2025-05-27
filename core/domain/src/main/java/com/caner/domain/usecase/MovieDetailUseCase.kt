@@ -1,11 +1,15 @@
 package com.caner.domain.usecase
 
-import com.caner.common.extension.buildNetworkRequest
-import com.caner.common.extension.mapTo
-import com.caner.common.extension.onProgress
+import com.caner.common.extension.catchNetworkError
+import com.caner.common.extension.withLoading
+import com.caner.common.network.Resource
 import com.caner.data.repository.MovieDetailRepository
 import com.caner.domain.mapper.MovieDetailMapper
-import kotlinx.coroutines.flow.flow
+import com.caner.model.MovieDetailModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MovieDetailUseCase @Inject constructor(
@@ -13,10 +17,11 @@ class MovieDetailUseCase @Inject constructor(
     private val mapper: MovieDetailMapper
 ) {
 
-    fun getMovieDetail(movieId: Int?) = flow {
-        val response = repository.getMovieDetail(movieId)
-        emit(response.mapTo(mapper))
+    operator fun invoke(movieId: Int?): Flow<Resource<MovieDetailModel>> {
+        return repository.getMovieDetail(movieId)
+            .map { Resource.Success(mapper.transform(it)) }
+            .withLoading()
+            .catchNetworkError()
+            .flowOn(Dispatchers.IO)
     }
-        .onProgress()
-        .buildNetworkRequest()
 }

@@ -55,16 +55,18 @@ class SearchViewModel @Inject constructor(
                     return@filter query.length > 2
                 }
                 .flatMapLatest { query ->
-                    useCase.searchMovie(query = query)
+                    useCase.invoke(query = query)
                 }
                 .collect { resource ->
                     when (resource) {
                         is Resource.Success -> {
                             _uiState.update { it.copy(movies = resource.data.movies) }
                         }
+
                         is Resource.Loading -> {
                             _uiState.update { it.copy(isLoading = resource.status) }
                         }
+
                         is Resource.Error -> Timber.e(resource.error)
                     }
                 }

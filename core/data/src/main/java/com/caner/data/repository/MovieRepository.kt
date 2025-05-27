@@ -1,8 +1,9 @@
 package com.caner.data.repository
 
 import com.caner.model.remote.MoviesResponse
+import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
-    suspend fun getPopularMovies(): MoviesResponse
+    fun getPopularMovies(): Flow<MoviesResponse>
 }

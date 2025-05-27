@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getPopularMovies() {
         viewModelScope.launch {
-            useCase.getPopularMovies().collect { resource ->
+            useCase.invoke().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _movieUiState.update {

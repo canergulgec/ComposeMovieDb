@@ -1,8 +1,9 @@
 package com.caner.data.repository
 
 import com.caner.model.remote.MoviesResponse
+import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
 
-    suspend fun searchMovie(query: String?): MoviesResponse
+    fun searchMovie(query: String?): Flow<MoviesResponse>
 }

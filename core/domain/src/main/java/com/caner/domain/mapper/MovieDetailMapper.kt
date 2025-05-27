@@ -11,30 +11,36 @@ import kotlin.math.roundToInt
 
 class MovieDetailMapper @Inject constructor() : Mapper<MovieDetailResponse, MovieDetailModel> {
 
-    override fun to(t: MovieDetailResponse): MovieDetailModel {
-        return with(t) {
-            MovieDetailModel(
-                id,
-                popularity,
-                video,
-                adult,
-                poster_path?.let { path -> MovieImage(path) },
-                backdrop_path?.let { path -> MovieImage(path) },
-                genres ?: listOf(),
-                title ?: "",
-                overview ?: "",
-                imdb_id,
-                runtime,
-                (vote_average ?: 0.0).let { (it * 10).roundToInt() / 10.0 },
-                vote_count ?: 0,
-                release_date?.let { date ->
-                    if (date.isNotEmpty()) {
-                        SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(date)
-                    } else {
-                        null
-                    }
-                }
-            )
+    override fun transform(from: MovieDetailResponse): MovieDetailModel = with(from) {
+        MovieDetailModel(
+            movieId = id,
+            popularity = popularity,
+            video = video,
+            adult = adult,
+            poster = poster_path?.let(::MovieImage),
+            backdrop = backdrop_path?.let(::MovieImage),
+            genres = genres.orEmpty(),
+            title = title.orEmpty(),
+            overview = overview.orEmpty(),
+            imdbId = imdb_id,
+            runtime = runtime,
+            voteAverage = calculateVoteAverage(vote_average),
+            voteCount = vote_count ?: 0,
+            releaseDate = parseReleaseDate(release_date)
+        )
+    }
+
+    private fun calculateVoteAverage(voteAverage: Double?): Double {
+        return (voteAverage ?: 0.0).let { (it * 10).roundToInt() / 10.0 }
+    }
+
+    private fun parseReleaseDate(date: String?): Date? {
+        return date?.let {
+            if (it.isNotEmpty()) {
+                SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(it)
+            } else {
+                null
+            }
         }
     }
 }
