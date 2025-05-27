@@ -1,10 +1,10 @@
 package com.caner.core.testing
 
 import com.caner.common.network.Resource
-import com.caner.core.testing.data.TestData
-import com.caner.core.testing.rules.MainDispatcherRule
 import com.caner.domain.usecase.HomeUseCase
 import com.caner.home.vm.HomeViewModel
+import com.caner.testing.data.TestData
+import com.caner.testing.rules.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

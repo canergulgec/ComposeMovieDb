@@ -1,4 +1,4 @@
-package com.caner.core.testing.rules
+package com.caner.testing.rules
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,12 +13,12 @@ import org.junit.runner.Description
 class MainDispatcherRule(
     private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
 ) : TestWatcher() {
-    
+
     override fun starting(description: Description) {
         Dispatchers.setMain(testDispatcher)
     }
-    
+
     override fun finished(description: Description) {
         Dispatchers.resetMain()
     }
-} 
+}

@@ -1,4 +1,4 @@
-package com.caner.core.testing.data
+package com.caner.testing.data
 
 import com.caner.model.Movie
 import com.caner.model.MovieImage
@@ -27,4 +27,4 @@ object TestData {
             page = 0,
             movies = movies
         )
-} 
+}
