@@ -1,5 +1,6 @@
 package com.caner.testing
 
+import app.cash.turbine.test
 import com.caner.common.network.Resource
 import com.caner.data.repository.MovieRepository
 import com.caner.domain.mapper.MovieMapper
@@ -59,6 +60,39 @@ class HomeUseCaseTest {
 
         assertThat(result[2]).isInstanceOf(Resource.Loading::class.java)
         assertThat((result[2] as Resource.Loading).status).isFalse()
+    }
+
+    @Test
+    fun `should emit loading and success when repository returns data using turbine`() = runTest(testDispatcher) {
+        // Given
+        val movieModel = TestData.createMovieModel()
+        val movieResponse = TestData.createMovieResponse()
+
+        coEvery { mockRepository.getPopularMovies() } returns flow {
+            emit(movieResponse)
+        }
+        every { mockMapper.transform(movieResponse) } returns movieModel
+
+        // When & Then
+        useCase.invoke().test {
+            // First emission should be Loading(true)
+            val loading = awaitItem()
+            assertThat(loading).isInstanceOf(Resource.Loading::class.java)
+            assertThat((loading as Resource.Loading).status).isTrue()
+
+            // Second emission should be Success with movieModel
+            val success = awaitItem()
+            assertThat(success).isInstanceOf(Resource.Success::class.java)
+            assertThat((success as Resource.Success).data).isEqualTo(movieModel)
+
+            // Third emission should be Loading(false)
+            val loadingComplete = awaitItem()
+            assertThat(loadingComplete).isInstanceOf(Resource.Loading::class.java)
+            assertThat((loadingComplete as Resource.Loading).status).isFalse()
+
+            // Flow should complete
+            awaitComplete()
+        }
     }
 }
 

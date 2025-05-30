@@ -65,5 +65,6 @@ object Dependencies {
         const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Test.COROUTINES}"
         const val CORE_TESTING = "androidx.arch.core:core-testing:${Versions.Test.CORE_TESTING}"
         const val ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.Test.ESPRESSO}"
+        const val TURBINE = "app.cash.turbine:turbine:${Versions.Test.TURBINE}"
     }
 }

@@ -64,6 +64,7 @@ object Versions {
         const val COROUTINES = "1.9.0"
         const val CORE_TESTING = "2.2.0"
         const val ESPRESSO = "3.3.0"
+        const val TURBINE = "1.0.0"
     }
 
     object ClassPath {

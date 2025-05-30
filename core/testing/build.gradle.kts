@@ -38,4 +38,5 @@ dependencies {
     testImplementation(Dependencies.Test.MOCKK)
     testImplementation(Dependencies.Test.TRUTH)
     testImplementation(Dependencies.Test.CORE_TESTING)
+    testImplementation(Dependencies.Test.TURBINE)
 } 
