@@ -19,7 +19,7 @@ class MovieDetailUseCase @Inject constructor(
     @IODispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
 
-    operator fun invoke(movieId: Int?): Flow<Resource<MovieDetailModel>> {
+    operator fun invoke(movieId: Int): Flow<Resource<MovieDetailModel>> {
         return repository.getMovieDetail(movieId)
             .map { Resource.Success(mapper.transform(it)) }
             .withLoading()

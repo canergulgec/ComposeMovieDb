@@ -28,7 +28,5 @@ dependencies {
     implementation(Dependencies.Dagger.DAGGER_HILT)
     ksp(Dependencies.Dagger.HILT_COMPILER)
 
-    implementation(Dependencies.Network.KTOR_GSON)
-
     testImplementation(Dependencies.Test.JUNIT)
 }

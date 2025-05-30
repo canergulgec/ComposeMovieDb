@@ -34,24 +34,22 @@ dependencies {
     implementation(project(Modules.CORE_COMMON))
     implementation(project(Modules.CORE_MODEL))
 
-    // DataStore
+    // AndroidX
     implementation(Dependencies.AndroidX.DATASTORE)
 
-    // Dagger Hilt
+    // Network
+    implementation(Dependencies.Network.RETROFIT)
+    implementation(Dependencies.Network.RETROFIT_MOSHI)
+    implementation(Dependencies.Network.MOSHI_KOTLIN)
+    implementation(Dependencies.Network.OKHTTP)
+    implementation(Dependencies.Network.OKHTTP_LOGGING)
+
+    // Dagger
     implementation(Dependencies.Dagger.DAGGER_HILT)
     ksp(Dependencies.Dagger.HILT_COMPILER)
 
-    // Ktor
-    implementation(Dependencies.Network.KTOR_CLIENT)
-    implementation(Dependencies.Network.KTOR_CORE)
-    implementation(Dependencies.Network.KTOR_GSON)
-    implementation(Dependencies.Network.KTOR_LOGGING)
-    implementation(Dependencies.Network.KTOR_OKHTTP)
-
-    // Timber
+    // Logger
     implementation(Dependencies.Logger.TIMBER)
-
-    testImplementation(Dependencies.Test.JUNIT)
 }
 
 fun getApiKey(): String {

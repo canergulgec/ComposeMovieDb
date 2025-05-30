@@ -28,11 +28,11 @@ object Dependencies {
     }
 
     object Network {
-        const val KTOR_CLIENT = "io.ktor:ktor-client-android:${Versions.Network.KTOR}"
-        const val KTOR_CORE = "io.ktor:ktor-client-core:${Versions.Network.KTOR}"
-        const val KTOR_GSON = "io.ktor:ktor-client-gson:${Versions.Network.KTOR}"
-        const val KTOR_LOGGING = "io.ktor:ktor-client-logging-jvm:${Versions.Network.KTOR}"
-        const val KTOR_OKHTTP = "io.ktor:ktor-client-okhttp:${Versions.Network.KTOR}"
+        const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.Network.RETROFIT}"
+        const val RETROFIT_MOSHI = "com.squareup.retrofit2:converter-moshi:${Versions.Network.RETROFIT}"
+        const val MOSHI_KOTLIN = "com.squareup.moshi:moshi-kotlin:${Versions.Network.MOSHI}"
+        const val OKHTTP = "com.squareup.okhttp3:okhttp:${Versions.Network.OKHTTP}"
+        const val OKHTTP_LOGGING = "com.squareup.okhttp3:logging-interceptor:${Versions.Network.OKHTTP}"
     }
 
     object Firebase {

@@ -1,12 +1,14 @@
 package com.caner.model.remote
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class MovieListResponse(
-    @SerializedName("total_pages", alternate = ["total_results"])
+    @Json(name = "total_pages")
     val total: Int = 0,
-    @SerializedName("page")
+    @Json(name = "page")
     val page: Int = 0,
-    @SerializedName("results")
+    @Json(name = "results")
     var results: List<MovieDto>
 )

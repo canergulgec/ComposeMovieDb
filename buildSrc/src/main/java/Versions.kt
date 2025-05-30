@@ -33,7 +33,9 @@ object Versions {
     }
 
     object Network {
-        const val KTOR = "1.6.7"
+        const val RETROFIT = "2.9.0"
+        const val MOSHI = "1.15.0"
+        const val OKHTTP = "4.12.0"
     }
 
     object Coroutines {

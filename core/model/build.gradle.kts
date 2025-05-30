@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Network.KTOR_GSON)
+    implementation(Dependencies.Network.MOSHI_KOTLIN)
 
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.JUNIT_EXT)

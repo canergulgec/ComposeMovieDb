@@ -24,14 +24,14 @@ class MovieDetailViewModel @Inject constructor(
     val uiState: StateFlow<MovieDetailUiState> = _uiState.asStateFlow()
 
     init {
-        savedStateHandle.get<Int>(Constants.MOVIE_ID).let { movieId ->
+        savedStateHandle.get<Int>(Constants.MOVIE_ID)?.let { movieId ->
             if (movieId != -1) {
                 getMovieDetail(id = movieId)
             }
         }
     }
 
-    private fun getMovieDetail(id: Int?) {
+    private fun getMovieDetail(id: Int) {
         viewModelScope.launch {
             useCase.invoke(movieId = id).collect { resource ->
                 when (resource) {

@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {
 
-    fun searchMovie(query: String?): Flow<MovieListResponse>
+    fun searchMovie(query: String): Flow<MovieListResponse>
 }
