@@ -61,6 +61,7 @@ object Dependencies {
         const val JUNIT = "junit:junit:${Versions.Test.JUNIT_4}"
         const val JUNIT_EXT = "androidx.test.ext:junit:${Versions.Test.JUNIT_EXT}"
         const val MOCKK = "io.mockk:mockk:${Versions.Test.MOCKK}"
+        const val TRUTH = "com.google.truth:truth:${Versions.Test.TRUTH}"
         const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.Test.COROUTINES}"
         const val CORE_TESTING = "androidx.arch.core:core-testing:${Versions.Test.CORE_TESTING}"
         const val ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.Test.ESPRESSO}"

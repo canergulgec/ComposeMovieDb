@@ -18,7 +18,6 @@ class SearchScreenDataProvider : PreviewParameterProvider<List<Movie>> {
                     title = "Minions: The Rise of Gru",
                     overview = "A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
                     voteAverage = 8.0,
-                    originalTitle = "Minions: The Rise of Gru",
                     originalLanguage = "en",
                     releaseDate = "2022"
                 ),
@@ -32,7 +31,6 @@ class SearchScreenDataProvider : PreviewParameterProvider<List<Movie>> {
                     title = "Minions: The Rise of Gru",
                     overview = "A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
                     voteAverage = 8.0,
-                    originalTitle = "Minions: The Rise of Gru",
                     originalLanguage = "en",
                     releaseDate = "2022"
                 ),
@@ -46,7 +44,6 @@ class SearchScreenDataProvider : PreviewParameterProvider<List<Movie>> {
                     title = "Minions: The Rise of Gru",
                     overview = "A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
                     voteAverage = 8.0,
-                    originalTitle = "Minions: The Rise of Gru",
                     originalLanguage = "en",
                     releaseDate = "2022"
                 ),
@@ -60,7 +57,6 @@ class SearchScreenDataProvider : PreviewParameterProvider<List<Movie>> {
                     title = "Minions: The Rise of Gru",
                     overview = "A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
                     voteAverage = 8.0,
-                    originalTitle = "Minions: The Rise of Gru",
                     originalLanguage = "en",
                     releaseDate = "2022"
                 ),
@@ -74,7 +70,6 @@ class SearchScreenDataProvider : PreviewParameterProvider<List<Movie>> {
                     title = "Minions: The Rise of Gru",
                     overview = "A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
                     voteAverage = 8.0,
-                    originalTitle = "Minions: The Rise of Gru",
                     originalLanguage = "en",
                     releaseDate = "2022"
                 ),
@@ -88,7 +83,6 @@ class SearchScreenDataProvider : PreviewParameterProvider<List<Movie>> {
                     title = "Minions: The Rise of Gru",
                     overview = "A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
                     voteAverage = 8.0,
-                    originalTitle = "Minions: The Rise of Gru",
                     originalLanguage = "en",
                     releaseDate = "2022"
                 )

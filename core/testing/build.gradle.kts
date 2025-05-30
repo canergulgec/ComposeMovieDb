@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.caner.core.testing"
+    namespace = Namespaces.CORE_TESTING
     compileSdk = Versions.App.COMPILER_SDK
 
     defaultConfig {
@@ -22,6 +22,7 @@ dependencies {
     implementation(project(Modules.CORE_COMMON))
     implementation(project(Modules.CORE_DOMAIN))
     implementation(project(Modules.CORE_MODEL))
+    implementation(project(Modules.CORE_DATA))
     implementation(project(Modules.FEATURE_HOME))
 
     // AndroidX
@@ -35,5 +36,6 @@ dependencies {
     api(Dependencies.Test.JUNIT)
     api(Dependencies.Test.COROUTINES)
     testImplementation(Dependencies.Test.MOCKK)
+    testImplementation(Dependencies.Test.TRUTH)
     testImplementation(Dependencies.Test.CORE_TESTING)
 } 

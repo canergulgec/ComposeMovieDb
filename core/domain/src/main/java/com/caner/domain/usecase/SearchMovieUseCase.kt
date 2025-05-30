@@ -5,8 +5,9 @@ import com.caner.common.extension.withLoading
 import com.caner.common.network.Resource
 import com.caner.domain.mapper.MovieMapper
 import com.caner.data.repository.SearchRepository
-import com.caner.model.MovieModel
-import kotlinx.coroutines.Dispatchers
+import com.caner.domain.di.IODispatcher
+import com.caner.model.MovieList
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -14,10 +15,11 @@ import javax.inject.Inject
 
 class SearchMovieUseCase @Inject constructor(
     private val repository: SearchRepository,
-    private val mapper: MovieMapper
+    private val mapper: MovieMapper,
+    @IODispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
 
-    operator fun invoke(query: String): Flow<Resource<MovieModel>> {
+    operator fun invoke(query: String): Flow<Resource<MovieList>> {
         return repository.searchMovie(query)
             .map { response ->
                 val sorted = response.copy(
@@ -27,6 +29,6 @@ class SearchMovieUseCase @Inject constructor(
             }
             .withLoading()
             .catchNetworkError()
-            .flowOn(Dispatchers.IO)
+            .flowOn(ioDispatcher)
     }
 }

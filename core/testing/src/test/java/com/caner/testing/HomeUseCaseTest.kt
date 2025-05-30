@@ -1,0 +1,65 @@
+package com.caner.testing
+
+import com.caner.common.network.Resource
+import com.caner.data.repository.MovieRepository
+import com.caner.domain.mapper.MovieMapper
+import com.caner.domain.usecase.HomeUseCase
+import com.caner.model.MovieList
+import com.caner.testing.data.TestData
+import com.google.common.truth.Truth.assertThat
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
+import org.junit.Before
+import org.junit.Test
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class HomeUseCaseTest {
+
+    private val mockRepository: MovieRepository = mockk()
+    private val mockMapper: MovieMapper = mockk()
+    private val testDispatcher = StandardTestDispatcher()
+
+    private lateinit var useCase: HomeUseCase
+
+    @Before
+    fun setup() {
+        useCase = HomeUseCase(mockRepository, mockMapper, testDispatcher)
+    }
+
+    @Test
+    fun `should emit loading and success when repository returns data`() = runTest(testDispatcher) {
+        // Given
+        val movieModel = TestData.createMovieModel()
+        val movieResponse = TestData.createMovieResponse()
+
+        coEvery { mockRepository.getPopularMovies() } returns flow {
+            emit(movieResponse)
+        }
+        every { mockMapper.transform(movieResponse) } returns movieModel
+
+        // When
+        val result = mutableListOf<Resource<MovieList>>()
+        useCase.invoke().toList(result)
+        advanceUntilIdle()
+
+        // Then
+        assertThat(result).hasSize(3)
+        assertThat(result[0]).isInstanceOf(Resource.Loading::class.java)
+        assertThat((result[0] as Resource.Loading).status).isTrue()
+
+        assertThat(result[1]).isInstanceOf(Resource.Success::class.java)
+        assertThat((result[1] as Resource.Success).data).isEqualTo(movieModel)
+
+        assertThat(result[2]).isInstanceOf(Resource.Loading::class.java)
+        assertThat((result[2] as Resource.Loading).status).isFalse()
+    }
+}
+
+

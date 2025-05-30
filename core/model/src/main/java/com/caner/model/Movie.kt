@@ -8,7 +8,6 @@ data class Movie(
     val adult: Boolean?,
     val backdrop: MovieImage?,
     val originalLanguage: String?,
-    val originalTitle: String?,
     val title: String,
     val voteAverage: Double,
     val overview: String,

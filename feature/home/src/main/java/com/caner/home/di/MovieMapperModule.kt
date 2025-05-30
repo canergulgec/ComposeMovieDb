@@ -1,8 +1,8 @@
 package com.caner.home.di
 
 import com.caner.common.utils.Mapper
-import com.caner.model.MovieModel
-import com.caner.model.remote.MoviesResponse
+import com.caner.model.MovieList
+import com.caner.model.remote.MovieListResponse
 import com.caner.domain.mapper.MovieMapper
 import dagger.Binds
 import dagger.Module
@@ -14,5 +14,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class MovieMapperModule {
 
     @Binds
-    abstract fun bindsMovieMapper(mapper: MovieMapper): Mapper<MoviesResponse, MovieModel>
+    abstract fun bindsMovieMapper(mapper: MovieMapper): Mapper<MovieListResponse, MovieList>
 }

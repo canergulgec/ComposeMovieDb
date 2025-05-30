@@ -19,7 +19,6 @@ class HomeDataProvider : PreviewParameterProvider<List<Movie>> {
                     adult = false,
                     backdrop = MovieImage("/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg"),
                     originalLanguage = "en",
-                    originalTitle = "Original Movie Title 1",
                     releaseDate = "2023-01-01"
                 ),
                 Movie(
@@ -33,7 +32,6 @@ class HomeDataProvider : PreviewParameterProvider<List<Movie>> {
                     adult = false,
                     backdrop = MovieImage("/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg"),
                     originalLanguage = "en",
-                    originalTitle = "Original Movie Title 2",
                     releaseDate = "2023-02-02"
                 ),
                 Movie(
@@ -47,7 +45,6 @@ class HomeDataProvider : PreviewParameterProvider<List<Movie>> {
                     adult = false,
                     backdrop = MovieImage("/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg"),
                     originalLanguage = "en",
-                    originalTitle = "Original Movie Title 3",
                     releaseDate = "2023-03-03"
                 )
             )

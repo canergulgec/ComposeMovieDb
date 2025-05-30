@@ -1,9 +1,9 @@
 package com.caner.data.repository
 
-import com.caner.model.remote.MoviesResponse
+import com.caner.model.remote.MovieListResponse
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
-    fun getPopularMovies(): Flow<MoviesResponse>
+    fun getPopularMovies(): Flow<MovieListResponse>
 }
