@@ -17,16 +17,16 @@ class MovieDetailMapper @Inject constructor() : Mapper<MovieDetailResponse, Movi
             popularity = popularity,
             video = video,
             adult = adult,
-            poster = poster_path?.let(::MovieImage),
-            backdrop = backdrop_path?.let(::MovieImage),
+            poster = posterPath?.let(::MovieImage),
+            backdrop = backdropPath?.let(::MovieImage),
             genres = genres.orEmpty(),
             title = title.orEmpty(),
             overview = overview.orEmpty(),
-            imdbId = imdb_id,
+            imdbId = imdbId,
             runtime = runtime,
-            voteAverage = calculateVoteAverage(vote_average),
-            voteCount = vote_count ?: 0,
-            releaseDate = parseReleaseDate(release_date)
+            voteAverage = calculateVoteAverage(voteAverage),
+            voteCount = voteCount ?: 0,
+            releaseDate = parseReleaseDate(releaseDate)
         )
     }
 

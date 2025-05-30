@@ -15,10 +15,7 @@ class HomeDataProvider : PreviewParameterProvider<List<Movie>> {
                     voteAverage = 7.8,
                     overview = "Short overview 1",
                     popularity = 1234.0,
-                    video = false,
-                    adult = false,
                     backdrop = MovieImage("/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg"),
-                    originalLanguage = "en",
                     releaseDate = "2023-01-01"
                 ),
                 Movie(
@@ -28,10 +25,7 @@ class HomeDataProvider : PreviewParameterProvider<List<Movie>> {
                     voteAverage = 8.2,
                     overview = "Short overview 2",
                     popularity = 1100.0,
-                    video = false,
-                    adult = false,
                     backdrop = MovieImage("/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg"),
-                    originalLanguage = "en",
                     releaseDate = "2023-02-02"
                 ),
                 Movie(
@@ -41,10 +35,7 @@ class HomeDataProvider : PreviewParameterProvider<List<Movie>> {
                     voteAverage = 6.5,
                     overview = "Short overview 3",
                     popularity = 950.0,
-                    video = false,
-                    adult = false,
                     backdrop = MovieImage("/nmGWzTLMXy9x7mKd8NKPLmHtWGa.jpg"),
-                    originalLanguage = "en",
                     releaseDate = "2023-03-03"
                 )
             )

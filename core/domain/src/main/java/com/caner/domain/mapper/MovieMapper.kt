@@ -20,11 +20,8 @@ class MovieMapper @Inject constructor() : Mapper<MovieListResponse, MovieList> {
                 Movie(
                     movieId = it.id,
                     popularity = it.popularity,
-                    video = it.video,
                     poster = it.posterPath?.let { path -> MovieImage(path) },
-                    adult = it.adult,
                     backdrop = it.backdropPath?.let { path -> MovieImage(path) },
-                    originalLanguage = it.originalLanguage,
                     title = it.title,
                     voteAverage = (it.voteAverage * 10).roundToInt() / 10.0,
                     overview = it.overview,

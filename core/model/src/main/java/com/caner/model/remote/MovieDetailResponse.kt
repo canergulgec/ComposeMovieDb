@@ -14,9 +14,9 @@ data class MovieDetailResponse(
     @Json(name = "adult")
     val adult: Boolean? = false,
     @Json(name = "backdrop_path")
-    val backdrop_path: String? = null,
+    val backdropPath: String? = null,
     @Json(name = "poster_path")
-    val poster_path: String? = null,
+    val posterPath: String? = null,
     @Json(name = "genres")
     val genres: List<MovieGenre>? = null,
     @Json(name = "title")
@@ -24,13 +24,13 @@ data class MovieDetailResponse(
     @Json(name = "overview")
     val overview: String? = null,
     @Json(name = "imdb_id")
-    val imdb_id: String? = null,
+    val imdbId: String? = null,
     @Json(name = "runtime")
     val runtime: Int? = null,
     @Json(name = "vote_average")
-    val vote_average: Double? = null,
+    val voteAverage: Double? = null,
     @Json(name = "vote_count")
-    val vote_count: Int? = null,
+    val voteCount: Int? = null,
     @Json(name = "release_date")
-    val release_date: String? = null,
+    val releaseDate: String? = null,
 )

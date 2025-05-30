@@ -1,6 +1,6 @@
 package com.caner.model
 
-data class MovieImage(val url: String?) {
+data class MovieImage(val url: String) {
     companion object {
         private const val PATH = "https://image.tmdb.org/t/p"
     }

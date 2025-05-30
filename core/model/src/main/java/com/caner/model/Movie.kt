@@ -3,11 +3,8 @@ package com.caner.model
 data class Movie(
     val movieId: Int,
     val popularity: Double?,
-    val video: Boolean?,
     val poster: MovieImage?,
-    val adult: Boolean?,
     val backdrop: MovieImage?,
-    val originalLanguage: String?,
     val title: String,
     val voteAverage: Double,
     val overview: String,
