@@ -19,8 +19,4 @@ android {
 
 dependencies {
     implementation(Dependencies.Network.MOSHI_KOTLIN)
-
-    testImplementation(Dependencies.Test.JUNIT)
-    androidTestImplementation(Dependencies.Test.JUNIT_EXT)
-    androidTestImplementation(Dependencies.Test.ESPRESSO)
 }
