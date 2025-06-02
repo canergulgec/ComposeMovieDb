@@ -11,18 +11,15 @@ object TestData {
         Movie(
             movieId = movieId,
             popularity = 0.0,
-            video = false,
             poster = MovieImage(""),
-            adult = false,
             backdrop = MovieImage(""),
-            originalLanguage = "",
             title = title,
             voteAverage = voteAverage,
             overview = "",
             releaseDate = null
         )
 
-    fun createMovieModel(movies: List<Movie> = listOf(createMovie())) =
+    fun createMovieList(movies: List<Movie> = listOf(createMovie())) =
         MovieList(
             total = movies.size,
             page = 0,
@@ -41,11 +38,8 @@ object TestData {
             MovieDto(
                 id = 1,
                 popularity = 0.0,
-                video = false,
                 posterPath = "",
-                adult = false,
                 backdropPath = "",
-                originalLanguage = "",
                 title = "Test Movie 1",
                 voteAverage = 8.5,
                 overview = "",
