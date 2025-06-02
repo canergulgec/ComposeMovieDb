@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(
     private val useCase: HomeUseCase
 ) : ViewModel() {
 
-    private val _movieUiState = MutableStateFlow(HomeUiState(isLoading = true))
+    private val _movieUiState = MutableStateFlow(HomeUiState())
     val movieUiState: StateFlow<HomeUiState> = _movieUiState.asStateFlow()
 
     init {

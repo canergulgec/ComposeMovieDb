@@ -8,6 +8,7 @@ import com.caner.testing.rules.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -29,19 +30,17 @@ class HomeViewModelTest {
     @Before
     fun setup() {
         // For init block execution
-        coEvery { useCase.invoke() } returns flow {
-            emit(Resource.Loading(true))
-        }
+        coEvery { useCase.invoke() } returns emptyFlow()
         viewModel = HomeViewModel(useCase)
     }
 
     @Test
     fun `when useCase returns success, should update state with movies`() = runTest {
         // Given
-        val movieModel = TestData.createMovieModel()
+        val movieList = TestData.createMovieList()
         coEvery { useCase.invoke() } returns flow {
             emit(Resource.Loading(true))
-            emit(Resource.Success(movieModel))
+            emit(Resource.Success(movieList))
             emit(Resource.Loading(false))
         }
 
@@ -51,7 +50,7 @@ class HomeViewModelTest {
 
         // Then
         val state = viewModel.movieUiState.value
-        assertEquals(movieModel.movies, state.popularMovies)
+        assertEquals(movieList.movies, state.popularMovies)
         assertTrue(!state.isLoading)
     }
 

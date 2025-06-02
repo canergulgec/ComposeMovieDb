@@ -37,13 +37,13 @@ class HomeUseCaseTest {
     @Test
     fun `should emit loading and success when repository returns data`() = runTest(testDispatcher) {
         // Given
-        val movieModel = TestData.createMovieModel()
+        val movieList = TestData.createMovieList()
         val movieResponse = TestData.createMovieResponse()
 
         coEvery { mockRepository.getPopularMovies() } returns flow {
             emit(movieResponse)
         }
-        every { mockMapper.transform(movieResponse) } returns movieModel
+        every { mockMapper.transform(movieResponse) } returns movieList
 
         // When
         val result = mutableListOf<Resource<MovieList>>()
@@ -56,7 +56,7 @@ class HomeUseCaseTest {
         assertThat((result[0] as Resource.Loading).status).isTrue()
 
         assertThat(result[1]).isInstanceOf(Resource.Success::class.java)
-        assertThat((result[1] as Resource.Success).data).isEqualTo(movieModel)
+        assertThat((result[1] as Resource.Success).data).isEqualTo(movieList)
 
         assertThat(result[2]).isInstanceOf(Resource.Loading::class.java)
         assertThat((result[2] as Resource.Loading).status).isFalse()
@@ -65,13 +65,13 @@ class HomeUseCaseTest {
     @Test
     fun `should emit loading and success when repository returns data using turbine`() = runTest(testDispatcher) {
         // Given
-        val movieModel = TestData.createMovieModel()
+        val movieList = TestData.createMovieList()
         val movieResponse = TestData.createMovieResponse()
 
         coEvery { mockRepository.getPopularMovies() } returns flow {
             emit(movieResponse)
         }
-        every { mockMapper.transform(movieResponse) } returns movieModel
+        every { mockMapper.transform(movieResponse) } returns movieList
 
         // When & Then
         useCase.invoke().test {
@@ -83,7 +83,7 @@ class HomeUseCaseTest {
             // Second emission should be Success with movieModel
             val success = awaitItem()
             assertThat(success).isInstanceOf(Resource.Success::class.java)
-            assertThat((success as Resource.Success).data).isEqualTo(movieModel)
+            assertThat((success as Resource.Success).data).isEqualTo(movieList)
 
             // Third emission should be Loading(false)
             val loadingComplete = awaitItem()
