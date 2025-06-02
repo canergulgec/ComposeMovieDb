@@ -25,20 +25,20 @@ class HomeViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var viewModel: HomeViewModel
-    private val useCase = mockk<HomeUseCase>()
+    private val mockUseCase = mockk<HomeUseCase>()
 
     @Before
     fun setup() {
         // For init block execution
-        coEvery { useCase.invoke() } returns emptyFlow()
-        viewModel = HomeViewModel(useCase)
+        coEvery { mockUseCase.invoke() } returns emptyFlow()
+        viewModel = HomeViewModel(mockUseCase)
     }
 
     @Test
     fun `when useCase returns success, should update state with movies`() = runTest {
         // Given
         val movieList = TestData.createMovieList()
-        coEvery { useCase.invoke() } returns flow {
+        coEvery { mockUseCase.invoke() } returns flow {
             emit(Resource.Loading(true))
             emit(Resource.Success(movieList))
             emit(Resource.Loading(false))
@@ -58,7 +58,7 @@ class HomeViewModelTest {
     fun `useCase should return error`() = runTest {
         // Given
         val error = Throwable("Test error")
-        coEvery { useCase.invoke() } returns flow {
+        coEvery { mockUseCase.invoke() } returns flow {
             emit(Resource.Loading(true))
             emit(Resource.Error(error = error))
             emit(Resource.Loading(false))

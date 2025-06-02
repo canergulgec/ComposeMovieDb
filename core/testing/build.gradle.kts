@@ -24,13 +24,11 @@ dependencies {
     implementation(project(Modules.CORE_MODEL))
     implementation(project(Modules.CORE_DATA))
     implementation(project(Modules.FEATURE_HOME))
+    implementation(project(Modules.FEATURE_SEARCH))
 
     // AndroidX
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.LIFECYCLE_KTX)
-
-    // Coroutines
-    implementation(Dependencies.Coroutines.COROUTINES)
 
     // Testing
     api(Dependencies.Test.JUNIT)

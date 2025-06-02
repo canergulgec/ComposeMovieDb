@@ -38,10 +38,6 @@ object Versions {
         const val OKHTTP = "4.12.0"
     }
 
-    object Coroutines {
-        const val COROUTINES = "1.6.3"
-    }
-
     object ImageLoader {
         const val COIL = "2.0.0"
     }

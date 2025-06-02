@@ -18,7 +18,8 @@ import javax.inject.Inject
 @FlowPreview
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val useCase: SearchMovieUseCase
+    private val useCase: SearchMovieUseCase,
+    sharingStarted: SharingStarted
 ) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
@@ -26,7 +27,7 @@ class SearchViewModel @Inject constructor(
     val uiState = _uiState
         .map { it.toUiState() }
         .stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(), _uiState.value.toUiState()
+            viewModelScope, sharingStarted, _uiState.value.toUiState()
         )
 
     init {

@@ -41,10 +41,6 @@ object Dependencies {
         const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     }
 
-    object Coroutines {
-        const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Coroutines.COROUTINES}"
-    }
-
     object Logger {
         const val TIMBER = "com.jakewharton.timber:timber:${Versions.Logger.TIMBER}"
     }

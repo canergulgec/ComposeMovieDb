@@ -1,6 +1,6 @@
 package com.caner.home.di
 
-import com.caner.common.utils.Mapper
+import com.caner.domain.mapper.Mapper
 import com.caner.model.MovieList
 import com.caner.model.remote.MovieListResponse
 import com.caner.domain.mapper.MovieMapper

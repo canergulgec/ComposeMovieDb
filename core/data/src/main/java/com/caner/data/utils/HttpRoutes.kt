@@ -1,4 +1,4 @@
-package com.caner.common.utils
+package com.caner.data.utils
 
 object HttpRoutes {
     const val MOVIE_DETAIL = "movie/{movie_id}"

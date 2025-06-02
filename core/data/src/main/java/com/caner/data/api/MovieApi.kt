@@ -1,7 +1,7 @@
 package com.caner.data.api
 
-import com.caner.common.utils.HttpParams
-import com.caner.common.utils.HttpRoutes
+import com.caner.data.utils.HttpParams
+import com.caner.data.utils.HttpRoutes
 import com.caner.model.remote.MovieDetailResponse
 import com.caner.model.remote.MovieListResponse
 import retrofit2.http.GET

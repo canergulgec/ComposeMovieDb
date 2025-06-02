@@ -1,8 +1,7 @@
 package com.caner.data.di
 
-import com.caner.common.utils.HttpParams
 import com.caner.data.BuildConfig
-import com.caner.data.api.MovieApi
+import com.caner.data.utils.HttpParams
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -64,11 +63,5 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideMovieApi(retrofit: Retrofit): MovieApi {
-        return retrofit.create(MovieApi::class.java)
     }
 }
