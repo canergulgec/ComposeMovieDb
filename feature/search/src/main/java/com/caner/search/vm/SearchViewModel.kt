@@ -26,9 +26,7 @@ class SearchViewModel @Inject constructor(
     val uiState = _uiState
         .map { it.toUiState() }
         .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(),
-            _uiState.value.toUiState()
+            viewModelScope, SharingStarted.WhileSubscribed(), _uiState.value.toUiState()
         )
 
     init {
@@ -51,12 +49,8 @@ class SearchViewModel @Inject constructor(
     private fun initMovieSearch() {
         viewModelScope.launch {
             searchQuery.debounce(400)
-                .filter { query ->
-                    return@filter query.length > 2
-                }
-                .flatMapLatest { query ->
-                    useCase.invoke(query = query)
-                }
+                .filter { it.length > 2 }
+                .flatMapLatest { useCase.invoke(query = it) }
                 .collect { resource ->
                     when (resource) {
                         is Resource.Success -> {
