@@ -39,7 +39,7 @@ import com.caner.ui.preview.HomeDataProvider
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     innerPadding: PaddingValues,
-    onMovieClicked: (Int) -> Unit
+    onOpenMovieDetail: (Int) -> Unit
 ) {
     val movieViewState by viewModel.movieUiState.collectAsStateWithLifecycle()
 
@@ -55,7 +55,7 @@ fun HomeScreen(
                         top = innerPadding.calculateTopPadding() + 16.dp,
                         bottom = innerPadding.calculateBottomPadding() + 16.dp,
                     ),
-                    onMovieClicked = onMovieClicked
+                    onOpenMovieDetail = onOpenMovieDetail
                 )
             }
         }
@@ -67,7 +67,7 @@ fun MoviesGridComponent(
     modifier: Modifier,
     movies: List<Movie>,
     innerPadding: PaddingValues,
-    onMovieClicked: (Int) -> Unit
+    onOpenMovieDetail: (Int) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = modifier.fillMaxSize(),
@@ -77,7 +77,7 @@ fun MoviesGridComponent(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = movies, key = { it.movieId }) { movie ->
-            NowPlayingMovieItem(item = movie, onClicked = onMovieClicked)
+            NowPlayingMovieItem(item = movie, onClicked = onOpenMovieDetail)
         }
     }
 }
@@ -137,7 +137,7 @@ private fun HomeScreenMoviesGridPreview(
             modifier = Modifier.padding(horizontal = 16.dp),
             movies = movies,
             innerPadding = PaddingValues(all = 16.dp),
-            onMovieClicked = {}
+            onOpenMovieDetail = {}
         )
     }
 }

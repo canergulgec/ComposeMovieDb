@@ -40,7 +40,7 @@ import kotlinx.coroutines.FlowPreview
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
     innerPadding: PaddingValues,
-    onMovieClicked: (Int) -> Unit
+    onOpenMovieDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -50,12 +50,9 @@ fun SearchScreen(
             top = innerPadding.calculateTopPadding() + 16.dp,
             bottom = innerPadding.calculateBottomPadding() + 16.dp,
         ),
-        onMovieClicked = onMovieClicked,
-        onValueChange = {
-            viewModel.onEvent(TextEvent.OnValueChange(it))
-        },
-        onFocusChange = {
-            viewModel.onEvent(TextEvent.OnFocusChange(it))
+        onOpenMovieDetail = onOpenMovieDetail,
+        onUIEvent = {
+            viewModel.onEvent(it)
         }
     )
 }
@@ -66,9 +63,8 @@ fun SearchScreen(
 fun SearchScreenUi(
     uiState: SearchUiState,
     innerPadding: PaddingValues,
-    onMovieClicked: (Int) -> Unit,
-    onValueChange: (String) -> Unit,
-    onFocusChange: (Boolean) -> Unit
+    onOpenMovieDetail: (Int) -> Unit,
+    onUIEvent: (TextEvent) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -80,15 +76,21 @@ fun SearchScreenUi(
             modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
             text = uiState.searchTitle,
             isHintVisible = uiState.isHintVisible,
-            onValueChange = onValueChange,
-            onFocusChange = onFocusChange,
-            onDismissClicked = { onValueChange("") }
+            onValueChange = {
+                onUIEvent(TextEvent.OnValueChange(it))
+            },
+            onFocusChange = {
+                onUIEvent(TextEvent.OnFocusChange(it))
+            },
+            onDismissClicked = {
+                onUIEvent(TextEvent.OnValueChange(""))
+            }
         )
 
         SearchList(
             uiState = uiState,
             innerPadding = innerPadding,
-            onMovieClicked = onMovieClicked
+            onMovieClicked = onOpenMovieDetail
         )
     }
 }
@@ -159,8 +161,8 @@ private fun SearchScreenPreview(
         SearchScreenUi(
             uiState = searchUiState,
             innerPadding = PaddingValues(),
-            onMovieClicked = {},
-            onValueChange = {},
-            onFocusChange = {})
+            onOpenMovieDetail = {},
+            onUIEvent = {}
+        )
     }
 }
