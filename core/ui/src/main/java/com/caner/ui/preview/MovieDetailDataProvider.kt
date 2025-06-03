@@ -22,10 +22,12 @@ class MovieDetailDataProvider : PreviewParameterProvider<MovieDetailModel> {
                     MovieGenre(id = 35, name = "Comedy"),
                 ),
                 title = "Minions: The Rise of Gru",
-                overview = "A fanboy of a supervillain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
+                overview = "A fanboy of a super villain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions. " +
+                        "A fanboy of a super villain supergroup known as the Vicious 6, Gru hatches a plan to become evil enough to join them, with the backup of his followers, the Minions.",
                 voteAverage = 8.0,
                 voteCount = 79,
-                runtime = 87
+                runtime = 87,
+                releaseDate = "1994-07-14"
             )
         )
 }

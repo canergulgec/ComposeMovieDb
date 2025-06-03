@@ -3,7 +3,6 @@ package com.caner.detail
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -35,8 +33,6 @@ import com.caner.ui.preview.MovieDetailDataProvider
 import com.caner.detail.vm.MovieDetailViewModel
 import com.caner.common.R
 import com.caner.ui.composables.*
-import com.caner.ui.theme.BLACK_TRANSPARENT
-import com.caner.ui.theme.BLACK_TRANSPARENT_60
 import com.caner.ui.theme.ComposeMovieDbTheme
 import com.caner.ui.theme.Dimens
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,7 +44,20 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun MovieDetailScreen(
@@ -61,7 +70,7 @@ fun MovieDetailScreen(
         targetState = uiState,
         transitionSpec = {
             fadeIn(animationSpec = tween(700)) togetherWith
-                fadeOut(animationSpec = tween(300))
+                    fadeOut(animationSpec = tween(300))
         },
         label = "DetailScreenAnimation"
     ) { targetState ->
@@ -77,15 +86,15 @@ fun MovieDetailScreen(
                 )
             }
 
-            targetState.movieDetailModel != null -> {
-                MovieDetailUi(movie = targetState.movieDetailModel, onBackPressed = onBackPressed)
+            targetState.movieDetailData != null -> {
+                MovieDetailContent(movie = targetState.movieDetailData, onBackPressed = onBackPressed)
             }
         }
     }
 }
 
 @Composable
-fun MovieDetailUi(
+fun MovieDetailContent(
     movie: MovieDetailModel,
     onBackPressed: () -> Unit
 ) {
@@ -109,16 +118,11 @@ fun MovieDetailUi(
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
                 item {
-                    MovieTitleComponent(movie = movie)
+                    MovieTitleSection(movie = movie)
                     Spacer(modifier = Modifier.height(8.dp))
                     MovieGenreComponent(genres = movie.genres)
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.secondary,
-                        lineHeight = 20.sp,
-                        text = movie.overview
-                    )
+                    MovieOverviewSection(overview = movie.overview)
                 }
             }
         }
@@ -143,10 +147,7 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
                 .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(
-                            BLACK_TRANSPARENT_60,
-                            BLACK_TRANSPARENT
-                        )
+                        colors = listOf(Color.Black.copy(alpha = 0.3f), Color.Black.copy(alpha = 0.7f))
                     )
                 )
         )
@@ -166,8 +167,8 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
 }
 
 @Composable
-fun MovieTitleComponent(modifier: Modifier = Modifier, movie: MovieDetailModel) {
-    Column(modifier = modifier) {
+fun MovieTitleSection(movie: MovieDetailModel) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = movie.title,
             style = MaterialTheme.typography.titleMedium,
@@ -175,49 +176,87 @@ fun MovieTitleComponent(modifier: Modifier = Modifier, movie: MovieDetailModel) 
         )
 
         Spacer(modifier = Modifier.height(8.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            MovieRatingComponent(voteAverage = movie.voteAverage, size = 20.dp)
-            Spacer(
-                modifier = Modifier
-                    .padding(horizontal = Dimens.SmallPadding.size)
-                    .width(1.dp)
-                    .height(16.dp)
-                    .background(Color.LightGray)
-            )
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            MovieRatingChip(rating = movie.voteAverage, voteCount = movie.voteCount)
             Text(
                 text = "${movie.runtime} ${stringResource(id = R.string.minutes)}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.secondary
             )
+            movie.releaseDate?.let { releaseDate ->
+                Text(
+                    text = "• $releaseDate",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }
 
 @Composable
 fun MovieGenreComponent(genres: List<MovieGenre>) {
-    FlowRow {
-        genres.forEach { genre ->
-            Box(
-                modifier = Modifier
-                    .padding(Dimens.XSmallPadding.size)
-                    .border(1.dp, Color.LightGray, MaterialTheme.shapes.medium)
-                    .clip(MaterialTheme.shapes.small)
-                    .background(Color.Transparent)
-                    .padding(
-                        vertical = Dimens.XSmallPadding.size,
-                        horizontal = Dimens.SmallPadding.size
-                    ),
-                contentAlignment = Alignment.Center
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 4.dp)
+    ) {
+        items(genres) { genre ->
+            AssistChip(
+                onClick = { },
+                label = {
+                    Text(
+                        text = genre.name,
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                },
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    labelColor = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            )
+        }
+    }
+}
+
+@Composable
+private fun MovieOverviewSection(overview: String) {
+    var isExpanded by remember { mutableStateOf(false) }
+
+    Column {
+        Text(
+            text = stringResource(R.string.overview),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.SemiBold
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            modifier = Modifier.animateContentSize(),
+            text = overview,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            lineHeight = 20.sp,
+            maxLines = if (isExpanded) Int.MAX_VALUE else 4,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        if (overview.length > 200) {
+            TextButton(
+                modifier = Modifier.padding(top = 4.dp),
+                onClick = { isExpanded = !isExpanded },
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
+                border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colorScheme.outline)
             ) {
                 Text(
-                    text = genre.name,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    style = MaterialTheme.typography.bodySmall
+                    text = if (isExpanded) stringResource(R.string.show_less) else stringResource(R.string.show_more)
                 )
             }
         }
     }
 }
+
 
 @Preview(uiMode = UI_MODE_NIGHT_NO)
 @Preview(uiMode = UI_MODE_NIGHT_YES)
@@ -226,6 +265,6 @@ private fun MovieDetailUiPreview(
     @PreviewParameter(MovieDetailDataProvider::class) movie: MovieDetailModel
 ) {
     ComposeMovieDbTheme {
-        MovieDetailUi(movie = movie, onBackPressed = {})
+        MovieDetailContent(movie = movie, onBackPressed = {})
     }
 }

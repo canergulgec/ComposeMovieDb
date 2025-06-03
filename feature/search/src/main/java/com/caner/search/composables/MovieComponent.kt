@@ -20,7 +20,7 @@ import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import com.caner.model.Movie
 import com.caner.common.R
-import com.caner.ui.composables.MovieRatingComponent
+import com.caner.ui.composables.MovieRatingChip
 
 @Composable
 fun MovieComponent(
@@ -60,7 +60,7 @@ fun MovieComponent(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                MovieRatingComponent(voteAverage = item.voteAverage, size = 16.dp)
+                MovieRatingChip(rating = item.voteAverage)
                 Text(text = "|", style = MaterialTheme.typography.bodySmall)
                 Text(
                     modifier = Modifier.wrapContentSize(),

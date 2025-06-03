@@ -20,7 +20,7 @@ import com.caner.common.R
 import coil.request.ImageRequest
 import com.caner.home.vm.HomeViewModel
 import com.caner.ui.composables.FullScreenLoading
-import com.caner.ui.composables.MovieRatingComponent
+import com.caner.ui.composables.MovieRatingChip
 import com.caner.ui.composables.ViewContent
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.foundation.layout.PaddingValues
@@ -120,7 +120,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(modifier = Modifier.height(8.dp))
-            MovieRatingComponent(voteAverage = item.voteAverage, size = 20.dp)
+            MovieRatingChip(rating = item.voteAverage)
             Spacer(modifier = Modifier.height(8.dp))
         }
     }

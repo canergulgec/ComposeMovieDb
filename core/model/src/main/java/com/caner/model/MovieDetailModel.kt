@@ -17,5 +17,5 @@ data class MovieDetailModel(
     val runtime: Int? = null,
     val voteAverage: Double,
     val voteCount: Int,
-    val releaseDate: Date? = Date()
+    val releaseDate: String?
 )
