@@ -36,9 +36,7 @@ class MovieDetailViewModel @Inject constructor(
             useCase.invoke(movieId = id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
-                        _uiState.update {
-                            it.copy(movieDetailModel = resource.data)
-                        }
+                        _uiState.update { it.copy(movieDetailModel = resource.data) }
                     }
 
                     is Resource.Error -> {
@@ -52,9 +50,7 @@ class MovieDetailViewModel @Inject constructor(
                     }
 
                     is Resource.Loading -> {
-                        _uiState.update {
-                            it.copy(isFetchingMovieDetail = resource.status)
-                        }
+                        _uiState.update { it.copy(isFetchingMovieDetail = resource.status) }
                     }
                 }
             }

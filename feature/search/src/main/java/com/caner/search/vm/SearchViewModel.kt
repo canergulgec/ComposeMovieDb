@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caner.common.network.Resource
 import com.caner.domain.usecase.SearchMovieUseCase
-import com.caner.search.state.SearchViewModelState
+import com.caner.search.state.SearchUiState
 import com.caner.search.state.TextEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,18 +17,11 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @FlowPreview
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val useCase: SearchMovieUseCase,
-    sharingStarted: SharingStarted
-) : ViewModel() {
+class SearchViewModel @Inject constructor(private val useCase: SearchMovieUseCase) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
-    private val _uiState = MutableStateFlow(SearchViewModelState())
-    val uiState = _uiState
-        .map { it.toUiState() }
-        .stateIn(
-            viewModelScope, sharingStarted, _uiState.value.toUiState()
-        )
+    private val _uiState = MutableStateFlow(SearchUiState())
+    val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
     init {
         initMovieSearch()
@@ -41,7 +34,7 @@ class SearchViewModel @Inject constructor(
             }
 
             is TextEvent.OnValueChange -> {
-                _uiState.update { it.copy(title = event.text) }
+                _uiState.update { it.copy(searchTitle = event.text) }
                 searchQuery.value = event.text
             }
         }
@@ -54,14 +47,8 @@ class SearchViewModel @Inject constructor(
                 .flatMapLatest { useCase.invoke(query = it) }
                 .collect { resource ->
                     when (resource) {
-                        is Resource.Success -> {
-                            _uiState.update { it.copy(movies = resource.data.movies) }
-                        }
-
-                        is Resource.Loading -> {
-                            _uiState.update { it.copy(isLoading = resource.status) }
-                        }
-
+                        is Resource.Success -> _uiState.update { it.copy(movies = resource.data.movies) }
+                        is Resource.Loading -> _uiState.update { it.copy(isLoading = resource.status) }
                         is Resource.Error -> Timber.e(resource.error)
                     }
                 }

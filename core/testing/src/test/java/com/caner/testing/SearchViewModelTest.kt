@@ -2,7 +2,6 @@ package com.caner.testing
 
 import com.caner.common.network.Resource
 import com.caner.domain.usecase.SearchMovieUseCase
-import com.caner.search.state.SearchUiState
 import com.caner.search.state.TextEvent
 import com.caner.search.vm.SearchViewModel
 import com.caner.testing.data.TestData
@@ -12,7 +11,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -34,7 +32,7 @@ class SearchViewModelTest {
     fun setup() {
         // For init block execution
         coEvery { mockUseCase.invoke(any()) } returns emptyFlow()
-        viewModel = SearchViewModel(useCase = mockUseCase, sharingStarted = SharingStarted.Eagerly)
+        viewModel = SearchViewModel(useCase = mockUseCase)
     }
 
     @Test
@@ -53,7 +51,7 @@ class SearchViewModelTest {
 
         // Then
         val state = viewModel.uiState.value
-        assertThat(state is SearchUiState.HasMovies).isTrue()
-        assertThat((state as SearchUiState.HasMovies).movies).isEqualTo(movieList.movies)
+        assertThat(state.movies.isNotEmpty()).isTrue()
+        assertThat(state.movies).isEqualTo(movieList.movies)
     }
 }

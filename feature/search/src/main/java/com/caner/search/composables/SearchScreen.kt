@@ -3,6 +3,7 @@ package com.caner.search.composables
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -79,15 +80,9 @@ fun SearchScreenUi(
             modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
             text = uiState.searchTitle,
             isHintVisible = uiState.isHintVisible,
-            onValueChange = {
-                onValueChange(it)
-            },
-            onFocusChange = {
-                onFocusChange(it)
-            },
-            onDismissClicked = {
-                onValueChange("")
-            }
+            onValueChange = onValueChange,
+            onFocusChange = onFocusChange,
+            onDismissClicked = { onValueChange("") }
         )
 
         SearchList(
@@ -105,41 +100,46 @@ fun SearchList(
     innerPadding: PaddingValues,
     onMovieClicked: (Int) -> Unit
 ) {
-    when (uiState) {
-        is SearchUiState.NoMovies -> {
-            EmptyListComponent()
-        }
-
-        is SearchUiState.HasMovies -> {
-            ViewContent(
-                isLoading = uiState.isLoading,
-                loadingContent = { CircularProgressIndicator() },
-                content = {
-                    LazyColumn(
-                        contentPadding = PaddingValues(
-                            start = 16.dp,
-                            end = 16.dp,
-                            top = 24.dp,
-                            bottom = innerPadding.calculateBottomPadding()
-                        ),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(uiState.movies) { item ->
-                            MovieComponent(
-                                item = item,
-                                itemClicked = onMovieClicked
-                            )
-                            HorizontalDivider(
-                                modifier = Modifier.padding(top = 8.dp),
-                                color = Color.LightGray,
-                                thickness = 0.5.dp
-                            )
-                        }
+    ViewContent(
+        isLoading = uiState.isLoading,
+        loadingContent = {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        },
+        content = {
+            if (uiState.movies.isNotEmpty()) {
+                LazyColumn(
+                    contentPadding = PaddingValues(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 24.dp,
+                        bottom = innerPadding.calculateBottomPadding()
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(uiState.movies) { item ->
+                        MovieComponent(
+                            item = item,
+                            itemClicked = onMovieClicked
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier.padding(top = 8.dp),
+                            color = Color.LightGray,
+                            thickness = 0.5.dp
+                        )
                     }
                 }
-            )
+            } else {
+                EmptyListComponent()
+            }
         }
-    }
+    )
 }
 
 @ExperimentalComposeUiApi
@@ -150,9 +150,8 @@ fun SearchList(
 private fun SearchScreenPreview(
     @PreviewParameter(SearchScreenDataProvider::class) movies: List<Movie>
 ) {
-    val searchUiState = SearchUiState.HasMovies(
+    val searchUiState = SearchUiState(
         movies = movies,
-        isLoading = false,
         searchTitle = "Minions",
         isHintVisible = false
     )

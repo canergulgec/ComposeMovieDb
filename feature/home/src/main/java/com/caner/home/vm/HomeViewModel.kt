@@ -29,12 +29,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.invoke().collect { resource ->
                 when (resource) {
-                    is Resource.Success -> {
-                        _movieUiState.update {
-                            it.copy(popularMovies = resource.data.movies)
-                        }
-                    }
-
+                    is Resource.Success -> _movieUiState.update { it.copy(popularMovies = resource.data.movies) }
                     is Resource.Loading -> _movieUiState.update { it.copy(isLoading = resource.status) }
                     is Resource.Error -> _movieUiState.update { it.copy(error = resource.error.message) }
                 }
