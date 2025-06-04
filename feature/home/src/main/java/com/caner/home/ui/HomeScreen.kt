@@ -122,7 +122,7 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
                 style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(modifier = Modifier.height(8.dp))
-            MovieRatingChip(rating = item.voteAverage)
+            MovieRatingChip(rating = item.voteAverage, voteCount = item.voteCount)
             Spacer(modifier = Modifier.height(8.dp))
         }
     }

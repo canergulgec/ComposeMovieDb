@@ -45,14 +45,14 @@ fun MovieRatingChip(rating: Double, voteCount: Int? = null) {
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = String.format(Locale.getDefault(), "%.1f", rating),
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.labelLarge,
                 color = Color.White,
                 fontWeight = FontWeight.Medium
             )
             voteCount?.let {
                 Text(
                     text = " (${formatVoteCount(it)})",
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelMedium,
                     color = Color.White.copy(alpha = 0.8f)
                 )
             }

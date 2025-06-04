@@ -231,9 +231,9 @@ private fun InfoChip(
     when (style) {
         InfoChipStyle.FILLED -> {
             Surface(
+                modifier = Modifier.padding(horizontal = 2.dp),
                 shape = RoundedCornerShape(12.dp),
-                color = backgroundColor,
-                modifier = Modifier.padding(horizontal = 2.dp)
+                color = backgroundColor
             ) {
                 Row(
                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
@@ -248,7 +248,7 @@ private fun InfoChip(
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = text,
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.labelLarge,
                         color = contentColor,
                         fontWeight = FontWeight.Medium
                     )
@@ -263,7 +263,7 @@ private fun InfoChip(
                 color = Color.Transparent
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
@@ -275,7 +275,7 @@ private fun InfoChip(
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = text,
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.labelLarge,
                         color = contentColor
                     )
                 }
@@ -301,7 +301,7 @@ private fun InfoChip(
                         brush = Brush.horizontalGradient(colors = gradientColors),
                         shape = RoundedCornerShape(20.dp)
                     )
-                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                    .padding(horizontal = 12.dp, vertical = 4.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
@@ -313,7 +313,7 @@ private fun InfoChip(
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = text,
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.labelLarge,
                         color = Color.White,
                         fontWeight = FontWeight.Medium
                     )
