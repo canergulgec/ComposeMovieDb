@@ -22,7 +22,7 @@ import com.caner.ui.preview.SearchScreenDataProvider
 import com.caner.ui.theme.ComposeMovieDbTheme
 
 @Composable
-fun MovieComponent(
+fun SearchMovieItem(
     item: Movie,
     itemClicked: (Int) -> Unit
 ) {
@@ -116,9 +116,9 @@ private fun MovieMetadataSection(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF, uiMode = UI_MODE_NIGHT_NO)
 @Preview(showBackground = true, backgroundColor = 0x00000, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun MovieComponentPreview(@PreviewParameter(SearchScreenDataProvider::class) movies: List<Movie>) {
+fun SearchMovieItemPreview(@PreviewParameter(SearchScreenDataProvider::class) movies: List<Movie>) {
     ComposeMovieDbTheme {
-        MovieComponent(
+        SearchMovieItem(
             item = movies.first(),
             itemClicked = {}
         )

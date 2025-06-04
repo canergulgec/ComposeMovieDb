@@ -107,7 +107,7 @@ fun SearchResults(
         },
         content = {
             if (uiState.movies.isNotEmpty()) {
-                MovieListComponent(
+                SearchMovieListComponent(
                     movies = uiState.movies,
                     innerPadding = innerPadding,
                     onMovieClicked = onMovieClicked
@@ -134,7 +134,7 @@ private fun SearchLoadingIndicator(
 }
 
 @Composable
-private fun MovieListComponent(
+private fun SearchMovieListComponent(
     movies: List<Movie>,
     innerPadding: PaddingValues,
     onMovieClicked: (Int) -> Unit
@@ -150,7 +150,7 @@ private fun MovieListComponent(
             items = movies,
             key = { movie -> movie.movieId }
         ) { movie ->
-            MovieComponent(
+            SearchMovieItem(
                 item = movie,
                 itemClicked = onMovieClicked
             )
