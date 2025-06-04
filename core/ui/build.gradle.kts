@@ -41,6 +41,9 @@ dependencies {
     // Lottie
     implementation(Dependencies.Animation.LOTTIE_ANIMATION)
 
+    // Image Loading
+    implementation(Dependencies.ImageLoader.COIL)
+
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.JUNIT_EXT)
     androidTestImplementation(Dependencies.Test.ESPRESSO)

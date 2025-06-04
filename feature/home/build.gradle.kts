@@ -48,9 +48,6 @@ dependencies {
     debugImplementation(Dependencies.Compose.COMPOSE_UI_TOOLING)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
 
-    // Image Loading
-    implementation(Dependencies.ImageLoader.COIL)
-
     // Timber
     implementation(Dependencies.Logger.TIMBER)
 

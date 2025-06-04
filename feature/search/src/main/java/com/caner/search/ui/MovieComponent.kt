@@ -4,7 +4,6 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -12,18 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.caner.model.Movie
-import com.caner.common.R
+import com.caner.ui.composables.MoviePosterComponent
 import com.caner.ui.composables.MovieRatingChip
 import com.caner.ui.preview.SearchScreenDataProvider
 import com.caner.ui.theme.ComposeMovieDbTheme
@@ -54,28 +47,15 @@ fun MovieComponent(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             item.poster?.let { poster ->
-                MoviePosterComponent(posterUrl = poster.medium)
+                MoviePosterComponent(
+                    posterUrl = poster.medium,
+                    modifier = Modifier.size(70.dp, 100.dp),
+                    cornerRadius = 8.dp
+                )
             }
             MovieDetailsSection(movie = item)
         }
     }
-}
-
-@Composable
-private fun MoviePosterComponent(modifier: Modifier = Modifier, posterUrl: String) {
-    AsyncImage(
-        modifier = modifier
-            .size(width = 70.dp, height = 100.dp)
-            .clip(RoundedCornerShape(8.dp)),
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(posterUrl)
-            .crossfade(300)
-            .build(),
-        error = painterResource(R.drawable.bg_image_placeholder),
-        placeholder = painterResource(R.drawable.bg_image_placeholder),
-        contentDescription = null,
-        contentScale = ContentScale.Crop
-    )
 }
 
 @Composable
