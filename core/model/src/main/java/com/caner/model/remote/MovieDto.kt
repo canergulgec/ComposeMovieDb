@@ -17,6 +17,8 @@ data class MovieDto(
     val title: String,
     @Json(name = "vote_average")
     val voteAverage: Double,
+    @Json(name = "vote_count")
+    val voteCount: Int? = null,
     @Json(name = "overview")
     val overview: String,
     @Json(name = "release_date")

@@ -23,6 +23,7 @@ class MovieMapper @Inject constructor() : Mapper<MovieListResponse, MovieList> {
                     backdrop = it.backdropPath?.let { path -> MovieImage(path) },
                     title = it.title,
                     voteAverage = (it.voteAverage * 10).roundToInt() / 10.0,
+                    voteCount = it.voteCount ?: 0,
                     overview = it.overview,
                     releaseDate = it.releaseDate?.let { date ->
                         if (date.isNotEmpty()) {
@@ -30,7 +31,7 @@ class MovieMapper @Inject constructor() : Mapper<MovieListResponse, MovieList> {
                                 SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(
                                     date
                                 ) ?: Date()
-                            SimpleDateFormat("yyyy", Locale.getDefault()).format(parsedDate)
+                            SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(parsedDate)
                         } else {
                             null
                         }

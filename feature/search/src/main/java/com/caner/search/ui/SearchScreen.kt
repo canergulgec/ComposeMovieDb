@@ -17,7 +17,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -44,7 +43,7 @@ fun SearchScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SearchScreenUi(
+    SearchScreenContent(
         uiState = uiState,
         innerPadding = PaddingValues(
             top = innerPadding.calculateTopPadding() + 16.dp,
@@ -60,7 +59,7 @@ fun SearchScreen(
 @ExperimentalComposeUiApi
 @FlowPreview
 @Composable
-fun SearchScreenUi(
+fun SearchScreenContent(
     uiState: SearchUiState,
     innerPadding: PaddingValues,
     onOpenMovieDetail: (Int) -> Unit,
@@ -87,7 +86,7 @@ fun SearchScreenUi(
             }
         )
 
-        SearchList(
+        SearchResults(
             uiState = uiState,
             innerPadding = innerPadding,
             onMovieClicked = onOpenMovieDetail
@@ -97,7 +96,7 @@ fun SearchScreenUi(
 
 @FlowPreview
 @Composable
-fun SearchList(
+fun SearchResults(
     uiState: SearchUiState,
     innerPadding: PaddingValues,
     onMovieClicked: (Int) -> Unit
@@ -105,43 +104,59 @@ fun SearchList(
     ViewContent(
         isLoading = uiState.isLoading,
         loadingContent = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+            SearchLoadingIndicator()
         },
         content = {
             if (uiState.movies.isNotEmpty()) {
-                LazyColumn(
-                    contentPadding = PaddingValues(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = 24.dp,
-                        bottom = innerPadding.calculateBottomPadding()
-                    ),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(uiState.movies) { item ->
-                        MovieComponent(
-                            item = item,
-                            itemClicked = onMovieClicked
-                        )
-                        HorizontalDivider(
-                            modifier = Modifier.padding(top = 8.dp),
-                            color = Color.LightGray,
-                            thickness = 0.5.dp
-                        )
-                    }
-                }
+                MovieListComponent(
+                    movies = uiState.movies,
+                    innerPadding = innerPadding,
+                    onMovieClicked = onMovieClicked
+                )
             } else {
                 EmptyListComponent()
             }
         }
     )
+}
+
+@Composable
+private fun SearchLoadingIndicator(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+}
+
+@Composable
+private fun MovieListComponent(
+    movies: List<Movie>,
+    innerPadding: PaddingValues,
+    onMovieClicked: (Int) -> Unit
+) {
+    LazyColumn(
+        contentPadding = PaddingValues(
+            top = 24.dp,
+            bottom = innerPadding.calculateBottomPadding()
+        ),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(
+            items = movies,
+            key = { movie -> movie.movieId }
+        ) { movie ->
+            MovieComponent(
+                item = movie,
+                itemClicked = onMovieClicked
+            )
+        }
+    }
 }
 
 @ExperimentalComposeUiApi
@@ -158,7 +173,7 @@ private fun SearchScreenPreview(
         isHintVisible = false
     )
     ComposeMovieDbTheme {
-        SearchScreenUi(
+        SearchScreenContent(
             uiState = searchUiState,
             innerPadding = PaddingValues(),
             onOpenMovieDetail = {},

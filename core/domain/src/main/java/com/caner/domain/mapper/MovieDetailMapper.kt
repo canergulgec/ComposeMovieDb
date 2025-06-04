@@ -21,13 +21,9 @@ class MovieDetailMapper @Inject constructor() : Mapper<MovieDetailResponse, Movi
             overview = overview.orEmpty(),
             imdbId = imdbId,
             runtime = runtime,
-            voteAverage = calculateVoteAverage(voteAverage),
+            voteAverage = (voteAverage ?: 0.0).let { (it * 10).roundToInt() / 10.0 },
             voteCount = voteCount ?: 0,
             releaseDate = releaseDate
         )
-    }
-
-    private fun calculateVoteAverage(voteAverage: Double?): Double {
-        return (voteAverage ?: 0.0).let { (it * 10).roundToInt() / 10.0 }
     }
 }
