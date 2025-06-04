@@ -182,8 +182,9 @@ fun MovieTitleSection(movie: MovieDetailModel) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = movie.title,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onPrimary
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontWeight = FontWeight.Medium
         )
 
         Spacer(modifier = Modifier.height(16.dp))
