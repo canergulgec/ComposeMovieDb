@@ -98,7 +98,9 @@ fun NowPlayingMovieItem(item: Movie, onClicked: (Int) -> Unit) {
             horizontalAlignment = CenterHorizontally,
         ) {
             AsyncImage(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(2f / 3f),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(item.poster?.original)
                     .crossfade(300)
