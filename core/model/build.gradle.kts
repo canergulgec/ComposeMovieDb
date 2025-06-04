@@ -18,5 +18,14 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.CORE_COMMON))
+
+    implementation(Dependencies.AndroidX.CORE_KTX)
+    implementation(Dependencies.AndroidX.APPCOMPAT)
+
+    // Compose
+    implementation(platform(Dependencies.Compose.COMPOSE_BOM))
+    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
+
     implementation(Dependencies.Network.MOSHI_KOTLIN)
 }

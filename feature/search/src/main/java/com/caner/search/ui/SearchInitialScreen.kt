@@ -2,7 +2,6 @@ package com.caner.search.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,7 +28,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -43,6 +41,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.caner.common.R
+import com.caner.model.MovieCategories
+import com.caner.model.MovieCategory
+import com.caner.model.SearchSuggestion
+import com.caner.model.SearchSuggestions
 import com.caner.ui.theme.ComposeMovieDbTheme
 
 @Composable
@@ -75,16 +77,6 @@ fun SearchInitialScreen(
 private fun QuickSearchSection(
     onSuggestionClick: (String) -> Unit
 ) {
-    val popularSearches = remember {
-        listOf(
-            SearchSuggestion("Spider-Man", R.drawable.ic_spider, "Superhero"),
-            SearchSuggestion("DC", R.drawable.ic_batman, "Universe"),
-            SearchSuggestion("Horror", R.drawable.ic_horror, "Genre"),
-            SearchSuggestion("Comedy", R.drawable.ic_comedy, "Genre"),
-            SearchSuggestion("Fantasy", R.drawable.ic_fantasy, "Genre")
-        )
-    }
-
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -99,7 +91,7 @@ private fun QuickSearchSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(horizontal = 4.dp)
         ) {
-            items(popularSearches) { suggestion ->
+            items(SearchSuggestions.all) { suggestion ->
                 SearchSuggestionCard(
                     suggestion = suggestion,
                     onClick = { onSuggestionClick(suggestion.query) }
@@ -171,35 +163,6 @@ private fun SearchSuggestionCard(
 private fun FeaturedCategoriesSection(
     onCategoryClick: (String) -> Unit
 ) {
-    val categories = remember {
-        listOf(
-            MovieCategory(
-                "New Releases",
-                "Latest movies",
-                "2024",
-                listOf(Color(0xFF6366F1), Color(0xFF8B5CF6))
-            ),
-            MovieCategory(
-                "Award Winners",
-                "Oscar & Emmy",
-                "Oscar",
-                listOf(Color(0xFFEF4444), Color(0xFFF59E0B))
-            ),
-            MovieCategory(
-                "Blockbusters",
-                "Box office hits",
-                "Marvel",
-                listOf(Color(0xFF10B981), Color(0xFF06B6D4))
-            ),
-            MovieCategory(
-                "Classics",
-                "Timeless films",
-                "Classic",
-                listOf(Color(0xFF8B5CF6), Color(0xFFEC4899))
-            )
-        )
-    }
-
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -216,7 +179,7 @@ private fun FeaturedCategoriesSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.height(200.dp)
         ) {
-            items(categories) { category ->
+            items(MovieCategories.all) { category ->
                 CategoryCard(
                     category = category,
                     onClick = { onCategoryClick(category.searchQuery) }
@@ -273,7 +236,6 @@ private fun CategoryCard(
     }
 }
 
-
 @Preview(uiMode = UI_MODE_NIGHT_NO)
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
@@ -282,17 +244,3 @@ private fun SearchInitialScreenPreview() {
         SearchInitialScreen()
     }
 }
-
-// Data classes
-data class SearchSuggestion(
-    val query: String,
-    @DrawableRes val icon: Int,
-    val category: String
-)
-
-data class MovieCategory(
-    val title: String,
-    val subtitle: String,
-    val searchQuery: String,
-    val gradientColors: List<Color>
-)
