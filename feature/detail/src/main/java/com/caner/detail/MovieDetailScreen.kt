@@ -3,7 +3,6 @@ package com.caner.detail
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
@@ -49,6 +48,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
@@ -106,7 +106,7 @@ fun MovieDetailContent(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.5f)
+                .fillMaxHeight(0.7f)
                 .align(Alignment.BottomCenter),
             shape = MaterialTheme.shapes.large,
             tonalElevation = 8.dp
@@ -135,7 +135,7 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.55f),
+                .height(300.dp),
             model = poster,
             placeholder = painterResource(R.drawable.bg_image_placeholder),
             error = painterResource(R.drawable.bg_image_placeholder),
@@ -151,18 +151,23 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
                     )
                 )
         )
-        Icon(
+        Surface(
             modifier = Modifier
                 .statusBarsPadding()
-                .padding(Dimens.MediumPadding.size)
+                .padding(16.dp)
                 .align(Alignment.TopStart)
-                .clickable {
-                    onBackPressed()
-                },
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            tint = Color.White,
-            contentDescription = null
-        )
+                .size(48.dp),
+            shape = CircleShape,
+            color = Color.Black.copy(alpha = 0.5f),
+            onClick = onBackPressed
+        ) {
+            Icon(
+                modifier = Modifier.padding(12.dp),
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                tint = Color.White,
+                contentDescription = null
+            )
+        }
     }
 }
 
