@@ -55,6 +55,8 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -104,18 +106,22 @@ fun MovieDetailContent(
     movie: MovieDetailModel,
     onBackPressed: () -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface),
+    ) {
         MovieBackdropComponent(
             poster = movie.backdrop?.original,
             onBackPressed = { onBackPressed() })
 
-        Surface(
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.7f)
                 .align(Alignment.BottomCenter),
-            shape = MaterialTheme.shapes.large,
-            tonalElevation = 8.dp
+            shape = RoundedCornerShape(16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -137,11 +143,13 @@ fun MovieDetailContent(
 
 @Composable
 fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.35f)
+    ) {
         AsyncImage(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp),
+            modifier = Modifier.fillMaxSize(),
             model = poster,
             placeholder = painterResource(R.drawable.bg_image_placeholder),
             error = painterResource(R.drawable.bg_image_placeholder),
