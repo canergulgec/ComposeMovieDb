@@ -192,7 +192,8 @@ fun MovieTitleSection(movie: MovieDetailModel) {
             InfoChip(
                 icon = Icons.Default.Face,
                 text = "${movie.runtime} ${stringResource(id = R.string.minutes)}",
-                type = InfoChipType.RUNTIME
+                type = InfoChipType.RUNTIME,
+                style = InfoChipStyle.GRADIENT
             )
             movie.releaseDate?.let { releaseDate ->
                 InfoChip(
