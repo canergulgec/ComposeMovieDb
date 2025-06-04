@@ -1,4 +1,4 @@
-package com.caner.detail
+package com.caner.detail.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -49,6 +49,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
@@ -56,8 +59,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import com.caner.detail.ui.enum.InfoChipStyle
+import com.caner.detail.ui.enum.InfoChipType
 
 @Composable
 fun MovieDetailScreen(
@@ -180,19 +186,161 @@ fun MovieTitleSection(movie: MovieDetailModel) {
             color = MaterialTheme.colorScheme.onPrimary
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             MovieRatingChip(rating = movie.voteAverage, voteCount = movie.voteCount)
-            Text(
+            InfoChip(
+                icon = Icons.Default.Face,
                 text = "${movie.runtime} ${stringResource(id = R.string.minutes)}",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.secondary
+                type = InfoChipType.RUNTIME
             )
             movie.releaseDate?.let { releaseDate ->
+                InfoChip(
+                    icon = Icons.Default.DateRange,
+                    text = releaseDate,
+                    type = InfoChipType.RELEASE_DATE
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun InfoChip(
+    icon: ImageVector,
+    text: String,
+    type: InfoChipType,
+    style: InfoChipStyle = InfoChipStyle.FILLED
+) {
+    val (backgroundColor, contentColor, borderColor) = when (type) {
+        InfoChipType.RUNTIME -> Triple(
+            MaterialTheme.colorScheme.secondaryContainer,
+            MaterialTheme.colorScheme.onSecondaryContainer,
+            MaterialTheme.colorScheme.secondary
+        )
+
+        InfoChipType.RELEASE_DATE -> Triple(
+            MaterialTheme.colorScheme.primaryContainer,
+            MaterialTheme.colorScheme.onPrimaryContainer,
+            MaterialTheme.colorScheme.primary
+        )
+    }
+
+    when (style) {
+        InfoChipStyle.FILLED -> {
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = backgroundColor,
+                modifier = Modifier.padding(horizontal = 2.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = contentColor,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = contentColor,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+        }
+
+        InfoChipStyle.OUTLINED -> {
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                border = BorderStroke(1.dp, borderColor.copy(alpha = 0.6f)),
+                color = Color.Transparent
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = contentColor,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = contentColor
+                    )
+                }
+            }
+        }
+
+        InfoChipStyle.GRADIENT -> {
+            val gradientColors = when (type) {
+                InfoChipType.RUNTIME -> listOf(
+                    Color(0xFF6366F1),
+                    Color(0xFF8B5CF6)
+                )
+
+                InfoChipType.RELEASE_DATE -> listOf(
+                    Color(0xFF10B981),
+                    Color(0xFF059669)
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .background(
+                        brush = Brush.horizontalGradient(colors = gradientColors),
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    .padding(horizontal = 12.dp, vertical = 6.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Color.White,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+        }
+
+        InfoChipStyle.MINIMAL -> {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .background(
+                        color = backgroundColor.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = contentColor,
+                    modifier = Modifier.size(12.dp)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "• $releaseDate",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    text = text,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = contentColor,
+                    fontWeight = FontWeight.Medium
                 )
             }
         }

@@ -23,12 +23,12 @@ import androidx.navigation.navArgument
 import com.caner.common.R
 import com.caner.common.Constants
 import com.caner.composemoviedb.ui.screen.MainViewModel
-import com.caner.detail.MovieDetailScreen
-import com.caner.home.HomeScreen
+import com.caner.detail.ui.MovieDetailScreen
+import com.caner.home.ui.HomeScreen
 import com.caner.composemoviedb.navigation.BottomNavItem
 import com.caner.composemoviedb.navigation.NavigationDirections
 import com.caner.composemoviedb.navigation.NavigationManager
-import com.caner.search.composables.SearchScreen
+import com.caner.search.ui.SearchScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 

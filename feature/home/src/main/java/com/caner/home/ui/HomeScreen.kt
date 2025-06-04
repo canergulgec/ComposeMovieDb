@@ -1,4 +1,4 @@
-package com.caner.home
+package com.caner.home.ui
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*

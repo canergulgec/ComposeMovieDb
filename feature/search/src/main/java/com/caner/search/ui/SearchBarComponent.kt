@@ -1,4 +1,4 @@
-package com.caner.search.composables
+package com.caner.search.ui
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState

@@ -1,4 +1,4 @@
-package com.caner.search.composables
+package com.caner.search.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

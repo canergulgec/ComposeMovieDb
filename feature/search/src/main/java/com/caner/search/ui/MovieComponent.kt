@@ -1,5 +1,7 @@
-package com.caner.search.composables
+package com.caner.search.ui
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -21,6 +24,7 @@ import coil.transform.RoundedCornersTransformation
 import com.caner.model.Movie
 import com.caner.common.R
 import com.caner.ui.composables.MovieRatingChip
+import com.caner.ui.theme.ComposeMovieDbTheme
 
 @Composable
 fun MovieComponent(
@@ -71,5 +75,28 @@ fun MovieComponent(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFF, uiMode = UI_MODE_NIGHT_NO)
+@Preview(showBackground = true, backgroundColor = 0x00000, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun MovieComponentPreview() {
+    ComposeMovieDbTheme {
+        MovieComponent(
+            item = Movie(
+                movieId = 438148,
+                title = "Minions: The Rise of Gru",
+                voteAverage = 8.0,
+                releaseDate = "1994-07-14",
+                poster = null,
+                backdrop = null,
+                popularity = 4.5,
+                overview = "",
+            ),
+            itemClicked = {
+
+            }
+        )
     }
 }
