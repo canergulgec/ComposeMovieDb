@@ -400,12 +400,13 @@ private fun MovieOverviewSection(overview: String) {
                 modifier = Modifier.padding(top = 4.dp),
                 onClick = { isExpanded = !isExpanded },
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 ),
                 border = BorderStroke(width = 0.5.dp, color = MaterialTheme.colorScheme.outline)
             ) {
                 Text(
-                    text = if (isExpanded) stringResource(R.string.show_less) else stringResource(R.string.show_more)
+                    text = if (isExpanded) stringResource(R.string.show_less) else stringResource(R.string.show_more),
+                    fontSize = 12.sp
                 )
             }
         }
