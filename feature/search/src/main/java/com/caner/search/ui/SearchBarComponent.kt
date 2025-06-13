@@ -1,6 +1,5 @@
 package com.caner.search.ui
 
-import android.util.Log
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -42,13 +41,7 @@ import com.caner.common.R
 import com.caner.ui.theme.ComposeMovieDbTheme
 import com.caner.ui.theme.DIRTY_WHITE
 
-// Inside SearchBarComponent.kt or a new dummy file for this test
-
-// TODO: This is a FAKE key for testing security scanning. REMOVE BEFORE MERGE.
-private const val FAKE_API_KEY = "ak_test_THIS_IS_OBVIOUSLY_A_FAKE_KEY_12345abcdef"
-private const val ANOTHER_DUMMY_PASSWORD_FOR_SCAN_TEST = "P@wOrdTest123!"
-
-@OptIn(ExperimentalComposeUiApi::class)
+@ExperimentalComposeUiApi
 @Composable
 fun SearchBarComponent(
     modifier: Modifier = Modifier,
@@ -61,13 +54,6 @@ fun SearchBarComponent(
     = LocalSoftwareKeyboardController.current,
     focusManager: FocusManager = LocalFocusManager.current
 ) {
-    // ... your existing code ...
-
-    // You could even reference it in a way that's clearly not real usage
-    if (FAKE_API_KEY.isNotEmpty() && text == "trigger_scan_test") {
-        Log.d("SecurityScanTest", "Fake API key present: $FAKE_API_KEY")
-        Log.d("SecurityScanTest", "Dummy password: $ANOTHER_DUMMY_PASSWORD_FOR_SCAN_TEST")
-    }
 
     var isTyping = text.isNotEmpty()
 
