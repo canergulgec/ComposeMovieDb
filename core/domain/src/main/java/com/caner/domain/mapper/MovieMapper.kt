@@ -4,7 +4,8 @@ import com.caner.model.Movie
 import com.caner.model.MovieImage
 import com.caner.model.MovieList
 import com.caner.model.remote.MovieListResponse
-import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -25,17 +26,12 @@ class MovieMapper @Inject constructor() : Mapper<MovieListResponse, MovieList> {
                     voteAverage = (it.voteAverage * 10).roundToInt() / 10.0,
                     voteCount = it.voteCount ?: 0,
                     overview = it.overview,
-                    releaseDate = it.releaseDate?.let { date ->
-                        if (date.isNotEmpty()) {
-                            val parsedDate =
-                                SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(
-                                    date
-                                ) ?: Date()
-                            SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(parsedDate)
-                        } else {
-                            null
+                    releaseDate = it.releaseDate
+                        ?.takeIf { date -> date.isNotBlank() }
+                        ?.let { date ->
+                            val parsedDate = LocalDate.parse(date)
+                            parsedDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault()))
                         }
-                    }
                 )
             }
         )
