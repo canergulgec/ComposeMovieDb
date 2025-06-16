@@ -12,6 +12,6 @@ fun <T> Flow<Resource<T>>.withLoading() =
 
 fun <T> Flow<Resource<T>>.catchNetworkError() =
     catch { error ->
-        emit(Resource.Error(Throwable(message = error.message)))
+        emit(Resource.Error(error))
         emit(Resource.Loading(false))
     }
