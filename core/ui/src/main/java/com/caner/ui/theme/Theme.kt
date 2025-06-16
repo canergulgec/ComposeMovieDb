@@ -45,15 +45,21 @@ fun ComposeMovieDbTheme(
 
     val animationSpec = TweenSpec<Color>(durationMillis = 500) // Adjust duration as needed
 
-    val primary by animateColorAsState(targetColorScheme.primary, animationSpec)
-    val secondary by animateColorAsState(targetColorScheme.secondary, animationSpec)
-    val background by animateColorAsState(targetColorScheme.background, animationSpec)
-    val surface by animateColorAsState(targetColorScheme.surface, animationSpec)
-    val onPrimary by animateColorAsState(targetColorScheme.onPrimary, animationSpec)
-    val onSecondary by animateColorAsState(targetColorScheme.onSecondary, animationSpec)
-    val onBackground by animateColorAsState(targetColorScheme.onBackground, animationSpec)
-    val onSurface by animateColorAsState(targetColorScheme.onSurface, animationSpec)
-    // Add other colors if needed (error, tertiary, etc.)
+    val primary by animateColorAsState(targetColorScheme.primary, animationSpec, label = "primary")
+    val secondary by animateColorAsState(targetColorScheme.secondary, animationSpec, label = "secondary")
+    val background by animateColorAsState(targetColorScheme.background, animationSpec, label = "background")
+    val surface by animateColorAsState(targetColorScheme.surface, animationSpec, label = "surface")
+    val onPrimary by animateColorAsState(targetColorScheme.onPrimary, animationSpec, label = "onPrimary")
+    val onSecondary by animateColorAsState(targetColorScheme.onSecondary, animationSpec, label = "onSecondary")
+    val onBackground by animateColorAsState(targetColorScheme.onBackground, animationSpec, label = "onBackground")
+    val onSurface by animateColorAsState(targetColorScheme.onSurface, animationSpec, label = "onSurface")
+    val primaryContainer by animateColorAsState(targetColorScheme.primaryContainer, animationSpec, label = "primaryContainer")
+    val onPrimaryContainer by animateColorAsState(targetColorScheme.onPrimaryContainer, animationSpec, label = "onPrimaryContainer")
+    val secondaryContainer by animateColorAsState(targetColorScheme.secondaryContainer, animationSpec, label = "secondaryContainer")
+    val onSecondaryContainer by animateColorAsState(targetColorScheme.onSecondaryContainer, animationSpec, label = "onSecondaryContainer")
+    val surfaceVariant by animateColorAsState(targetColorScheme.surfaceVariant, animationSpec, label = "surfaceVariant")
+    val onSurfaceVariant by animateColorAsState(targetColorScheme.onSurfaceVariant, animationSpec, label = "onSurfaceVariant")
+    val outline by animateColorAsState(targetColorScheme.outline, animationSpec, label = "outline")
 
     val animatedColorScheme = if (darkTheme) {
         darkColorScheme(
@@ -64,8 +70,14 @@ fun ComposeMovieDbTheme(
             onPrimary = onPrimary,
             onSecondary = onSecondary,
             onBackground = onBackground,
-            onSurface = onSurface
-            // Add other animated colors
+            onSurface = onSurface,
+            primaryContainer = primaryContainer,
+            onPrimaryContainer = onPrimaryContainer,
+            secondaryContainer = secondaryContainer,
+            onSecondaryContainer = onSecondaryContainer,
+            surfaceVariant = surfaceVariant,
+            onSurfaceVariant = onSurfaceVariant,
+            outline = outline
         )
     } else {
         lightColorScheme(
@@ -76,8 +88,14 @@ fun ComposeMovieDbTheme(
             onPrimary = onPrimary,
             onSecondary = onSecondary,
             onBackground = onBackground,
-            onSurface = onSurface
-            // Add other animated colors
+            onSurface = onSurface,
+            primaryContainer = primaryContainer,
+            onPrimaryContainer = onPrimaryContainer,
+            secondaryContainer = secondaryContainer,
+            onSecondaryContainer = onSecondaryContainer,
+            surfaceVariant = surfaceVariant,
+            onSurfaceVariant = onSurfaceVariant,
+            outline = outline
         )
     }
 
