@@ -16,6 +16,7 @@ object TestData {
             title = title,
             voteAverage = voteAverage,
             overview = "",
+            voteCount = 100,
             releaseDate = null
         )
 
