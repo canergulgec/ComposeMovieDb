@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.SystemBarStyle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.collectAsState
@@ -30,12 +31,37 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        enableEdgeToEdge()
+        
         setContent {
             val darkMode by viewModel.themeManager.uiModeFlow.collectAsState(initial = isSystemInDarkTheme())
             val toggleTheme: () -> Unit = {
                 viewModel.setDarkModeEnabled(!darkMode)
             }
+
+            enableEdgeToEdge(
+                statusBarStyle = if (darkMode) {
+                    // Dark mode: light content (white text/icons) on dark background
+                    SystemBarStyle.dark(
+                        android.graphics.Color.TRANSPARENT
+                    )
+                } else {
+                    // Light mode: dark content (black text/icons) on light background
+                    SystemBarStyle.light(
+                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT
+                    )
+                },
+                navigationBarStyle = if (darkMode) {
+                    SystemBarStyle.dark(
+                        android.graphics.Color.TRANSPARENT
+                    )
+                } else {
+                    SystemBarStyle.light(
+                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT
+                    )
+                }
+            )
 
             ComposeMovieDbTheme(darkTheme = darkMode) {
                 AppNavigation(toggleTheme)

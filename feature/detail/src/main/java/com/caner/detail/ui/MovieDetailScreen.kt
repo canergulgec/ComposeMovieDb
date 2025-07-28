@@ -118,7 +118,7 @@ fun MovieDetailContent(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.7f)
+                .fillMaxHeight(0.5f)
                 .align(Alignment.BottomCenter),
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
@@ -146,7 +146,7 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.35f)
+            .fillMaxHeight(0.55f)
     ) {
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
@@ -161,7 +161,7 @@ fun MovieBackdropComponent(poster: String?, onBackPressed: () -> Unit) {
                 .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(Color.Black.copy(alpha = 0.3f), Color.Black.copy(alpha = 0.7f))
+                        colors = listOf(Color.Black.copy(alpha = 0.2f), Color.Black.copy(alpha = 0.5f))
                     )
                 )
         )
