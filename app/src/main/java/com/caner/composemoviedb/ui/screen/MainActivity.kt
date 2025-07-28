@@ -40,12 +40,10 @@ class MainActivity : ComponentActivity() {
 
             enableEdgeToEdge(
                 statusBarStyle = if (darkMode) {
-                    // Dark mode: light content (white text/icons) on dark background
                     SystemBarStyle.dark(
                         android.graphics.Color.TRANSPARENT
                     )
                 } else {
-                    // Light mode: dark content (black text/icons) on light background
                     SystemBarStyle.light(
                         android.graphics.Color.TRANSPARENT,
                         android.graphics.Color.TRANSPARENT
