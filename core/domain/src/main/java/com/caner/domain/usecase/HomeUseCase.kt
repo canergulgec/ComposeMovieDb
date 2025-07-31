@@ -18,7 +18,9 @@ class HomeUseCase @Inject constructor(
 ) {
 
     operator fun invoke(): Flow<Resource<MovieList>> {
-        return repository.getPopularMovies()
+        return flow {
+            emit(repository.getPopularMovies())
+        }
             .map { Resource.Success(mapper.transform(it)) }
             .withLoading()
             .catchNetworkError()

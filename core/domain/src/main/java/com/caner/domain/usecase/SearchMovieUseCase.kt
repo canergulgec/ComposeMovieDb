@@ -9,6 +9,7 @@ import com.caner.domain.di.IODispatcher
 import com.caner.model.MovieList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -20,7 +21,9 @@ class SearchMovieUseCase @Inject constructor(
 ) {
 
     operator fun invoke(query: String): Flow<Resource<MovieList>> {
-        return repository.searchMovie(query)
+        return flow {
+            emit(repository.searchMovie(query))
+        }
             .map { response ->
                 val sorted = response.copy(
                     results = response.results.sortedByDescending { it.popularity }

@@ -9,6 +9,7 @@ import com.caner.domain.mapper.MovieDetailMapper
 import com.caner.model.MovieDetailModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -20,7 +21,9 @@ class MovieDetailUseCase @Inject constructor(
 ) {
 
     operator fun invoke(movieId: Int): Flow<Resource<MovieDetailModel>> {
-        return repository.getMovieDetail(movieId)
+        return flow {
+            emit(repository.getMovieDetail(movieId))
+        }
             .map { Resource.Success(mapper.transform(it)) }
             .withLoading()
             .catchNetworkError()
