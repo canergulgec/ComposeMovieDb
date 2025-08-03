@@ -1,7 +1,8 @@
 package com.caner.data.di
 
 import android.content.Context
-import com.caner.data.local.ThemeManager
+import com.caner.data.repository.impl.UserPreferencesRepositoryImpl
+import com.caner.domain.repository.UserPreferencesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,11 +12,11 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object PreferenceManagerModule {
+object UserPreferencesModule {
 
     @Singleton
     @Provides
-    fun providePreferenceManager(@ApplicationContext context: Context): ThemeManager {
-        return ThemeManager(context = context)
+    fun provideUserPreferencesRepository(@ApplicationContext context: Context): UserPreferencesRepository {
+        return UserPreferencesRepositoryImpl(context = context)
     }
 }

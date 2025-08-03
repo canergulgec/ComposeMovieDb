@@ -4,22 +4,25 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caner.data.local.ThemeManager
+import com.caner.domain.repository.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    val themeManager: ThemeManager
+    private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
 
     private val _bottomBarVisibility = mutableStateOf(true)
     val bottomBarVisibility: State<Boolean> = _bottomBarVisibility
 
+    val isDarkTheme: Flow<Boolean> = userPreferencesRepository.isDarkTheme()
+
     fun setDarkModeEnabled(enable: Boolean) {
         viewModelScope.launch {
-            themeManager.setDarkMode(enable)
+            userPreferencesRepository.setDarkTheme(enable)
         }
     }
 

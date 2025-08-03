@@ -50,6 +50,7 @@ dependencies {
     implementation(project(Modules.CORE_COMMON))
     implementation(project(Modules.CORE_UI))
     implementation(project(Modules.CORE_DATA))
+    implementation(project(Modules.CORE_DOMAIN))
 
     // AndroidX
     implementation(Dependencies.AndroidX.CORE_KTX)

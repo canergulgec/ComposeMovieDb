@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         
         setContent {
-            val darkMode by viewModel.themeManager.uiModeFlow.collectAsState(initial = isSystemInDarkTheme())
+            val darkMode by viewModel.isDarkTheme.collectAsState(initial = isSystemInDarkTheme())
             val toggleTheme: () -> Unit = {
                 viewModel.setDarkModeEnabled(!darkMode)
             }
@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun observeThemeMode() {
-        viewModel.themeManager.uiModeFlow.onEach {
+        viewModel.isDarkTheme.onEach {
             val mode = when (it) {
                 true -> AppCompatDelegate.MODE_NIGHT_YES
                 false -> AppCompatDelegate.MODE_NIGHT_NO
