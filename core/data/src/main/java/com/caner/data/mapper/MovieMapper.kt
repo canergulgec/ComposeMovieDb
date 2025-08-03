@@ -1,4 +1,4 @@
-package com.caner.domain.mapper
+package com.caner.data.mapper
 
 import com.caner.model.Movie
 import com.caner.model.MovieImage

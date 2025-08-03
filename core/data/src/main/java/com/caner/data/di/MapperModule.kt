@@ -1,8 +1,8 @@
-package com.caner.domain.di
+package com.caner.data.di
 
-import com.caner.domain.mapper.Mapper
-import com.caner.domain.mapper.MovieDetailMapper
-import com.caner.domain.mapper.MovieMapper
+import com.caner.data.mapper.Mapper
+import com.caner.data.mapper.MovieDetailMapper
+import com.caner.data.mapper.MovieMapper
 import com.caner.model.MovieDetailModel
 import com.caner.model.MovieList
 import com.caner.model.remote.MovieDetailResponse

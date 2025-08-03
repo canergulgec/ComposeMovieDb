@@ -3,7 +3,7 @@ package com.caner.testing
 import app.cash.turbine.test
 import com.caner.common.network.Resource
 import com.caner.domain.repository.SearchRepository
-import com.caner.domain.mapper.MovieMapper
+import com.caner.data.mapper.MovieMapper
 import com.caner.domain.usecase.SearchMovieUseCase
 import com.caner.testing.data.TestData
 import com.google.common.truth.Truth.assertThat
