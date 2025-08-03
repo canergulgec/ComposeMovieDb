@@ -3,13 +3,11 @@ package com.caner.testing
 import app.cash.turbine.test
 import com.caner.common.network.Resource
 import com.caner.domain.repository.MovieRepository
-import com.caner.data.mapper.MovieMapper
 import com.caner.domain.usecase.HomeUseCase
 import com.caner.model.MovieList
 import com.caner.testing.data.TestData
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
@@ -23,24 +21,20 @@ import org.junit.Test
 class HomeUseCaseTest {
 
     private val mockRepository: MovieRepository = mockk()
-    private val mockMapper: MovieMapper = mockk()
     private val testDispatcher = StandardTestDispatcher()
 
     private lateinit var useCase: HomeUseCase
 
     @Before
     fun setup() {
-        useCase = HomeUseCase(mockRepository, mockMapper, testDispatcher)
+        useCase = HomeUseCase(mockRepository, testDispatcher)
     }
 
     @Test
     fun `should emit loading and success when repository returns data`() = runTest(testDispatcher) {
         // Given
         val movieList = TestData.createMovieList()
-        val movieResponse = TestData.createMovieResponse()
-
-        coEvery { mockRepository.getPopularMovies() } returns movieResponse
-        every { mockMapper.transform(movieResponse) } returns movieList
+        coEvery { mockRepository.getPopularMovies() } returns movieList
 
         // When
         val result = mutableListOf<Resource<MovieList>>()
@@ -63,10 +57,7 @@ class HomeUseCaseTest {
     fun `should emit loading and success when repository returns data using turbine`() = runTest(testDispatcher) {
         // Given
         val movieList = TestData.createMovieList()
-        val movieResponse = TestData.createMovieResponse()
-
-        coEvery { mockRepository.getPopularMovies() } returns movieResponse
-        every { mockMapper.transform(movieResponse) } returns movieList
+        coEvery { mockRepository.getPopularMovies() } returns movieList
 
         // When & Then
         useCase.invoke().test {

@@ -3,12 +3,10 @@ package com.caner.testing
 import app.cash.turbine.test
 import com.caner.common.network.Resource
 import com.caner.domain.repository.SearchRepository
-import com.caner.data.mapper.MovieMapper
 import com.caner.domain.usecase.SearchMovieUseCase
 import com.caner.testing.data.TestData
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -18,25 +16,22 @@ import org.junit.Test
 class SearchUseCaseTest {
 
     private val mockRepository: SearchRepository = mockk()
-    private val mockMapper: MovieMapper = mockk()
     private val testDispatcher = StandardTestDispatcher()
 
     private lateinit var useCase: SearchMovieUseCase
 
     @Before
     fun setup() {
-        useCase = SearchMovieUseCase(mockRepository, mockMapper, testDispatcher)
+        useCase = SearchMovieUseCase(mockRepository, testDispatcher)
     }
 
     @Test
     fun `should emit loading and success when repository returns data`() = runTest(testDispatcher) {
         // Given
         val movieList = TestData.createMovieList()
-        val movieResponse = TestData.createMovieResponse()
         val query = "Spider"
 
-        coEvery { mockRepository.searchMovie(query) } returns movieResponse
-        every { mockMapper.transform(movieResponse) } returns movieList
+        coEvery { mockRepository.searchMovie(query) } returns movieList
 
         // When & Then
         useCase.invoke(query).test {
