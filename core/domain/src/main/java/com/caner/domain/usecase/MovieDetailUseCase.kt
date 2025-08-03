@@ -3,7 +3,7 @@ package com.caner.domain.usecase
 import com.caner.common.extension.catchNetworkError
 import com.caner.common.extension.withLoading
 import com.caner.common.network.Resource
-import com.caner.data.repository.MovieDetailRepository
+import com.caner.domain.repository.MovieDetailRepository
 import com.caner.domain.di.IODispatcher
 import com.caner.domain.mapper.MovieDetailMapper
 import com.caner.model.MovieDetailModel

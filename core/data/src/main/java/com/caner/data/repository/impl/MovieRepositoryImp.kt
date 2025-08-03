@@ -1,7 +1,7 @@
 package com.caner.data.repository.impl
 
 import com.caner.data.api.MovieApi
-import com.caner.data.repository.MovieRepository
+import com.caner.domain.repository.MovieRepository
 import com.caner.model.remote.MovieListResponse
 import javax.inject.Inject
 

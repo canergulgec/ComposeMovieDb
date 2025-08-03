@@ -1,4 +1,4 @@
-package com.caner.data.repository
+package com.caner.domain.repository
 
 import com.caner.model.remote.MovieDetailResponse
 

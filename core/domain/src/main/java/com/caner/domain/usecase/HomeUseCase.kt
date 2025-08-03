@@ -4,7 +4,7 @@ import com.caner.common.extension.catchNetworkError
 import com.caner.common.extension.withLoading
 import com.caner.common.network.Resource
 import com.caner.domain.mapper.MovieMapper
-import com.caner.data.repository.MovieRepository
+import com.caner.domain.repository.MovieRepository
 import com.caner.domain.di.IODispatcher
 import com.caner.model.MovieList
 import kotlinx.coroutines.CoroutineDispatcher

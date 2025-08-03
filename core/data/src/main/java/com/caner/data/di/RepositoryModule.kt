@@ -1,11 +1,11 @@
 package com.caner.data.di
 
-import com.caner.data.repository.MovieDetailRepository
-import com.caner.data.repository.MovieRepository
-import com.caner.data.repository.SearchRepository
 import com.caner.data.repository.impl.MovieDetailRepositoryImp
 import com.caner.data.repository.impl.MovieRepositoryImp
 import com.caner.data.repository.impl.SearchRepositoryImp
+import com.caner.domain.repository.MovieDetailRepository
+import com.caner.domain.repository.MovieRepository
+import com.caner.domain.repository.SearchRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
