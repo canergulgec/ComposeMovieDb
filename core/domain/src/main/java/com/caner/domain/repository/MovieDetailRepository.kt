@@ -1,6 +1,6 @@
 package com.caner.domain.repository
 
-import com.caner.model.MovieDetailModel
+import com.caner.domain.model.MovieDetailModel
 
 interface MovieDetailRepository {
 

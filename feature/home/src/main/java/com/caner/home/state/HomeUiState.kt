@@ -1,6 +1,6 @@
 package com.caner.home.state
 
-import com.caner.model.Movie
+import com.caner.domain.model.Movie
 
 data class HomeUiState(
     val isLoading: Boolean = false,

@@ -20,7 +20,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.layout.padding
-import com.caner.model.Movie
+import com.caner.domain.model.Movie
 import com.caner.ui.theme.ComposeMovieDbTheme
 import android.content.res.Configuration
 import androidx.compose.ui.Alignment

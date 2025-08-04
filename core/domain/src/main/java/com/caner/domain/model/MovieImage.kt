@@ -1,4 +1,4 @@
-package com.caner.model
+package com.caner.domain.model
 
 data class MovieImage(val url: String) {
     companion object {

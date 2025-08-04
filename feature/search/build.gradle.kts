@@ -31,7 +31,6 @@ dependencies {
     implementation(project(Modules.CORE_UI))
     implementation(project(Modules.CORE_DATA))
     implementation(project(Modules.CORE_DOMAIN))
-    implementation(project(Modules.CORE_MODEL))
 
     // AndroidX
     implementation(Dependencies.AndroidX.CORE_KTX)

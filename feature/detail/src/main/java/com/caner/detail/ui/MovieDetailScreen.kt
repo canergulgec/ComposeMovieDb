@@ -26,8 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.caner.model.MovieDetailModel
-import com.caner.model.remote.MovieGenre
+import com.caner.domain.model.MovieDetailModel
 import com.caner.ui.preview.MovieDetailDataProvider
 import com.caner.detail.vm.MovieDetailViewModel
 import com.caner.common.R
@@ -66,6 +65,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.caner.detail.ui.enum.InfoChipStyle
 import com.caner.detail.ui.enum.InfoChipType
+import com.caner.domain.model.MovieGenre
 
 @Composable
 fun MovieDetailScreen(
@@ -132,8 +132,10 @@ fun MovieDetailContent(
                 item {
                     MovieTitleSection(movie = movie)
                     Spacer(modifier = Modifier.height(8.dp))
-                    MovieGenreComponent(genres = movie.genres)
-                    Spacer(modifier = Modifier.height(16.dp))
+                    movie.genres?.let { genres ->
+                        MovieGenreComponent(genres = genres)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
                     MovieOverviewSection(overview = movie.overview)
                 }
             }

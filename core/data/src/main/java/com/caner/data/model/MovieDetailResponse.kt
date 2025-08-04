@@ -1,4 +1,4 @@
-package com.caner.model.remote
+package com.caner.data.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -18,7 +18,7 @@ data class MovieDetailResponse(
     @Json(name = "poster_path")
     val posterPath: String? = null,
     @Json(name = "genres")
-    val genres: List<MovieGenre>? = null,
+    val genres: List<MovieGenreDto>? = null,
     @Json(name = "title")
     val title: String? = null,
     @Json(name = "overview")

@@ -3,7 +3,7 @@ package com.caner.data.repository.impl
 import com.caner.data.api.MovieApi
 import com.caner.data.mapper.MovieMapper
 import com.caner.domain.repository.SearchRepository
-import com.caner.model.MovieList
+import com.caner.domain.model.MovieList
 import javax.inject.Inject
 
 class SearchRepositoryImp @Inject constructor(

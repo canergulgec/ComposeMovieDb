@@ -1,7 +1,4 @@
-package com.caner.model
-
-import com.caner.model.remote.MovieGenre
-import java.util.*
+package com.caner.domain.model
 
 data class MovieDetailModel(
     val movieId: Int,
@@ -10,7 +7,7 @@ data class MovieDetailModel(
     val adult: Boolean? = null,
     val poster: MovieImage? = null,
     val backdrop: MovieImage? = null,
-    val genres: List<MovieGenre> = listOf(),
+    val genres: List<MovieGenre>? = null,
     val title: String,
     val overview: String,
     val imdbId: String? = null,

@@ -21,7 +21,6 @@ dependencies {
     // Core modules
     implementation(project(Modules.CORE_COMMON))
     implementation(project(Modules.CORE_DOMAIN))
-    implementation(project(Modules.CORE_MODEL))
     implementation(project(Modules.CORE_DATA))
     implementation(project(Modules.FEATURE_HOME))
     implementation(project(Modules.FEATURE_SEARCH))

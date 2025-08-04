@@ -1,8 +1,9 @@
 package com.caner.data.mapper
 
-import com.caner.model.MovieDetailModel
-import com.caner.model.MovieImage
-import com.caner.model.remote.MovieDetailResponse
+import com.caner.data.model.MovieDetailResponse
+import com.caner.domain.model.MovieDetailModel
+import com.caner.domain.model.MovieGenre
+import com.caner.domain.model.MovieImage
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -16,7 +17,7 @@ class MovieDetailMapper @Inject constructor() : Mapper<MovieDetailResponse, Movi
             adult = adult,
             poster = posterPath?.let(::MovieImage),
             backdrop = backdropPath?.let(::MovieImage),
-            genres = genres.orEmpty(),
+            genres = genres?.map { MovieGenre(id = it.id, name = it.name) },
             title = title.orEmpty(),
             overview = overview.orEmpty(),
             imdbId = imdbId,

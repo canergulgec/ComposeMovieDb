@@ -3,7 +3,7 @@ package com.caner.data.repository.impl
 import com.caner.data.api.MovieApi
 import com.caner.data.mapper.MovieDetailMapper
 import com.caner.domain.repository.MovieDetailRepository
-import com.caner.model.MovieDetailModel
+import com.caner.domain.model.MovieDetailModel
 import javax.inject.Inject
 
 class MovieDetailRepositoryImp @Inject constructor(

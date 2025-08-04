@@ -41,10 +41,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.caner.common.R
-import com.caner.model.MovieCategories
-import com.caner.model.MovieCategory
-import com.caner.model.SearchSuggestion
-import com.caner.model.SearchSuggestions
+import com.caner.search.model.MovieCategories
+import com.caner.search.model.MovieCategory
+import com.caner.search.model.SearchSuggestion
+import com.caner.search.model.SearchSuggestions
 import com.caner.ui.theme.ComposeMovieDbTheme
 
 @Composable

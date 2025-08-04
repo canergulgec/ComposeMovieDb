@@ -5,7 +5,7 @@ import com.caner.common.extension.withLoading
 import com.caner.common.network.Resource
 import com.caner.domain.repository.MovieDetailRepository
 import com.caner.domain.di.IODispatcher
-import com.caner.model.MovieDetailModel
+import com.caner.domain.model.MovieDetailModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -1,6 +1,6 @@
 package com.caner.domain.repository
 
-import com.caner.model.MovieList
+import com.caner.domain.model.MovieList
 
 interface SearchRepository {
 

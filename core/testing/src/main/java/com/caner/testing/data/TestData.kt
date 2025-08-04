@@ -1,8 +1,8 @@
 package com.caner.testing.data
 
-import com.caner.model.Movie
-import com.caner.model.MovieImage
-import com.caner.model.MovieList
+import com.caner.domain.model.Movie
+import com.caner.domain.model.MovieImage
+import com.caner.domain.model.MovieList
 import com.caner.model.remote.MovieDto
 import com.caner.model.remote.MovieListResponse
 

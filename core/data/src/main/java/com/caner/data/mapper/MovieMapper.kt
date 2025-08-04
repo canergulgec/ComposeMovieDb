@@ -1,9 +1,9 @@
 package com.caner.data.mapper
 
-import com.caner.model.Movie
-import com.caner.model.MovieImage
-import com.caner.model.MovieList
-import com.caner.model.remote.MovieListResponse
+import com.caner.data.model.MovieListResponse
+import com.caner.domain.model.Movie
+import com.caner.domain.model.MovieImage
+import com.caner.domain.model.MovieList
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
