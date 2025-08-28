@@ -47,9 +47,8 @@ This project follows **Clean Architecture** principles with a **modular approach
 - **Core Modules**:
   - `core:common` - Shared utilities, constants, and extensions
   - `core:data` - Data layer with repositories, API, and local storage
-  - `core:domain` - Business logic with use cases and mappers
+  - `core:domain` - Business logic with use cases and repository interfaces
   - `core:ui` - Shared UI components and theming
-  - `core:model` - Data models and DTOs
   - `core:testing` - Testing utilities and shared test data
 - **Feature Modules**:
   - `feature:home` - Home screen with popular movies
