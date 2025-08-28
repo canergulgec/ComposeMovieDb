@@ -5,7 +5,10 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -52,6 +55,7 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             AnimatedVisibility(
                 visible = viewModel.bottomBarVisibility.value,
@@ -65,7 +69,11 @@ fun AppNavigation(changeTheme: () -> Unit, viewModel: MainViewModel = hiltViewMo
             ThemeToggleButton(onThemeChange = changeTheme)
         }
     ) { paddingValues ->
-        AppNavHost(navController = navController, navManager = navManager, paddingValues = paddingValues)
+        AppNavHost(
+            navController = navController,
+            navManager = navManager,
+            paddingValues = paddingValues
+        )
     }
 }
 
@@ -128,21 +136,25 @@ fun ThemeToggleButton(onThemeChange: () -> Unit) {
 @ExperimentalCoroutinesApi
 @FlowPreview
 @Composable
-fun AppNavHost(navController: NavHostController, navManager: NavigationManager, paddingValues: PaddingValues) {
+fun AppNavHost(
+    navController: NavHostController,
+    navManager: NavigationManager,
+    paddingValues: PaddingValues
+) {
     NavHost(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = paddingValues.calculateBottomPadding()),
         navController = navController,
         startDestination = NavigationDirections.Home.route
     ) {
         composable(NavigationDirections.Home.route) {
             HomeScreen(
-                innerPadding = paddingValues,
                 onOpenMovieDetail = navManager::navigateToDetail
             )
         }
         composable(NavigationDirections.Search.route) {
             SearchScreen(
-                innerPadding = paddingValues,
                 onOpenMovieDetail = navManager::navigateToDetail
             )
         }

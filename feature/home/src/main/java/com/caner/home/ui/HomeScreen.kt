@@ -16,6 +16,9 @@ import com.caner.ui.composables.MovieRatingChip
 import com.caner.ui.composables.ViewContent
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -32,10 +35,10 @@ import com.caner.ui.preview.HomeDataProvider
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    innerPadding: PaddingValues,
     onOpenMovieDetail: (Int) -> Unit
 ) {
     val movieViewState by viewModel.movieUiState.collectAsStateWithLifecycle()
+    val statusBarPadding = WindowInsets.statusBars.asPaddingValues()
 
     ViewContent(
         isLoading = movieViewState.isLoading,
@@ -46,8 +49,8 @@ fun HomeScreen(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     movies = movieViewState.popularMovies,
                     innerPadding = PaddingValues(
-                        top = innerPadding.calculateTopPadding() + 16.dp,
-                        bottom = innerPadding.calculateBottomPadding() + 16.dp,
+                        top = statusBarPadding.calculateTopPadding() + 16.dp,
+                        bottom = 16.dp,
                     ),
                     onOpenMovieDetail = onOpenMovieDetail
                 )

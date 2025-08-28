@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -37,16 +40,16 @@ import kotlinx.coroutines.FlowPreview
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
-    innerPadding: PaddingValues,
     onOpenMovieDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val statusBarPadding = WindowInsets.statusBars.asPaddingValues()
 
     SearchScreenContent(
         uiState = uiState,
         innerPadding = PaddingValues(
-            top = innerPadding.calculateTopPadding() + 16.dp,
-            bottom = innerPadding.calculateBottomPadding() + 16.dp,
+            top = statusBarPadding.calculateTopPadding() + 16.dp,
+            bottom = 16.dp,
         ),
         onOpenMovieDetail = onOpenMovieDetail,
         onUIEvent = {
